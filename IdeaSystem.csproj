@@ -4838,6 +4838,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\" />
     <Folder Include="Template\AdminLTE\.git\objects\info\" />
     <Folder Include="Template\AdminLTE\.git\refs\tags\" />
   </ItemGroup>
