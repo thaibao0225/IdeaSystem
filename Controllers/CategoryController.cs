@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdeaSystem.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdeaSystem.Controllers
 {
     public class CategoryController : Controller
     {
+        private ApplicationDbContext context;
+        public CategoryController(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
+
         // GET: CategoryController
         [Route("/category")]
         public ActionResult Index()
         {
-            return View();
+            var query = context.CategoryTable.ToList();
+            return View(query);
         }
 
         // GET: CategoryController/Details/5

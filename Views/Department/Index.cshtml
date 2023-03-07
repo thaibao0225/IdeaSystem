@@ -1,7 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using IdeaSystem.Data.Common;
+@model IEnumerable<IdeaSystem.Entities.Department>
 @{
+    int i = 0;
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>jsGrid</h1>
+                    <h1>@CommonTable.departmentTable</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">jsGrid</li>
+                        <li class="breadcrumb-item active">@CommonTable.departmentTable</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Department</h3>
+                <h3 class="card-title">@CommonTable.departmentTable</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -34,30 +34,23 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">IsActive</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>Thornton</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <th scope="row">3</th>
-                            <th scope="row">3</th>
-                            <th scope="row">3</th>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.department_Name</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                        
                     </tbody>
                 </table>
             </div>

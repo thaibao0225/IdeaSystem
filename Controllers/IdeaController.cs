@@ -1,15 +1,37 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdeaSystem.Data;
+using IdeaSystem.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdeaSystem.Controllers
 {
     public class IdeaController : Controller
     {
+        private ApplicationDbContext context;
+        public IdeaController(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
+
         // GET: IdeaController
         [Route("/idea")]
         public ActionResult Index()
         {
-            return View();
+            var query = from a in context.IdeaTable
+                        join b in context.TopicTable on a.idea_Topic equals b.topic_Id
+                        select new { a, b };
+            var ideaquery = query.Select(x => new IdeaModel()
+            {
+                idea_Id = x.a.idea_Id,
+                idea_Text = x.a.idea_Text,
+                idea_CreateOn = x.a.idea_DateTime,
+                idea_Deadline1 = x.b.topic_ClosureDate,
+                idea_Deadline2 = x.b.topic_FinalClosureDate
+            });
+
+
+            return View(ideaquery);
         }
 
         // GET: IdeaController/Details/5

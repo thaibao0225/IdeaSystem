@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdeaSystem.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdeaSystem.Controllers
 {
     public class DepartmentController : Controller
     {
+        private ApplicationDbContext context;
+        public DepartmentController(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
+
         // GET: DepartmentController
         [Route("/department")]
         public ActionResult Index()
         {
-            return View();
+            var query = context.DepartmentTable.ToList();
+            return View(query);
         }
 
         // GET: DepartmentController/Details/5
