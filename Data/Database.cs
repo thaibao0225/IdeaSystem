@@ -18,19 +18,19 @@ namespace IdeaSystem.Data
                 {
                     department_Id = IdDepartment1,
                     department_Name = "NameDepartment1",
-                    department_IsDelete = false
+                    department_IsDelete = true
                 },
                 new Department()
                 {
                     department_Id = IdDepartment2,
                     department_Name = "NameDepartment2",
-                    department_IsDelete = false
+                    department_IsDelete = true
                 },
                 new Department()
                 {
                     department_Id = IdDepartment3,
                     department_Name = "NameDepartment3",
-                    department_IsDelete = false
+                    department_IsDelete = true
                 });
 
             //Table AppRole
@@ -43,13 +43,15 @@ namespace IdeaSystem.Data
                 {
                     Id = IdRoleStaff,
                     Name = "Staff",
-                    NormalizedName = "staff"
+                    NormalizedName = "staff",
+                    role_IsDelete = true
                 },
                 new Role()
                 {
                     Id = IdRoleAdmin,
                     Name = "Admin",
-                    NormalizedName = "admin"
+                    NormalizedName = "admin",
+                    role_IsDelete = true
                 });
 
 
@@ -160,13 +162,13 @@ namespace IdeaSystem.Data
                 {
                     category_Id = IdCategory1,
                     category_Name = "Category1",
-                    category_IsDelete = false
+                    category_IsDelete = true
                 },
                 new Category()
                 {
                     category_Id = IdCategory2,
                     category_Name = "Category2",
-                    category_IsDelete = false
+                    category_IsDelete = true
                 });
 
             //Table Idea
@@ -184,7 +186,7 @@ namespace IdeaSystem.Data
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory1,
                     idea_Topic = IdTopic1,
-                    idea_IsDelete = false
+                    idea_IsDelete = true
 
                 },
                 new Idea()
@@ -196,7 +198,7 @@ namespace IdeaSystem.Data
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory2,
                     idea_Topic = IdTopic2,
-                    idea_IsDelete = false
+                    idea_IsDelete = true
 
                 });
 
@@ -213,7 +215,7 @@ namespace IdeaSystem.Data
                     cmt_Datetime = new DateTime(2020, 01, 09),
                     cmt_UserId = IdStaff,
                     cmt_IdeaId = IdIdea1,
-                    cmt_IsDelete = false
+                    cmt_IsDelete = true
                 });
 
             //Table React
