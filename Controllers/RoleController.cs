@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdeaSystem.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdeaSystem.Controllers
 {
     public class RoleController : Controller
     {
+        private ApplicationDbContext context;
+        public RoleController(ApplicationDbContext _context)
+        {
+            context = _context;
+        }
+
         // GET: RoleController
+        [Route("/role")]
         public ActionResult Index()
         {
-            return View();
+            var query = context.RoleTable.ToList();
+            return View(query);
         }
 
         // GET: RoleController/Details/5
