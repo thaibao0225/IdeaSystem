@@ -15,6 +15,8 @@ namespace IdeaSystem.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Title = "Home";
+
             return View();
         }
 

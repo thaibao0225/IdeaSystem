@@ -1,4 +1,5 @@
 ﻿using IdeaSystem.Data;
+using IdeaSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,20 @@ namespace IdeaSystem.Controllers
         [Route("/user")]
         public ActionResult Index()
         {
-            var query = context.UserTable.ToList();
+            var query = from a in context.UserTable
+                        join b in context.UserRoles on a.Id equals b.UserId
+                        join c in context.Roles on b.RoleId equals c.Id
+                        select new { a, b, c };
 
-            return View(query);
+            var usersQuery = query.Select(x => new UserModel()
+            {
+                user_Id = x.a.Id,
+                user_Name = x.a.UserName,
+                user_RoleName = x.c.Name,
+                user_IsDelete = x.a.EmailConfirmed
+            });
+
+            return View(usersQuery);
         }
 
         // GET: UserController/Details/5
