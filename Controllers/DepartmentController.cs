@@ -17,7 +17,7 @@ namespace IdeaSystem.Controllers
         [Route("/department")]
         public ActionResult Index()
         {
-            var query = context.DepartmentTable.ToList();
+            var query = context.DepartmentTable.Where(x => x.department_IsDelete == true).ToList();
             return View(query);
         }
 
@@ -112,18 +112,32 @@ namespace IdeaSystem.Controllers
         [Route("/department/delete")]
         public ActionResult Delete(string id)
         {
-            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
-            return View(query);
+            var query = context.DepartmentTable.FirstOrDefault(x => x.department_Id == id);
+            if (query != null)
+            {
+                return View(query);
+            }
+            return NotFound();
         }
 
         // POST: DepartmentController/Delete/5
         [HttpPost]
         [Route("/department/delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {
+                string departmentId = collection["department_Id"];
+                string departmentName = collection["department_Name"];
+                var query = context.DepartmentTable.FirstOrDefault(x => x.department_Id == departmentId);
+
+                if (query != null)
+                {
+                    query.department_IsDelete = false;
+                    await context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
