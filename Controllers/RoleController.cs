@@ -1,4 +1,5 @@
 ﻿using IdeaSystem.Data;
+using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,11 +38,26 @@ namespace IdeaSystem.Controllers
 
         // POST: RoleController/Create
         [HttpPost]
+        [Route("/role/create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
+                string roleName = collection["Name"];
+                string roleNormalizedName = roleName.ToLower();
+
+                Role roleCreate = new Role()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = roleName,
+                    NormalizedName = roleNormalizedName,
+                    role_IsDelete = true
+                };
+
+                await context.RoleTable.AddAsync(roleCreate);
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,11 +76,25 @@ namespace IdeaSystem.Controllers
 
         // POST: RoleController/Edit/5
         [HttpPost]
+        [Route("/role/edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
+                string roleId = collection["Id"];
+                string roleName = collection["Name"];
+
+                string roleNormalizedName = roleName.ToLower();
+                var query = context.RoleTable.FirstOrDefault(x => x.Id == roleId);
+                if (query != null)
+                {
+                    query.Name = roleName;
+                    query.NormalizedName = roleNormalizedName;
+                }
+
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
