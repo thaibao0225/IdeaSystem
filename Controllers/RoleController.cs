@@ -17,7 +17,7 @@ namespace IdeaSystem.Controllers
         [Route("/role")]
         public ActionResult Index()
         {
-            var query = context.RoleTable.ToList();
+            var query = context.RoleTable.Where(x => x.role_IsDelete == false).ToList();
             return View(query);
         }
 
@@ -52,7 +52,7 @@ namespace IdeaSystem.Controllers
                     Id = Guid.NewGuid().ToString(),
                     Name = roleName,
                     NormalizedName = roleNormalizedName,
-                    role_IsDelete = true
+                    role_IsDelete = false
                 };
 
                 await context.RoleTable.AddAsync(roleCreate);
@@ -113,11 +113,22 @@ namespace IdeaSystem.Controllers
 
         // POST: RoleController/Delete/5
         [HttpPost]
+        [Route("/role/delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
+                string roleId = collection["Id"];
+                var query = context.RoleTable.FirstOrDefault(x => x.Id == roleId);
+                if (query != null)
+                {
+                    query.role_IsDelete = true;
+                }
+
+                await context.SaveChangesAsync();
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -17,7 +17,7 @@ namespace IdeaSystem.Controllers
         [Route("/category")]
         public ActionResult Index()
         {
-            var query = context.CategoryTable.Where(x => x.category_IsDelete == true).ToList();
+            var query = context.CategoryTable.Where(x => x.category_IsDelete == false).ToList();
             return View(query);
         }
 

@@ -17,7 +17,7 @@ namespace IdeaSystem.Controllers
         [Route("/department")]
         public ActionResult Index()
         {
-            var query = context.DepartmentTable.Where(x => x.department_IsDelete == true).ToList();
+            var query = context.DepartmentTable.Where(x => x.department_IsDelete == false).ToList();
             return View(query);
         }
 
