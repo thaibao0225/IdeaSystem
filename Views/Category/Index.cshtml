@@ -27,7 +27,7 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@CommonTable.categoryTable</h3>
+                <a asp-action="Create">Create</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -49,7 +49,9 @@
                                 <td>@item.category_Name</td>
                                 <td>@item.category_IsDelete</td>
                                 <td>
-                                    <a href="#">x</a>
+                                    <a asp-action="Details" asp-route-id="@item.category_Id">Details</a>|
+                                    <a asp-action="Edit" asp-route-id="@item.category_Id">Edit</a>|
+                                    <a asp-action="Delete" asp-route-id="@item.category_Id">Delete</a>
                                 </td>
                             </tr>
                         }

@@ -1,4 +1,7 @@
-﻿namespace IdeaSystem.Models
+﻿using MessagePack;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace IdeaSystem.Models
 {
     public class IdeaDetailModel
     {

@@ -21,12 +21,15 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: DepartmentController/Details/5
-        public ActionResult Details(int id)
+        [Route("/department/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // GET: DepartmentController/Create
+        [Route("/department/create")]
         public ActionResult Create()
         {
             return View();
@@ -48,15 +51,17 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: DepartmentController/Edit/5
-        public ActionResult Edit(int id)
+        [Route("/department/edit")]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // POST: DepartmentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
@@ -69,15 +74,17 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: DepartmentController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("/department/delete")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // POST: DepartmentController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {

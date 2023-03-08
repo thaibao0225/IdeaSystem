@@ -21,12 +21,15 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: RoleController/Details/5
-        public ActionResult Details(int id)
+        [Route("/role/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // GET: RoleController/Create
+        [Route("/role/create")]
         public ActionResult Create()
         {
             return View();
@@ -48,15 +51,17 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: RoleController/Edit/5
-        public ActionResult Edit(int id)
+        [Route("/role/edit")]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // POST: RoleController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
@@ -69,9 +74,11 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: RoleController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("/role/delete")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            return View(query);
         }
 
         // POST: RoleController/Delete/5

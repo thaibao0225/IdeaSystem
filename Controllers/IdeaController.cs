@@ -35,12 +35,15 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: IdeaController/Details/5
-        public ActionResult Details(int id)
+        [Route("/idea/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = context.IdeaTable.FirstOrDefault(x => x.idea_Id == id);
+            return View(query);
         }
 
         // GET: IdeaController/Create
+        [Route("/idea/create")]
         public ActionResult Create()
         {
             return View();
@@ -62,9 +65,11 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: IdeaController/Edit/5
-        public ActionResult Edit(int id)
+        [Route("/idea/edit")]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var query = context.IdeaTable.FirstOrDefault(x => x.idea_Id == id);
+            return View(query);
         }
 
         // POST: IdeaController/Edit/5
@@ -83,9 +88,11 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: IdeaController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("/idea/delete")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var query = context.IdeaTable.FirstOrDefault(x => x.idea_Id == id);
+            return View(query);
         }
 
         // POST: IdeaController/Delete/5

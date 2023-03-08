@@ -21,12 +21,15 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: CategoryController/Details/5
-        public ActionResult Details(int id)
+        [Route("/category/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == id);
+            return View(query);
         }
 
         // GET: CategoryController/Create
+        [Route("/category/create")]
         public ActionResult Create()
         {
             return View();
@@ -48,15 +51,17 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        [Route("/category/edit")]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == id);
+            return View(query);
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, IFormCollection collection)
         {
             try
             {
@@ -69,9 +74,11 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: CategoryController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("/category/delete")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == id);
+            return View(query);
         }
 
         // POST: CategoryController/Delete/5

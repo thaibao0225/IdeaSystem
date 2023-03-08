@@ -27,7 +27,7 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@CommonTable.ideaTable</h3>
+                <a asp-action="Create">Create</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -52,7 +52,11 @@
                                 <td>@item.idea_CreateOn</td>
                                 <td>@item.idea_Deadline1</td>
                                 <td>@item.idea_Deadline2</td>
-                                <td></td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.idea_Id">Details</a>|
+                                    <a asp-action="Edit" asp-route-id="@item.idea_Id">Edit</a>|
+                                    <a asp-action="Delete" asp-route-id="@item.idea_Id">Delete</a>
+                                </td>
                             </tr>
                         }
                         
