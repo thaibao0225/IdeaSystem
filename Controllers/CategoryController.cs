@@ -74,11 +74,23 @@ namespace IdeaSystem.Controllers
 
         // POST: CategoryController/Edit/5
         [HttpPost]
+        [Route("/category/edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(IFormCollection collection)
         {
             try
             {
+                string categoryId = collection["category_Id"];
+                string categoryName = collection["category_Name"];
+                var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == categoryId);
+
+                if (query != null)
+                {
+                    query.category_Name = categoryName;
+                    await context.SaveChangesAsync();
+                }
+                
+
                 return RedirectToAction(nameof(Index));
             }
             catch
