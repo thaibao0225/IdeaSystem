@@ -1,5 +1,5 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IdeaSystem.Entities.Idea
+@model IdeaSystem.Models.IdeaDetailModel;
 
 @{
     ViewBag.Title = @CommonTable.ideaTable;
@@ -12,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@CommonTable.categoryTable</h1>
+                    <h1>@CommonTable.ideaTable</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">@CommonTable.home</a></li>
-                        <li class="breadcrumb-item active">@CommonTable.categoryTable</li>
+                        <li class="breadcrumb-item active">@CommonTable.ideaTable</li>
                     </ol>
                 </div>
             </div>
@@ -34,11 +34,11 @@
             <hr />
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="Create">
+                    <form asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="idea_Id" class="control-label"></label>
-                            <input asp-for="idea_Id" class="form-control" />
+                            <input asp-for="idea_Id" class="form-control" value="xxx" />
                             <span asp-validation-for="idea_Id" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -46,33 +46,44 @@
                             <input asp-for="idea_Text" class="form-control" />
                             <span asp-validation-for="idea_Text" class="text-danger"></span>
                         </div>
+@*                        <div class="form-group">
+                            <label asp-for="idea_FilePath"></label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>*@
+
+
                         <div class="form-group">
-                            <label asp-for="idea_FilePath" class="control-label"></label>
-                            <input asp-for="idea_FilePath" class="form-control" />
-                            <span asp-validation-for="idea_FilePath" class="text-danger"></span>
+                            <label asp-for="idea_Deadline1" class="control-label"></label>
+                            <input asp-for="idea_Deadline1" class="form-control" />
+                            <span asp-validation-for="idea_Deadline1" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <label asp-for="idea_DateTime" class="control-label"></label>
-                            <input asp-for="idea_DateTime" class="form-control" />
-                            <span asp-validation-for="idea_DateTime" class="text-danger"></span>
+                            <label asp-for="idea_Deadline2" class="control-label"></label>
+                            <input asp-for="idea_Deadline2" class="form-control" />
+                            <span asp-validation-for="idea_Deadline2" class="text-danger"></span>
                         </div>
+
+@*
                         <div class="form-group">
-                            <label asp-for="idea_UserId" class="control-label"></label>
-                            <select asp-for="idea_UserId" class="form-control" asp-items="ViewBag.idea_UserId"></select>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="idea_CategoryId" class="control-label"></label>
-                            <select asp-for="idea_CategoryId" class="form-control" asp-items="ViewBag.idea_CategoryId"></select>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="idea_Topic" class="control-label"></label>
-                            <select asp-for="idea_Topic" class="form-control" asp-items="ViewBag.idea_Topic"></select>
-                        </div>
-                        <div class="form-group form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" asp-for="idea_IsDelete" /> @Html.DisplayNameFor(model => model.idea_IsDelete)
-                            </label>
-                        </div>
+                            <label asp-for="idea_CategoryName" class="control-label"></label>
+                            <select asp-for="idea_CategoryName" class="form-control" asp-items="ViewBag.CategoriesNameSelect"></select>
+                        </div>*@
+
+                        @if (ViewBag.CategoriesNameSelect != null)
+                        {
+                            <div class="form-group">
+                                <label asp-for="idea_CategoryId" class="control-label"></label>
+                                <select multiple class="form-control" asp-for="idea_CategoryId">
+                                    @foreach (var categoryName in ViewBag.CategoriesNameSelect)
+                                    {
+                                        <option value="@categoryName.category_Id">@categoryName.category_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+
+
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
@@ -95,5 +106,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
