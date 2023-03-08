@@ -34,9 +34,30 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: UserController/Details/5
-        public ActionResult Details(int id)
+        [Route("/user/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = from a in context.UserTable
+                        join b in context.UserRoles on a.Id equals b.UserId
+                        join c in context.Roles on b.RoleId equals c.Id
+                        where (a.Id == id)
+                        select new { a, b, c };
+
+            var usersQuery = query.Select(x => new UserModel()
+            {
+                user_Id = x.a.Id,
+                user_Name = x.a.UserName,
+                user_RoleName = x.c.Name,
+                user_IsDelete = x.a.EmailConfirmed
+            });
+
+            if(usersQuery != null)
+            {
+                UserModel queryTest = usersQuery.FirstOrDefault(x => x.user_Id == id);
+
+                return View(queryTest);
+            }
+            return NotFound();
         }
 
         // GET: UserController/Create
@@ -61,18 +82,51 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        [Route("/user/edit")]
+        public ActionResult Edit(string id)
         {
-            return View();
+            var query = from a in context.UserTable
+                        join b in context.UserRoles on a.Id equals b.UserId
+                        join c in context.Roles on b.RoleId equals c.Id
+                        where (a.Id == id)
+                        select new { a, b, c };
+
+            var usersQuery = query.Select(x => new UserModel()
+            {
+                user_Id = x.a.Id,
+                user_Name = x.a.UserName,
+                user_RoleName = x.c.Name,
+                user_IsDelete = x.a.EmailConfirmed
+            });
+
+            if (usersQuery != null)
+            {
+                UserModel queryTest = usersQuery.FirstOrDefault(x => x.user_Id == id);
+
+                return View(queryTest);
+            }
+            return NotFound();
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
+        [Route("/user/edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
+                string userId = collection["user_Id"];
+                string userName = collection["user_Name"];
+
+                var userQuery = context.UserTable.FirstOrDefault(x => x.Id == userId);
+                if (userQuery != null)
+                {
+                    userQuery.UserName = userName;
+                }
+
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

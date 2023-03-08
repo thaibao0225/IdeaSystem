@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using IdeaSystem.Entities;
+using IdeaSystem.Models;
 
 namespace IdeaSystem.Data
 {
@@ -52,6 +53,7 @@ namespace IdeaSystem.Data
         public DbSet<React> ReactTable { set; get; }
         public DbSet<Topic> TopicTable { set; get; }
         public DbSet<View> ViewTable { set; get; }
+        public DbSet<IdeaSystem.Models.UserModel> UserModel { get; set; }
 
     }
 }

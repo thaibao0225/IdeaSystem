@@ -37,7 +37,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">RoleName</th>
-                            <th scope="col">IsActive</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -49,8 +49,12 @@
                                 <th scope="row">@i</th>
                                 <td>@users.user_Name</td>
                                 <td>@users.user_RoleName</td>
-                                <td>@users.user_IsDelete</td>
-                                <td><a href="#"> Assign Role</a></td>
+                                <td><a asp-action="AssignRole" asp-route-id="@users.user_Id"> Assign Role</a></td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@users.user_Id">Details </a>|
+                                    <a asp-action="Edit" asp-route-id="@users.user_Id"> Edit </a>|
+                                    <a asp-action="Delete" asp-route-id="@users.user_Id"> Delete </a>
+                                </td>
                             </tr>
                         }
                     </tbody>
