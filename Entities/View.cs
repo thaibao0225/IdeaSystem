@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IdeaSystem.Entities
 {
     public class View
     {
         public string view_Id { get; set; }
+
+        [DisplayName("Visit Time")]
         public int view_VisitTime { get; set; }
         public string view_UserId { get; set; } // User
         [ForeignKey("view_UserId")]
