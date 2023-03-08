@@ -109,11 +109,21 @@ namespace IdeaSystem.Controllers
 
         // POST: CategoryController/Delete/5
         [HttpPost]
+        [Route("/category/delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {
+                string categoryId = collection["category_Id"];
+                var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == categoryId);
+
+                if (query != null)
+                {
+                    query.category_IsDelete = false;
+                    await context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
