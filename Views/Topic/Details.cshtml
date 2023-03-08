@@ -1,0 +1,132 @@
+﻿@using IdeaSystem.Data.Common;
+@model IdeaSystem.Entities.Topic
+
+@{
+    ViewBag.Title = @CommonTable.topicTable;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@CommonTable.topicTable</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">@CommonTable.home</a></li>
+                        <li class="breadcrumb-item active">@CommonTable.topicTable</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <h1>Details</h1>
+
+            <div>
+                <h4>Topic</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.topic_Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.topic_Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.topic_ClosureDate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.topic_ClosureDate)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.topic_FinalClosureDate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.topic_FinalClosureDate)
+                    </dd>
+                </dl>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary">Add Idea</button>
+            </div>
+
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.topic_Id">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Text</th>
+                        <th scope="col">CreateOn</th>
+                        <th scope="col">Views</th>
+                        <th scope="col">Like</th>
+                        <th scope="col">Dislike</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="#">Details</a>|
+                            <a asp-action="Edit" asp-route-id="#">Like</a>|
+                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="#">Details</a>|
+                            <a asp-action="Edit" asp-route-id="#">Like</a>|
+                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>mdo</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="#">Details</a>|
+                            <a asp-action="Edit" asp-route-id="#">Like</a>|
+                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+

@@ -24,9 +24,11 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: TopicController/Details/5
-        public ActionResult Details(int id)
+        [Route("/topic/details")]
+        public ActionResult Details(string id)
         {
-            return View();
+            var query = context.TopicTable.FirstOrDefault(x => x.topic_Id == id);
+            return View(query);
         }
 
         // GET: TopicController/Create
@@ -135,6 +137,86 @@ namespace IdeaSystem.Controllers
                 }
 
                 await context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: TopicController/DetailsIdea/5
+        [Route("/topic/detailsidea")]
+        public ActionResult DetailsIdea(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/DetailsIdea/5
+        [HttpPost]
+        [Route("/topic/detailsidea")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailsIdea(string id, IFormCollection collection)
+        {
+            try
+            {
+
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: TopicController/Like/5
+        [Route("/topic/like")]
+        public ActionResult Like(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/Like/5
+        [HttpPost]
+        [Route("/topic/like")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Like(string id, IFormCollection collection)
+        {
+            try
+            {
+
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: TopicController/Like/5
+        [Route("/topic/dislike")]
+        public ActionResult Dislike(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/Like/5
+        [HttpPost]
+        [Route("/topic/dislike")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Dislike(string id, IFormCollection collection)
+        {
+            try
+            {
+
 
                 return RedirectToAction(nameof(Index));
             }
