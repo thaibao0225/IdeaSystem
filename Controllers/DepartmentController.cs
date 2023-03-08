@@ -1,4 +1,5 @@
 ﻿using IdeaSystem.Data;
+using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,8 +25,13 @@ namespace IdeaSystem.Controllers
         [Route("/department/details")]
         public ActionResult Details(string id)
         {
-            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
-            return View(query);
+            var query = context.DepartmentTable.FirstOrDefault(x => x.department_Id == id);
+            if(query != null)
+            {
+                return View(query);
+            }
+            return NotFound();
+            
         }
 
         // GET: DepartmentController/Create
@@ -37,11 +43,24 @@ namespace IdeaSystem.Controllers
 
         // POST: DepartmentController/Create
         [HttpPost]
+        [Route("/department/create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
+                string departmentName = collection["department_Name"];
+
+                Department departmentCreate = new Department()
+                {
+                    department_Id = Guid.NewGuid().ToString(),
+                    department_Name = departmentName,
+                    department_IsDelete = true
+                };
+
+                await context.DepartmentTable.AddAsync(departmentCreate);
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -54,17 +73,33 @@ namespace IdeaSystem.Controllers
         [Route("/department/edit")]
         public ActionResult Edit(string id)
         {
-            var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
-            return View(query);
+            var query = context.DepartmentTable.FirstOrDefault(x => x.department_Id == id);
+            if (query != null)
+            {
+                return View(query);
+            }
+            return NotFound();
         }
 
         // POST: DepartmentController/Edit/5
         [HttpPost]
+        [Route("/department/edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
+                string departmentId = collection["department_Id"];
+                string departmentName = collection["department_Name"];
+                var query = context.DepartmentTable.FirstOrDefault(x => x.department_Id == departmentId);
+
+                if (query != null)
+                {
+                    query.department_Name = departmentName;
+                    await context.SaveChangesAsync();
+                }
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -83,6 +118,7 @@ namespace IdeaSystem.Controllers
 
         // POST: DepartmentController/Delete/5
         [HttpPost]
+        [Route("/department/delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string id, IFormCollection collection)
         {
