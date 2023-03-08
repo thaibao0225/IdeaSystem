@@ -20,7 +20,8 @@ namespace IdeaSystem.Controllers
             var query = from a in context.UserTable
                         join b in context.UserRoles on a.Id equals b.UserId
                         join c in context.Roles on b.RoleId equals c.Id
-                        select new { a, b, c };
+                        where (a.EmailConfirmed == true)
+                        select new { a, c };
 
             var usersQuery = query.Select(x => new UserModel()
             {
@@ -136,18 +137,51 @@ namespace IdeaSystem.Controllers
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("/user/delete")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var query = from a in context.UserTable
+                        join b in context.UserRoles on a.Id equals b.UserId
+                        join c in context.Roles on b.RoleId equals c.Id
+                        where (a.Id == id)
+                        select new { a, b, c };
+
+            var usersQuery = query.Select(x => new UserModel()
+            {
+                user_Id = x.a.Id,
+                user_Name = x.a.UserName,
+                user_RoleName = x.c.Name,
+                user_IsDelete = x.a.EmailConfirmed
+            });
+
+            if (usersQuery != null)
+            {
+                UserModel queryTest = usersQuery.FirstOrDefault(x => x.user_Id == id);
+
+                return View(queryTest);
+            }
+            return NotFound();
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
+        [Route("/user/delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {
+                string userId = collection["user_Id"];
+                string userName = collection["user_Name"];
+
+                var userQuery = context.UserTable.FirstOrDefault(x => x.Id == userId);
+                if (userQuery != null)
+                {
+                    userQuery.EmailConfirmed = false;
+                }
+
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
