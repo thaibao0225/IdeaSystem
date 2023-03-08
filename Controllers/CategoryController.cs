@@ -1,4 +1,5 @@
 ﻿using IdeaSystem.Data;
+using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,11 +38,24 @@ namespace IdeaSystem.Controllers
 
         // POST: CategoryController/Create
         [HttpPost]
+        [Route("/category/create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection)
         {
             try
             {
+
+                string categoryName = collection["category_Name"];
+
+                Category categoryCreate = new Category() { 
+                    category_Id = Guid.NewGuid().ToString(),
+                    category_Name = categoryName,
+                    category_IsDelete = true
+                };
+
+                await context.CategoryTable.AddAsync(categoryCreate);
+                await context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
