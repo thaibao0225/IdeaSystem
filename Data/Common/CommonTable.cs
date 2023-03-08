@@ -28,6 +28,7 @@
         public static string categoryTable = "Category Table";
         public static string departmentTable = "Department Table";
         public static string statisticTable = "Statistic Table";
+        public static string topicTable = "Topic Table";
 
 
         public static string dasdboardPage = "Dasdboard Page";

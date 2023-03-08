@@ -21,37 +21,64 @@ namespace IdeaSystem.Controllers
         [Route("/idea")]
         public ActionResult Index()
         {
-            var query = from a in context.IdeaTable
-                        join b in context.TopicTable on a.idea_Topic equals b.topic_Id
-                        where (a.idea_IsDelete == false)
-                        select new { a, b };
-            var ideaquery = query.Select(x => new IdeaModel()
-            {
-                idea_Id = x.a.idea_Id,
-                idea_Text = x.a.idea_Text,
-                idea_CreateOn = x.a.idea_DateTime,
-                idea_Deadline1 = x.b.topic_ClosureDate,
-                idea_Deadline2 = x.b.topic_FinalClosureDate
-            });
+            //var query = from a in context.IdeaTable
+            //            join b in context.TopicTable on a.idea_Topic equals b.topic_Id
+            //            where (a.idea_IsDelete == false)
+            //            select new { a, b };
+            //var ideaquery = query.Select(x => new IdeaModel()
+            //{
+            //    idea_Id = x.a.idea_Id,
+            //    topic_Name = x.b.topic_Name,
+            //    idea_CreateOn = x.a.idea_DateTime,
+            //    idea_Deadline1 = x.b.topic_ClosureDate,
+            //    idea_Deadline2 = x.b.topic_FinalClosureDate
+            //});
+
+            var query = context.TopicTable.ToList();
 
 
-            return View(ideaquery);
+            return View(query);
         }
 
         // GET: IdeaController/Details/5
         [Route("/idea/details")]
         public ActionResult Details(string id)
         {
-            var query = context.IdeaTable.FirstOrDefault(x => x.idea_Id == id);
-            return View(query);
+            // Category Query
+            var categoriesQuery = context.CategoryTable.Where(x => x.category_IsDelete == false).ToList();
+            ViewBag.CategoriesNameSelect = categoriesQuery;
+
+            // Idea Query
+            var ideaQuery = from a in context.TopicTable
+                            join b in context.IdeaTable on a.topic_Id equals b.idea_Topic
+                            join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
+                            where (b.idea_Id == id)
+                            select new { a, b, c };
+
+            var ideaModel = ideaQuery.Select(x => new IdeaDetailModel()
+            {
+                idea_Id = x.b.idea_Id,
+                idea_Text = x.b.idea_Text,
+                idea_FilePath = x.b.idea_FilePath,
+                idea_CreateOn = x.b.idea_DateTime,
+                idea_Deadline1 = x.a.topic_ClosureDate,
+                idea_Deadline2 = x.a.topic_FinalClosureDate,
+                idea_TopicId = x.a.topic_Id,
+                idea_CategoryId = x.b.idea_CategoryId,
+                idea_UserId = x.b.idea_UserId,
+                idea_CategoryName = x.c.category_Name
+            });
+
+            IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+            ViewBag.CategoriesNameExisting = ideaFirst.idea_CategoryName;
+
+            return View(ideaFirst);
         }
 
         // GET: IdeaController/Create
         [Route("/idea/create")]
         public ActionResult Create()
         {
-            var categoriesQuery = context.CategoryTable.Where(x => x.category_IsDelete == false).ToList();
-            ViewBag.CategoriesNameSelect = categoriesQuery;
             return View();
         }
 
@@ -63,36 +90,20 @@ namespace IdeaSystem.Controllers
         {
             try
             {
-                string ideaId = collection["idea_Id"];
-                string ideaText = collection["idea_Text"];
-                string ideaDeadline1 = collection["idea_Deadline1"];
-                string ideaDeadline2 = collection["idea_Deadline2"];
-                string categoryId = collection["idea_CategoryId"];
+                string topicId = collection["topic_Id"];
+                string topicName = collection["topic_Name"];
+                string topicClosureDate = collection["topic_ClosureDate"];
+                string topicFinalClosureDate = collection["topic_FinalClosureDate"];
 
-                var topicId = Guid.NewGuid().ToString();
                 Topic topicCreate = new Topic()
                 {
-                    topic_Id = topicId,
-                    topic_Name = topicId,
-                    topic_ClosureDate = DateTime.Parse(ideaDeadline1),
-                    topic_FinalClosureDate = DateTime.Parse(ideaDeadline2)
+                    topic_Id = Guid.NewGuid().ToString(),
+                    topic_Name = topicName,
+                    topic_ClosureDate = DateTime.Parse(topicClosureDate),
+                    topic_FinalClosureDate = DateTime.Parse(topicFinalClosureDate)
                 };
 
                 await context.TopicTable.AddAsync(topicCreate);
-
-                Idea ideaCreate = new Idea()
-                {
-                    idea_Id = Guid.NewGuid().ToString(),
-                    idea_Text = ideaText,
-                    idea_FilePath = "",
-                    idea_DateTime = DateTime.Now,
-                    idea_UserId = DataTest.adminId, ///
-                    idea_CategoryId = categoryId,
-                    idea_Topic = topicId
-
-                };
-
-                await context.IdeaTable.AddAsync(ideaCreate);
 
                 await context.SaveChangesAsync();
 
@@ -120,7 +131,7 @@ namespace IdeaSystem.Controllers
                             select new { a, b, c };
 
             var ideaModel = ideaQuery.Select(x => new IdeaDetailModel()
-            { 
+            {
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
                 idea_FilePath = x.b.idea_FilePath,
@@ -158,7 +169,7 @@ namespace IdeaSystem.Controllers
 
                 // Idea
                 var ideaQuery = context.IdeaTable.FirstOrDefault(x => x.idea_Id == ideaId);
-                if(ideaQuery != null)
+                if (ideaQuery != null)
                 {
                     ideaQuery.idea_Text = ideaText;
                     ideaQuery.idea_CategoryId = categoryId;
@@ -166,7 +177,7 @@ namespace IdeaSystem.Controllers
 
                 // Topic
                 var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == ideaTopicId);
-                if(topicQuery != null)
+                if (topicQuery != null)
                 {
                     topicQuery.topic_ClosureDate = DateTime.Parse(ideaDeadline1);
                     topicQuery.topic_FinalClosureDate = DateTime.Parse(ideaDeadline2);
@@ -227,8 +238,6 @@ namespace IdeaSystem.Controllers
             try
             {
                 string ideaId = collection["idea_Id"];
-                string ideaText = collection["idea_Text"];
-                string categoryId = collection["idea_CategoryId"];
 
                 // Idea
                 var ideaQuery = context.IdeaTable.FirstOrDefault(x => x.idea_Id == ideaId);

@@ -1,6 +1,5 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IdeaSystem.Entities.Idea
-
+@model IdeaSystem.Models.IdeaDetailModel;
 @{
     ViewBag.Title = @CommonTable.ideaTable;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@CommonTable.categoryTable</h1>
+                    <h1>@CommonTable.ideaTable</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">@CommonTable.home</a></li>
-                        <li class="breadcrumb-item active">@CommonTable.categoryTable</li>
+                        <li class="breadcrumb-item"><a href="/">@CommonTable.home</a></li>
+                        <li class="breadcrumb-item active">@CommonTable.ideaTable</li>
                     </ol>
                 </div>
             </div>
@@ -47,34 +46,28 @@
                         @Html.DisplayFor(model => model.idea_FilePath)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.idea_DateTime)
+                        @Html.DisplayNameFor(model => model.idea_CreateOn)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.idea_DateTime)
+                        @Html.DisplayFor(model => model.idea_CreateOn)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.users)
+                        @Html.DisplayNameFor(model => model.idea_Deadline1)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.users.Id)
+                        @Html.DisplayFor(model => model.idea_Deadline1)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.category)
+                        @Html.DisplayNameFor(model => model.idea_Deadline2)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.category.category_Id)
+                        @Html.DisplayFor(model => model.idea_Deadline2)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.topic)
+                        @Html.DisplayNameFor(model => model.idea_CategoryName)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.topic.topic_Id)
-                    </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.idea_IsDelete)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.idea_IsDelete)
+                        @Html.DisplayFor(model => model.idea_CategoryName)
                     </dd>
                 </dl>
             </div>
@@ -82,14 +75,9 @@
                 <a asp-action="Edit" asp-route-id="@Model.idea_Id">Edit</a> |
                 <a asp-action="Index">Back to List</a>
             </div>
-
-
-
-
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </section>
-    <!-- /.content -->
 </div>
 

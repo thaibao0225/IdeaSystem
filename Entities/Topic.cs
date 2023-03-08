@@ -14,6 +14,7 @@ namespace IdeaSystem.Entities
 
         [DisplayName("Final Closure Date")]
         public DateTime topic_FinalClosureDate { get; set; }
+        public bool topic_IsDelete { get; set; }
 
         public ICollection<Idea> ideaList { get; set; }
 

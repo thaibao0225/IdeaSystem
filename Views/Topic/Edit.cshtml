@@ -1,10 +1,11 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IdeaSystem.Entities.Topic;
+@model IdeaSystem.Entities.Topic
 
 @{
-    ViewBag.Title = @CommonTable.ideaTable;
+    ViewBag.Title = @CommonTable.topicTable;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -12,12 +13,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>@CommonTable.ideaTable</h1>
+                    <h1>@CommonTable.topicTable</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">@CommonTable.home</a></li>
-                        <li class="breadcrumb-item active">@CommonTable.ideaTable</li>
+                        <li class="breadcrumb-item"><a href="#">@CommonTable.home</a></li>
+                        <li class="breadcrumb-item active">@CommonTable.topicTable</li>
                     </ol>
                 </div>
             </div>
@@ -28,19 +29,16 @@
     <section class="content">
         <div class="card">
 
-            <h1>Create</h1>
 
-            <h4>Idea</h4>
+            <h1>Edit</h1>
+
+            <h4>Topic</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group" hidden>
-                            <label asp-for="topic_Id" class="control-label"></label>
-                            <input asp-for="topic_Id" class="form-control" value="xxx" />
-                            <span asp-validation-for="topic_Id" class="text-danger"></span>
-                        </div>
+                        <input type="hidden" asp-for="topic_Id" />
                         <div class="form-group">
                             <label asp-for="topic_Name" class="control-label"></label>
                             <input asp-for="topic_Name" class="form-control" />
@@ -51,15 +49,13 @@
                             <input asp-for="topic_ClosureDate" class="form-control" />
                             <span asp-validation-for="topic_ClosureDate" class="text-danger"></span>
                         </div>
-
                         <div class="form-group">
                             <label asp-for="topic_FinalClosureDate" class="control-label"></label>
                             <input asp-for="topic_FinalClosureDate" class="form-control" />
                             <span asp-validation-for="topic_FinalClosureDate" class="text-danger"></span>
                         </div>
-
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>
@@ -76,7 +72,6 @@
     </section>
     <!-- /.content -->
 </div>
-
 
 
 @section Scripts {
