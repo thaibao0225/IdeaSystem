@@ -18,19 +18,19 @@ namespace IdeaSystem.Data
                 {
                     department_Id = IdDepartment1,
                     department_Name = "NameDepartment1",
-                    department_IsDelete = true
+                    department_IsDelete = false
                 },
                 new Department()
                 {
                     department_Id = IdDepartment2,
                     department_Name = "NameDepartment2",
-                    department_IsDelete = true
+                    department_IsDelete = false
                 },
                 new Department()
                 {
                     department_Id = IdDepartment3,
                     department_Name = "NameDepartment3",
-                    department_IsDelete = true
+                    department_IsDelete = false
                 });
 
             //Table AppRole
@@ -44,14 +44,14 @@ namespace IdeaSystem.Data
                     Id = IdRoleStaff,
                     Name = "Staff",
                     NormalizedName = "staff",
-                    role_IsDelete = true
+                    role_IsDelete = false
                 },
                 new Role()
                 {
                     Id = IdRoleAdmin,
                     Name = "Admin",
                     NormalizedName = "admin",
-                    role_IsDelete = true
+                    role_IsDelete = false
                 });
 
 
@@ -70,7 +70,7 @@ namespace IdeaSystem.Data
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
-                EmailConfirmed = true,
+                EmailConfirmed = false,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment1
@@ -85,7 +85,7 @@ namespace IdeaSystem.Data
                 NormalizedUserName = "STAFF@GMAIL.COM",
                 NormalizedEmail = "STAFF@GMAIL.COM",
                 Email = "staff@gmail.com",
-                EmailConfirmed = true,
+                EmailConfirmed = false,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment2
@@ -162,13 +162,13 @@ namespace IdeaSystem.Data
                 {
                     category_Id = IdCategory1,
                     category_Name = "Category1",
-                    category_IsDelete = true
+                    category_IsDelete = false
                 },
                 new Category()
                 {
                     category_Id = IdCategory2,
                     category_Name = "Category2",
-                    category_IsDelete = true
+                    category_IsDelete = false
                 });
 
             //Table Idea
@@ -186,7 +186,7 @@ namespace IdeaSystem.Data
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory1,
                     idea_Topic = IdTopic1,
-                    idea_IsDelete = true
+                    idea_IsDelete = false
 
                 },
                 new Idea()
@@ -198,7 +198,7 @@ namespace IdeaSystem.Data
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory2,
                     idea_Topic = IdTopic2,
-                    idea_IsDelete = true
+                    idea_IsDelete = false
 
                 });
 
@@ -215,7 +215,7 @@ namespace IdeaSystem.Data
                     cmt_Datetime = new DateTime(2020, 01, 09),
                     cmt_UserId = IdStaff,
                     cmt_IdeaId = IdIdea1,
-                    cmt_IsDelete = true
+                    cmt_IsDelete = false
                 });
 
             //Table React

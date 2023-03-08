@@ -1,5 +1,5 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IdeaSystem.Entities.Idea
+@model IdeaSystem.Models.IdeaDetailModel
 
 @{
     ViewBag.Title = @CommonTable.ideaTable;
@@ -50,34 +50,28 @@
                         @Html.DisplayFor(model => model.idea_FilePath)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.idea_DateTime)
+                        @Html.DisplayNameFor(model => model.idea_CreateOn)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.idea_DateTime)
+                        @Html.DisplayFor(model => model.idea_CreateOn)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.users)
+                        @Html.DisplayNameFor(model => model.idea_Deadline1)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.users.Id)
+                        @Html.DisplayFor(model => model.idea_Deadline1)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.category)
+                        @Html.DisplayNameFor(model => model.idea_Deadline2)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.category.category_Id)
+                        @Html.DisplayFor(model => model.idea_Deadline2)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.topic)
+                        @Html.DisplayNameFor(model => model.idea_CategoryName)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.topic.topic_Id)
-                    </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.idea_IsDelete)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.idea_IsDelete)
+                        @Html.DisplayFor(model => model.idea_CategoryName)
                     </dd>
                 </dl>
 
