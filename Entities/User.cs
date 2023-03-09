@@ -10,9 +10,9 @@ namespace IdeaSystem.Entities
         public Department user_Department { set; get; }
 
 
-        public ICollection<Comment> commentList { set; get; }
-        public ICollection<View> viewList { set; get; }
-        public ICollection<React> reactList { set; get; }
-        public ICollection<Idea> ideaList { set; get; }
+        public List<Comment> commentList { set; get; }
+        public List<View> viewList { set; get; }
+        public List<React> reactList { set; get; }
+        public List<Idea> ideaList { set; get; }
     }
 }

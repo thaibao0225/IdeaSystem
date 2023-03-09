@@ -36,5 +36,16 @@ namespace IdeaSystem.Models
 
         [DisplayName("Deadline 2")]
         public DateTime idea_Deadline2 { get; set; }
+
+
+
+        [DisplayName("View")]
+        public List<ViewModel> viewList { get; set; }
+
+        [DisplayName("React")]
+        public List<ReactModel> reactList { get; set; }
+        [DisplayName("Comment")]
+        public List<CommentModel> commentList { get; set; }
+
     }
 }

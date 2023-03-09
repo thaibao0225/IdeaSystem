@@ -1,16 +1,26 @@
-﻿using IdeaSystem.Data;
+﻿using AutoMapper;
+using IdeaSystem.Data;
 using IdeaSystem.Entities;
+using IdeaSystem.Function;
+using IdeaSystem.Models;
+using IdeaSystem.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdeaSystem.Controllers
 {
     public class TopicController : Controller
     {
         private ApplicationDbContext context;
-        public TopicController(ApplicationDbContext _context)
+        private readonly IMapper _mapper;
+
+        private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
+        public TopicController(ApplicationDbContext _context, IMapper mapper)
         {
             context = _context;
+            _mapper = mapper;
+            _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
         }
 
         // GET: TopicController
@@ -28,7 +38,40 @@ namespace IdeaSystem.Controllers
         public ActionResult Details(string id)
         {
             var query = context.TopicTable.FirstOrDefault(x => x.topic_Id == id);
-            return View(query);
+
+            var ideaQuery = from a in context.TopicTable
+                            join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
+                            join c in context.ViewTable on b.idea_Id equals c.view_IdeadId
+                            join d in context.ReactTable on b.idea_Id equals d.react_IdeadId
+                            where (a.topic_Id == id)
+                            select new { a, b, c, d };
+
+            // AutoMapper
+            //if (ideaQuery != null)
+            //{
+
+            //    var topicModelQuery = ideaQuery.Select
+            //                     (
+            //                       emp => _mapper.Map<Topic, TopicModel>(emp.a)
+            //                     );
+
+            //    if (topicModelQuery != null)
+            //    {
+            //        var topicModelQueryFirst = topicModelQuery.FirstOrDefault();
+            //        return View(topicModelQueryFirst);
+            //    }
+            //}
+
+
+            if (ideaQuery != null)
+            {
+                var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(id);
+
+                return View(topicModelQueryFirst);
+            }
+
+
+            return NotFound();
         }
 
         // GET: TopicController/Create
@@ -93,7 +136,7 @@ namespace IdeaSystem.Controllers
 
                 var query = context.TopicTable.FirstOrDefault(x => x.topic_Id == topicId);
 
-                if(query != null)
+                if (query != null)
                 {
                     query.topic_Name = topicName;
                     query.topic_ClosureDate = DateTime.Parse(topicClosureDate);

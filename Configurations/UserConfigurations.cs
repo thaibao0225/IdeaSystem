@@ -11,9 +11,6 @@ namespace IdeaSystem.Configurations
 
             builder.HasOne(t => t.user_Department).WithMany(ur => ur.userList)
                 .HasForeignKey(pc => pc.user_DepartmentId).OnDelete(DeleteBehavior.ClientSetNull);
-
-
-
         }
     }
 }

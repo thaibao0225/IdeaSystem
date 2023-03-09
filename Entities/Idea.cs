@@ -27,16 +27,16 @@ namespace IdeaSystem.Entities
 
 
 
-        public string idea_Topic { get; set; }  // Topic
-        [ForeignKey("idea_Topic")]
+        public string idea_TopicId { get; set; }  // Topic
+        [ForeignKey("idea_TopicId")]
         public Topic topic { get; set; }
 
         [DisplayName("Is Delete")]
         public bool idea_IsDelete { get; set; }  
 
 
-        public ICollection<Comment> commentList { get; set; }
-        public ICollection<React> reactList { get; set; }
-        public ICollection<View> viewList { get; set; }
+        public List<Comment> commentList { get; set; }
+        public List<React> reactList { get; set; }
+        public List<View> viewList { get; set; }
     }
 }

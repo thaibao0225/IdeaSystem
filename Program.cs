@@ -1,5 +1,8 @@
+using AutoMapper;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
+using IdeaSystem.Function;
+using IdeaSystem.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +18,17 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Auto Mapper Configurations
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+
+builder.Services.AddScoped<IManuallyTopicToTopicModel, ManuallyTopicToTopicModel>();
 
 builder.Services.AddControllersWithViews();
 

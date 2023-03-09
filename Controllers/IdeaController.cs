@@ -50,7 +50,7 @@ namespace IdeaSystem.Controllers
 
             // Idea Query
             var ideaQuery = from a in context.TopicTable
-                            join b in context.IdeaTable on a.topic_Id equals b.idea_Topic
+                            join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
                             join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
                             where (b.idea_Id == id)
                             select new { a, b, c };
@@ -125,7 +125,7 @@ namespace IdeaSystem.Controllers
 
             // Idea Query
             var ideaQuery = from a in context.TopicTable
-                            join b in context.IdeaTable on a.topic_Id equals b.idea_Topic
+                            join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
                             join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
                             where (b.idea_Id == id)
                             select new { a, b, c };
@@ -204,7 +204,7 @@ namespace IdeaSystem.Controllers
 
             // Idea Query
             var ideaQuery = from a in context.TopicTable
-                            join b in context.IdeaTable on a.topic_Id equals b.idea_Topic
+                            join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
                             join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
                             where (b.idea_Id == id)
                             select new { a, b, c };

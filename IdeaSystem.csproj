@@ -2402,6 +2402,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
@@ -4843,7 +4844,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Enum\" />
-    <Folder Include="Services\" />
     <Folder Include="Template\AdminLTE\.git\objects\info\" />
     <Folder Include="Template\AdminLTE\.git\refs\tags\" />
   </ItemGroup>

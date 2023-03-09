@@ -1,9 +1,10 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IdeaSystem.Entities.Topic
+@model IdeaSystem.Models.TopicModel
 
 @{
     ViewBag.Title = @CommonTable.topicTable;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -85,45 +86,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="#">Details</a>|
-                            <a asp-action="Edit" asp-route-id="#">Like</a>|
-                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="#">Details</a>|
-                            <a asp-action="Edit" asp-route-id="#">Like</a>|
-                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>mdo</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="#">Details</a>|
-                            <a asp-action="Edit" asp-route-id="#">Like</a>|
-                            <a asp-action="Delete" asp-route-id="#">Dislike</a>
-                        </td>
-                    </tr>
+                    @if (Model.ideaList != null)
+                    {
+                        @foreach (var item in Model.ideaList)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">
+                                    @i
+                                </th>
+                                <td>@item.idea_Text</td>
+                                <td>@item.idea_CreateOn</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="#">Details</a>|
+                                    <a asp-action="Edit" asp-route-id="#">Like</a>|
+                                    <a asp-action="Delete" asp-route-id="#">Dislike</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+
                 </tbody>
             </table>
         </div>

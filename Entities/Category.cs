@@ -13,6 +13,6 @@ namespace IdeaSystem.Entities
         [DisplayName("Category IsDelete")]
         public bool category_IsDelete { set; get; }
 
-        public ICollection<Idea> ideaList { get; set; }
+        public List<Idea> ideaList { get; set; }
     }
 }

@@ -13,6 +13,6 @@ namespace IdeaSystem.Entities
         public bool department_IsDelete { set; get; }
 
 
-        public ICollection<User> userList { get; set; }
+        public List<User> userList { get; set; }
     }
 }

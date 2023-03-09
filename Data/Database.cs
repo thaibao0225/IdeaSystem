@@ -59,7 +59,7 @@ namespace IdeaSystem.Data
 
             //Table AppUser 
             var IdStaff = Guid.NewGuid().ToString();
-            var IdAdmin = Guid.NewGuid().ToString();
+            var IdAdmin = "c63325a5-52b0-4624-a823-41e5c097cedd";
 
             var hasher = new PasswordHasher<User>();
             builder.Entity<User>().HasData(
@@ -185,7 +185,7 @@ namespace IdeaSystem.Data
                     idea_DateTime = new DateTime(2020, 01, 09),
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory1,
-                    idea_Topic = IdTopic1,
+                    idea_TopicId = IdTopic1,
                     idea_IsDelete = false
 
                 },
@@ -197,7 +197,19 @@ namespace IdeaSystem.Data
                     idea_DateTime = new DateTime(2020, 01, 09),
                     idea_UserId = IdStaff,
                     idea_CategoryId = IdCategory2,
-                    idea_Topic = IdTopic2,
+                    idea_TopicId = IdTopic2,
+                    idea_IsDelete = false
+
+                },
+                new Idea()
+                {
+                    idea_Id = IdIdea3,
+                    idea_Text = "Idea 3",
+                    idea_FilePath = "FilePath3",
+                    idea_DateTime = new DateTime(2020, 01, 09),
+                    idea_UserId = IdAdmin,
+                    idea_CategoryId = IdCategory2,
+                    idea_TopicId = IdTopic1,
                     idea_IsDelete = false
 
                 });
@@ -215,6 +227,15 @@ namespace IdeaSystem.Data
                     cmt_Datetime = new DateTime(2020, 01, 09),
                     cmt_UserId = IdStaff,
                     cmt_IdeaId = IdIdea1,
+                    cmt_IsDelete = false
+                },
+                new Comment()
+                {
+                    cmt_Id = IdComment2,
+                    cmt_Text = "Commnet 2",
+                    cmt_Datetime = new DateTime(2020, 01, 09),
+                    cmt_UserId = IdStaff,
+                    cmt_IdeaId = IdIdea3,
                     cmt_IsDelete = false
                 });
 
@@ -236,7 +257,7 @@ namespace IdeaSystem.Data
                     react_Id = IdReact2,
                     react_React = -1,
                     react_UserId = IdAdmin,
-                    react_IdeadId = IdIdea1
+                    react_IdeadId = IdIdea3
                 });
 
             //Table React
@@ -251,6 +272,13 @@ namespace IdeaSystem.Data
                     view_VisitTime = 0,
                     view_IdeadId = IdIdea1,
                     view_UserId = IdStaff
+                },
+                new View()
+                {
+                    view_Id = IdView2,
+                    view_VisitTime = 0,
+                    view_IdeadId = IdIdea3,
+                    view_UserId = IdAdmin
                 });
         }
     }
