@@ -56,7 +56,7 @@
                 </dl>
             </div>
             <div>
-                <button type="button" class="btn btn-primary">Add Idea</button>
+                <a asp-controller="Idea" asp-action="Create" type="button" class="btn btn-primary">Add Idea</a>
             </div>
 
             <div>
@@ -97,20 +97,17 @@
                                 </th>
                                 <td>@item.idea_Text</td>
                                 <td>@item.idea_CreateOn</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>@item.idea_ViewNumber</td>
+                                <td>@item.idea_ReactLikeNumber</td>
+                                <td>@item.idea_ReactDislikeNumber</td>
                                 <td>
-                                    <a asp-action="Details" asp-route-id="#">Details</a>|
+                                    <a asp-controller="Idea" asp-action="Details" asp-route-id="@item.idea_Id">Details</a>|
                                     <a asp-action="Edit" asp-route-id="#">Like</a>|
                                     <a asp-action="Delete" asp-route-id="#">Dislike</a>
                                 </td>
                             </tr>
                         }
                     }
-
-
-
                 </tbody>
             </table>
         </div>

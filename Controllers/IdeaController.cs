@@ -21,32 +21,13 @@ namespace IdeaSystem.Controllers
         [Route("/idea")]
         public ActionResult Index()
         {
-            //var query = from a in context.IdeaTable
-            //            join b in context.TopicTable on a.idea_Topic equals b.topic_Id
-            //            where (a.idea_IsDelete == false)
-            //            select new { a, b };
-            //var ideaquery = query.Select(x => new IdeaModel()
-            //{
-            //    idea_Id = x.a.idea_Id,
-            //    topic_Name = x.b.topic_Name,
-            //    idea_CreateOn = x.a.idea_DateTime,
-            //    idea_Deadline1 = x.b.topic_ClosureDate,
-            //    idea_Deadline2 = x.b.topic_FinalClosureDate
-            //});
-
-            var query = context.TopicTable.ToList();
-
-
-            return View(query);
+            return View();
         }
 
         // GET: IdeaController/Details/5
         [Route("/idea/details")]
         public ActionResult Details(string id)
         {
-            // Category Query
-            var categoriesQuery = context.CategoryTable.Where(x => x.category_IsDelete == false).ToList();
-            ViewBag.CategoriesNameSelect = categoriesQuery;
 
             // Idea Query
             var ideaQuery = from a in context.TopicTable
@@ -61,18 +42,19 @@ namespace IdeaSystem.Controllers
                 idea_Text = x.b.idea_Text,
                 idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
-                idea_Deadline1 = x.a.topic_ClosureDate,
-                idea_Deadline2 = x.a.topic_FinalClosureDate,
-                idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
                 idea_UserId = x.b.idea_UserId,
-                idea_CategoryName = x.c.category_Name
+                idea_CategoryName = x.c.category_Name,
+                idea_TopicId = x.a.topic_Id
             });
+            if(ideaModel != null )
+            {
+                IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+                return View(ideaFirst);
+            }
+            return NoContent();
 
-            IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
-            ViewBag.CategoriesNameExisting = ideaFirst.idea_CategoryName;
-
-            return View(ideaFirst);
+            
         }
 
         // GET: IdeaController/Create
@@ -136,8 +118,6 @@ namespace IdeaSystem.Controllers
                 idea_Text = x.b.idea_Text,
                 idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
-                idea_Deadline1 = x.a.topic_ClosureDate,
-                idea_Deadline2 = x.a.topic_FinalClosureDate,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
                 idea_UserId = x.b.idea_UserId,
@@ -215,8 +195,6 @@ namespace IdeaSystem.Controllers
                 idea_Text = x.b.idea_Text,
                 idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
-                idea_Deadline1 = x.a.topic_ClosureDate,
-                idea_Deadline2 = x.a.topic_FinalClosureDate,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
                 idea_UserId = x.b.idea_UserId,
@@ -247,6 +225,85 @@ namespace IdeaSystem.Controllers
                 }
 
                 await context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: TopicController/DetailsIdea/5
+        [Route("/idea/detailsidea")]
+        public ActionResult DetailsIdea(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/DetailsIdea/5
+        [HttpPost]
+        [Route("/idea/detailsidea")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailsIdea(string id, IFormCollection collection)
+        {
+            try
+            {
+
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: TopicController/Like/5
+        [Route("/idea/like")]
+        public ActionResult Like(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/Like/5
+        [HttpPost]
+        [Route("/idea/like")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Like(string id, IFormCollection collection)
+        {
+            try
+            {
+
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: TopicController/Like/5
+        [Route("/idea/dislike")]
+        public ActionResult Dislike(string id)
+        {
+            return View();
+        }
+
+        // POST: TopicController/Like/5
+        [HttpPost]
+        [Route("/idea/dislike")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Dislike(string id, IFormCollection collection)
+        {
+            try
+            {
+
 
                 return RedirectToAction(nameof(Index));
             }

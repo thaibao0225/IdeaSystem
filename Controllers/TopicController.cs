@@ -46,22 +46,6 @@ namespace IdeaSystem.Controllers
                             where (a.topic_Id == id)
                             select new { a, b, c, d };
 
-            // AutoMapper
-            //if (ideaQuery != null)
-            //{
-
-            //    var topicModelQuery = ideaQuery.Select
-            //                     (
-            //                       emp => _mapper.Map<Topic, TopicModel>(emp.a)
-            //                     );
-
-            //    if (topicModelQuery != null)
-            //    {
-            //        var topicModelQueryFirst = topicModelQuery.FirstOrDefault();
-            //        return View(topicModelQueryFirst);
-            //    }
-            //}
-
 
             if (ideaQuery != null)
             {
@@ -190,83 +174,6 @@ namespace IdeaSystem.Controllers
         }
 
 
-        // GET: TopicController/DetailsIdea/5
-        [Route("/topic/detailsidea")]
-        public ActionResult DetailsIdea(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/DetailsIdea/5
-        [HttpPost]
-        [Route("/topic/detailsidea")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DetailsIdea(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
-        // GET: TopicController/Like/5
-        [Route("/topic/like")]
-        public ActionResult Like(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/topic/like")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Like(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
-        // GET: TopicController/Like/5
-        [Route("/topic/dislike")]
-        public ActionResult Dislike(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/topic/dislike")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Dislike(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

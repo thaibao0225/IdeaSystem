@@ -22,20 +22,12 @@ namespace IdeaSystem.Models
         public string idea_UserName { get; set; }
         public string idea_TopicId { get; set; }
 
-        [DisplayName("Topic Name")]
-        public string idea_TopicName { get; set; }
 
         [DisplayName("Category Name")]
         public string idea_CategoryId { get; set; }
 
         [DisplayName("Category Name")]
         public string idea_CategoryName { get; set; }
-
-        [DisplayName("Deadline 1")]
-        public DateTime idea_Deadline1 { get; set; }
-
-        [DisplayName("Deadline 2")]
-        public DateTime idea_Deadline2 { get; set; }
 
 
 
@@ -47,5 +39,53 @@ namespace IdeaSystem.Models
         [DisplayName("Comment")]
         public List<CommentModel> commentList { get; set; }
 
+
+
+        public int idea_ViewNumber
+        {
+            get {
+                int viewCount = 0;
+                foreach (var viewItem in viewList)
+                {
+                    viewCount = viewItem.view_VisitTime + viewCount;
+                }
+                return viewCount; 
+            }
+            set { idea_ViewNumber = value; }
+        }
+        public int idea_ReactLikeNumber
+        {
+            get
+            {
+                int reactLikeCount = 0;
+                foreach (var reactItem in reactList)
+                {
+                    if (reactItem.react_React == 1)
+                    {
+                        reactLikeCount++;
+                    }
+                }
+                return reactLikeCount;
+            }
+            set { idea_ReactLikeNumber = value; }
+        }
+
+        public int idea_ReactDislikeNumber
+        {
+            get
+            {
+                int reactDislikeCount = 0;
+                foreach (var reactItem in reactList)
+                {
+                    if (reactItem.react_React == -1)
+                    {
+                        reactDislikeCount++;
+                    }
+                }
+                return reactDislikeCount;
+            }
+            set { idea_ReactDislikeNumber = value; }
+        }
+        
     }
 }
