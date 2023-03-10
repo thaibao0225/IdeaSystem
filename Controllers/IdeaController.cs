@@ -58,26 +58,6 @@ namespace IdeaSystem.Controllers
 
 
             // Idea Query
-            //var ideaQuery = from a in context.TopicTable
-            //                join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
-            //                join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
-            //                where (b.idea_Id == id)
-            //                select new { a, b, c };
-
-            //var ideaModel = ideaQuery.Select(x => new IdeaDetailModel()
-            //{
-            //    idea_Id = x.b.idea_Id,
-            //    idea_Text = x.b.idea_Text,
-            //    idea_FilePath = x.b.idea_FilePath,
-            //    idea_CreateOn = x.b.idea_DateTime,
-            //    idea_CategoryId = x.b.idea_CategoryId,
-            //    idea_UserId = x.b.idea_UserId,
-            //    idea_CategoryName = x.c.category_Name,
-            //    idea_TopicId = x.a.topic_Id,
-            //    idea_Name = x.b.idea_Name,
-
-            //});
-
             var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
             if (ideaModel != null )
             {
@@ -309,10 +289,44 @@ namespace IdeaSystem.Controllers
             }
         }
 
-       
+        // POST: IdeaController/Delete/5
+        [HttpPost]
+        [Route("/idea/comment")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Comment(string id, IFormCollection collection)
+        {
+            string cmtText = collection["cmt_Text"];
+            string cmtIdeaId = collection["cmt_IdeaId"];
+            try
+            {
+                bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                
+
+                Comment commentCreate = new Comment();
+                commentCreate.cmt_Id = Guid.NewGuid().ToString();
+                commentCreate.cmt_Text = cmtText;
+                commentCreate.cmt_Datetime =DateTime.Now;
+                commentCreate.cmt_IsDelete = false;
+                commentCreate.cmt_IdeaId = cmtIdeaId;
+                commentCreate.cmt_UserId = userId;
+
+                await context.CommentTable.AddAsync(commentCreate);
+                await context.SaveChangesAsync();
+
+
+                return RedirectToAction("Details", "Idea", new { id = cmtIdeaId.ToString() });
+                //return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction("Details", "Idea", new { id = cmtIdeaId.ToString() });
+            }
+        }
 
 
 
-        
+
     }
 }

@@ -104,10 +104,11 @@
 
             </div> <!-- Card -->
             <br />
-            <form>
+            <form asp-action="Comment" method="post">
                 <div class="form-group">
-                    <label for="comment">Your Comment</label>
-                    <textarea name="comment" class="form-control" rows="3"></textarea>
+                    <label for="cmt_Text">Your Comment</label>
+                    <textarea name="cmt_Text" class="form-control" rows="3"></textarea>
+                    <input name="cmt_IdeaId" class="form-control" value="@Model.idea_Id" hidden></input>
                 </div>
                 <button type="submit" class="btn btn-default">Send</button>
             </form>
