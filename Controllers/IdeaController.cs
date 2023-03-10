@@ -27,8 +27,29 @@ namespace IdeaSystem.Controllers
 
         // GET: IdeaController/Details/5
         [Route("/idea/details")]
-        public ActionResult Details(string id)
+        public async Task<ActionResult> Details(string id)
         {
+            bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // view First Query 
+
+            var viewFirstQuery = context.ViewTable.FirstOrDefault(x => x.view_IdeadId == id);
+            if (viewFirstQuery != null)
+            {
+                viewFirstQuery.view_VisitTime++;
+            }
+            else
+            {
+                View viewCreate = new View();
+                viewCreate.view_Id = "";
+                viewCreate.view_VisitTime = 1;
+                viewCreate.view_UserId = userId;
+                viewCreate.view_IdeadId = id;
+
+                await context.ViewTable.AddAsync(viewCreate);
+            }
+
 
             // Idea Query
             var ideaQuery = from a in context.TopicTable
@@ -51,8 +72,11 @@ namespace IdeaSystem.Controllers
             if(ideaModel != null )
             {
                 IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+                await context.SaveChangesAsync();
                 return View(ideaFirst);
             }
+
+            await context.SaveChangesAsync();
             return NoContent();
 
             

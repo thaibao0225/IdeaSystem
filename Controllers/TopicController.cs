@@ -212,25 +212,6 @@ namespace IdeaSystem.Controllers
             }
         }
 
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/topic/like")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Like(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
 
         // GET: TopicController/Like/5
         [Route("/topic/dislike")]
@@ -263,24 +244,6 @@ namespace IdeaSystem.Controllers
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Details", "topic", new { id = ideaQuery.idea_TopicId.ToString() });
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/topic/dislike")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Dislike(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
