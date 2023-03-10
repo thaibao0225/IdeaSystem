@@ -29,8 +29,6 @@
         <div class="card">
 
             <h1>Create</h1>
-
-            <h4>Idea</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -46,18 +44,9 @@
                             <input asp-for="topic_Name" class="form-control" />
                             <span asp-validation-for="topic_Name" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="topic_ClosureDate" class="control-label"></label>
-                            <input asp-for="topic_ClosureDate" class="form-control" />
-                            <span asp-validation-for="topic_ClosureDate" class="text-danger"></span>
+                        <div>
+                            <span> File </span> 
                         </div>
-
-                        <div class="form-group">
-                            <label asp-for="topic_FinalClosureDate" class="control-label"></label>
-                            <input asp-for="topic_FinalClosureDate" class="form-control" />
-                            <span asp-validation-for="topic_FinalClosureDate" class="text-danger"></span>
-                        </div>
-
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>

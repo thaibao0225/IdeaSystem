@@ -55,7 +55,7 @@ namespace IdeaSystem.Controllers
                 {
                     department_Id = Guid.NewGuid().ToString(),
                     department_Name = departmentName,
-                    department_IsDelete = true
+                    department_IsDelete = false
                 };
 
                 await context.DepartmentTable.AddAsync(departmentCreate);

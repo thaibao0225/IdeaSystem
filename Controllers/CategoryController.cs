@@ -50,7 +50,7 @@ namespace IdeaSystem.Controllers
                 Category categoryCreate = new Category() { 
                     category_Id = Guid.NewGuid().ToString(),
                     category_Name = categoryName,
-                    category_IsDelete = true
+                    category_IsDelete = false
                 };
 
                 await context.CategoryTable.AddAsync(categoryCreate);

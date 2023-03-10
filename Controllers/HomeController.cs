@@ -18,10 +18,10 @@ namespace IdeaSystem.Controllers
 
         public IActionResult Index()
         {
-            var departmentNumberQuery = context.DepartmentTable.Count();
-            var categoryNumberQuery = context.CategoryTable.Count();
-            var ideaNumberQuery = context.IdeaTable.Count();
-            var commentNumberQuery = context.CommentTable.Count();
+            var departmentNumberQuery = context.DepartmentTable.Where(x => x.department_IsDelete == false).Count();
+            var categoryNumberQuery = context.CategoryTable.Where(x => x.category_IsDelete == false).Count();
+            var ideaNumberQuery = context.IdeaTable.Where(x => x.idea_IsDelete == false).Count();
+            var commentNumberQuery = context.CommentTable.Where(x => x.cmt_IsDelete == false).Count();
 
             ViewBag.DepartmentNumber = departmentNumberQuery;
             ViewBag.CategoryNumberQuery = categoryNumberQuery;
