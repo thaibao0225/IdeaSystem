@@ -7,6 +7,7 @@ using IdeaSystem.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
 {
@@ -175,19 +176,35 @@ namespace IdeaSystem.Controllers
 
         // GET: TopicController/Like/5
         [Route("/topic/like")]
-        public ActionResult Like(string id)
+        public async Task<ActionResult> Like(string ideaId)
         {
             try
             {
-                var viewQuery = context.ReactTable.FirstOrDefault(x => x.react_IdeadId == id);
+                bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                var reactQuery = context.ReactTable.FirstOrDefault(x => x.react_IdeadId == ideaId && x.react_UserId == userId);
 
-                if (viewQuery != null)
+                var ideaQuery = context.IdeaTable.FirstOrDefault(x => x.idea_Id == ideaId);
+
+                if (reactQuery != null)
                 {
-                    viewQuery.react_React = 1;
+                    reactQuery.react_React = 1;
+                }
+                else
+                {
+                    React reactCreate = new React();
+                    reactCreate.react_Id = Guid.NewGuid().ToString();
+                    reactCreate.react_React = 1;
+                    reactCreate.react_UserId = userId;
+                    reactCreate.react_IdeadId = ideaId;
+
+                    await context.ReactTable.AddAsync(reactCreate);
                 }
 
-                return RedirectToAction(nameof(Index));
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Details", "topic", new { id = ideaQuery.idea_TopicId.ToString() });
             }
             catch
             {
@@ -199,19 +216,11 @@ namespace IdeaSystem.Controllers
         [HttpPost]
         [Route("/topic/like")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Like(string id, IFormCollection collection)
+        public ActionResult Like(string id, IFormCollection collection)
         {
             try
             {
-                var viewQuery = context.ReactTable.FirstOrDefault(x => x.react_IdeadId == id);
 
-
-                if (viewQuery != null)
-                {
-                    viewQuery.react_React = 1;
-                }
-
-                await context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -225,21 +234,35 @@ namespace IdeaSystem.Controllers
 
         // GET: TopicController/Like/5
         [Route("/topic/dislike")]
-        public async Task<ActionResult> Dislike(string id)
+        public async Task<ActionResult> Dislike(string ideaId)
         {
             try
             {
-                var viewQuery = context.ReactTable.FirstOrDefault(x => x.react_IdeadId == id);
+                bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                var reactQuery = context.ReactTable.FirstOrDefault(x => x.react_IdeadId == ideaId && x.react_UserId == userId);
 
-                if (viewQuery != null)
+                var ideaQuery = context.IdeaTable.FirstOrDefault(x => x.idea_Id == ideaId);
+
+                if (reactQuery != null)
                 {
-                    viewQuery.react_React = -1;
+                    reactQuery.react_React = -1;
+                }
+                else
+                {
+                    React reactCreate = new React();
+                    reactCreate.react_Id = Guid.NewGuid().ToString();
+                    reactCreate.react_React = -1;
+                    reactCreate.react_UserId = userId;
+                    reactCreate.react_IdeadId = ideaId;
+
+                    await context.ReactTable.AddAsync(reactCreate);
                 }
 
                 await context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "topic", new { id = ideaQuery.idea_TopicId.ToString() });
             }
             catch
             {

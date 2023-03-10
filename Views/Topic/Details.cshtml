@@ -102,8 +102,8 @@
                                 <td>@item.idea_ReactDislikeNumber</td>
                                 <td>
                                     <a asp-controller="Idea" asp-action="Details" asp-route-id="@item.idea_Id">Details</a>|
-                                    <a asp-action="Like" asp-route-id="@item.idea_Id">Like</a>|
-                                    <a asp-action="Dislike" asp-route-id="@item.idea_Id">Dislike</a>
+                                    <a asp-action="Like" asp-route-ideaId="@item.idea_Id">Like</a>|
+                                    <a asp-action="Dislike" asp-route-ideaId="@item.idea_Id">Dislike</a>
                                 </td>
                             </tr>
                         }
