@@ -10,7 +10,7 @@ namespace IdeaSystem.Models
 
         [DisplayName("Text")]
         public string idea_Text { get; set; }
-        [DisplayName("Content")]
+        [DisplayName("Name")]
         public string idea_Name { get; set; }
 
         [DisplayName("Create On")]

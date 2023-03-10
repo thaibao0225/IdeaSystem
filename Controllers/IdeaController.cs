@@ -2,6 +2,7 @@
 using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
+using IdeaSystem.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,11 @@ namespace IdeaSystem.Controllers
     public class IdeaController : Controller
     {
         private ApplicationDbContext context;
+        private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
         public IdeaController(ApplicationDbContext _context)
         {
             context = _context;
+            _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
         }
 
         // GET: IdeaController
@@ -50,30 +53,37 @@ namespace IdeaSystem.Controllers
                 await context.ViewTable.AddAsync(viewCreate);
             }
 
+            // Comment Query
+            var commentQuery = context.CommentTable.Where(x => x.cmt_IdeaId == id);
+
 
             // Idea Query
-            var ideaQuery = from a in context.TopicTable
-                            join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
-                            join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
-                            where (b.idea_Id == id)
-                            select new { a, b, c };
+            //var ideaQuery = from a in context.TopicTable
+            //                join b in context.IdeaTable on a.topic_Id equals b.idea_TopicId
+            //                join c in context.CategoryTable on b.idea_CategoryId equals c.category_Id
+            //                where (b.idea_Id == id)
+            //                select new { a, b, c };
 
-            var ideaModel = ideaQuery.Select(x => new IdeaDetailModel()
+            //var ideaModel = ideaQuery.Select(x => new IdeaDetailModel()
+            //{
+            //    idea_Id = x.b.idea_Id,
+            //    idea_Text = x.b.idea_Text,
+            //    idea_FilePath = x.b.idea_FilePath,
+            //    idea_CreateOn = x.b.idea_DateTime,
+            //    idea_CategoryId = x.b.idea_CategoryId,
+            //    idea_UserId = x.b.idea_UserId,
+            //    idea_CategoryName = x.c.category_Name,
+            //    idea_TopicId = x.a.topic_Id,
+            //    idea_Name = x.b.idea_Name,
+
+            //});
+
+            var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
+            if (ideaModel != null )
             {
-                idea_Id = x.b.idea_Id,
-                idea_Text = x.b.idea_Text,
-                idea_FilePath = x.b.idea_FilePath,
-                idea_CreateOn = x.b.idea_DateTime,
-                idea_CategoryId = x.b.idea_CategoryId,
-                idea_UserId = x.b.idea_UserId,
-                idea_CategoryName = x.c.category_Name,
-                idea_TopicId = x.a.topic_Id
-            });
-            if(ideaModel != null )
-            {
-                IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+                //IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
                 await context.SaveChangesAsync();
-                return View(ideaFirst);
+                return View(ideaModel);
             }
 
             await context.SaveChangesAsync();
