@@ -234,83 +234,10 @@ namespace IdeaSystem.Controllers
             }
         }
 
-        // GET: TopicController/DetailsIdea/5
-        [Route("/idea/detailsidea")]
-        public ActionResult DetailsIdea(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/DetailsIdea/5
-        [HttpPost]
-        [Route("/idea/detailsidea")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DetailsIdea(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
 
 
 
-        // GET: TopicController/Like/5
-        [Route("/idea/like")]
-        public ActionResult Like(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/idea/like")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Like(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
-        // GET: TopicController/Like/5
-        [Route("/idea/dislike")]
-        public ActionResult Dislike(string id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/Like/5
-        [HttpPost]
-        [Route("/idea/dislike")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Dislike(string id, IFormCollection collection)
-        {
-            try
-            {
-
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

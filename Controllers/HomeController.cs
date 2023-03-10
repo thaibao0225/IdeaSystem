@@ -1,4 +1,5 @@
-﻿using IdeaSystem.Models;
+﻿using IdeaSystem.Data;
+using IdeaSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,25 @@ namespace IdeaSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext _context)
         {
             _logger = logger;
+            context = _context;
         }
 
         public IActionResult Index()
         {
-            ViewBag.Title = "Home";
+            var departmentNumberQuery = context.DepartmentTable.Count();
+            var categoryNumberQuery = context.CategoryTable.Count();
+            var ideaNumberQuery = context.IdeaTable.Count();
+            var commentNumberQuery = context.CommentTable.Count();
+
+            ViewBag.DepartmentNumber = departmentNumberQuery;
+            ViewBag.CategoryNumberQuery = categoryNumberQuery;
+            ViewBag.IdeaNumberQuery = ideaNumberQuery;
+            ViewBag.CommentNumberQuery = commentNumberQuery;
 
             return View();
         }

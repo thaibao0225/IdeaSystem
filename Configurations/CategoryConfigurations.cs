@@ -10,10 +10,6 @@ namespace IdeaSystem.Configurations
         {
             builder.ToTable("Category");
             builder.HasKey(t => new { t.category_Id });
-
-
-
-
         }
     }
 }
