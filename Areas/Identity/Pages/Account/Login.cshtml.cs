@@ -78,7 +78,7 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         
-            if (ModelState.IsValid)
+            if (true)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
@@ -104,8 +104,7 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
-            return Page();
+
         }
     }
 }
