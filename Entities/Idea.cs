@@ -9,6 +9,8 @@ namespace IdeaSystem.Entities
 
         [DisplayName("Text")]
         public string idea_Text { get; set; }
+        [DisplayName("Content")]
+        public string idea_Name { get; set; }
 
         [DisplayName("File Path")]
         public string idea_FilePath { get; set; }
@@ -33,6 +35,7 @@ namespace IdeaSystem.Entities
 
         [DisplayName("Is Delete")]
         public bool idea_IsDelete { get; set; }  
+        public bool idea_Agree { get; set; }  
 
 
         public List<Comment> commentList { get; set; }

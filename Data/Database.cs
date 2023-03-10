@@ -182,6 +182,7 @@ namespace IdeaSystem.Data
                 {
                     idea_Id = IdIdea1,
                     idea_Text = "Idea 1",
+                    idea_Name = "Idea 1",
                     idea_FilePath = "FilePath1",
                     idea_DateTime = new DateTime(2020, 01, 09),
                     idea_UserId = IdStaff,
@@ -194,6 +195,7 @@ namespace IdeaSystem.Data
                 {
                     idea_Id = IdIdea2,
                     idea_Text = "Idea 2",
+                    idea_Name = "Idea 2",
                     idea_FilePath = "FilePath2",
                     idea_DateTime = new DateTime(2020, 01, 09),
                     idea_UserId = IdStaff,
@@ -206,6 +208,7 @@ namespace IdeaSystem.Data
                 {
                     idea_Id = IdIdea3,
                     idea_Text = "Idea 3",
+                    idea_Name = "Idea 3",
                     idea_FilePath = "FilePath3",
                     idea_DateTime = new DateTime(2020, 01, 09),
                     idea_UserId = IdAdmin,

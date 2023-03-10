@@ -5,6 +5,7 @@ using IdeaSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IdeaSystem.Controllers
@@ -59,8 +60,11 @@ namespace IdeaSystem.Controllers
 
         // GET: IdeaController/Create
         [Route("/idea/create")]
-        public ActionResult Create()
+        public ActionResult Create(string topicId)
         {
+            var category = context.CategoryTable.Where(x => x.category_IsDelete == false).ToList();
+            ViewBag.categoryList = category;
+            ViewBag.topicId = topicId;
             return View();
         }
 
@@ -72,24 +76,61 @@ namespace IdeaSystem.Controllers
         {
             try
             {
-                string topicId = collection["topic_Id"];
-                string topicName = collection["topic_Name"];
-                string topicClosureDate = collection["topic_ClosureDate"];
-                string topicFinalClosureDate = collection["topic_FinalClosureDate"];
+                bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                Topic topicCreate = new Topic()
+                string ideaId = Guid.NewGuid().ToString(); //
+                string ideaText = collection["idea_Text"];
+                string ideaName = collection["idea_Name"];
+                string ideaAgreeString = collection["idea_Agree"];
+                DateTime ideaCreateOn = DateTime.Now;
+                string ideaFilePath = collection["idea_FilePath"];
+                string ideaUserId = userId; // 
+                string ideaTopicId = collection["idea_TopicId"]; //
+                string ideaCategoryId = collection["idea_CategoryId"];
+
+                bool ideaAgree = false;
+                if (ideaAgreeString == "true,false")
                 {
-                    topic_Id = Guid.NewGuid().ToString(),
-                    topic_Name = topicName,
-                    topic_ClosureDate = DateTime.Parse(topicClosureDate),
-                    topic_FinalClosureDate = DateTime.Parse(topicFinalClosureDate)
-                };
+                    ideaAgree = true;
+                }
 
-                await context.TopicTable.AddAsync(topicCreate);
+                Idea ideaCreate = new Idea();
+                ideaCreate.idea_Id = ideaId;
+                ideaCreate.idea_Name = ideaName;
+                ideaCreate.idea_Text = ideaText;
+                ideaCreate.idea_Agree = ideaAgree;
+                ideaCreate.idea_DateTime = ideaCreateOn;
+                ideaCreate.idea_FilePath = ideaFilePath;
+                ideaCreate.idea_UserId = ideaUserId;
+                ideaCreate.idea_TopicId = ideaTopicId;
+                ideaCreate.idea_CategoryId = ideaCategoryId;
+
+                await context.IdeaTable.AddAsync(ideaCreate);
+
+
+
+                // Create View Table for this Idea
+                View viewCreate = new View();
+                viewCreate.view_Id = Guid.NewGuid().ToString();
+                viewCreate.view_VisitTime = 0;
+                viewCreate.view_UserId = ideaUserId;
+                viewCreate.view_IdeadId = ideaId;
+                await context.ViewTable.AddAsync(viewCreate);
+
+                // Create React Table for this Idea
+                React reactCreate = new React();
+                reactCreate.react_Id = Guid.NewGuid().ToString();
+                reactCreate.react_React = 0;
+                reactCreate.react_UserId = ideaUserId;
+                reactCreate.react_IdeadId = ideaId;
+                await context.ReactTable.AddAsync(reactCreate);
+
 
                 await context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Details", "topic", new { id = ideaTopicId.ToString() });
             }
             catch
             {

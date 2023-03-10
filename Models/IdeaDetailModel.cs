@@ -10,6 +10,8 @@ namespace IdeaSystem.Models
 
         [DisplayName("Text")]
         public string idea_Text { get; set; }
+        [DisplayName("Content")]
+        public string idea_Name { get; set; }
 
         [DisplayName("Create On")]
         public DateTime idea_CreateOn { get; set; }
@@ -27,7 +29,10 @@ namespace IdeaSystem.Models
         public string idea_CategoryId { get; set; }
 
         [DisplayName("Category Name")]
+        
         public string idea_CategoryName { get; set; }
+        [DisplayName("Agree with creating idea")]
+        public bool idea_Agree { get; set; }
 
 
 
