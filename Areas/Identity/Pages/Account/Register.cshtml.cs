@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using IdeaSystem.Models;
 
 namespace IdeaSystem.Areas.Identity.Pages.Account
 {
@@ -24,17 +27,20 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -43,6 +49,8 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+        public List<DepartmentModel> departmentModelList { get; set; }
 
         public class InputModel
         {
@@ -61,12 +69,32 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Department")]
+            public string departmentId { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            // Get Department
+            var departmentQuery = _context.DepartmentTable.Where(x => x.department_IsDelete == false);
+
+            departmentModelList = new List<DepartmentModel>();
+
+            foreach (var item in departmentQuery)
+            {
+                DepartmentModel departmentModel1Item = new DepartmentModel();
+                departmentModel1Item.department_Id = item.department_Id;
+                departmentModel1Item.department_Name = item.department_Name;
+                departmentModelList.Add(departmentModel1Item);
+            }
+            
+
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -75,8 +103,9 @@ namespace IdeaSystem.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (true)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User { UserName = Input.Email, Email = Input.Email , user_DepartmentId = Input.departmentId};
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
