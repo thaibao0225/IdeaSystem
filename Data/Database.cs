@@ -66,14 +66,15 @@ namespace IdeaSystem.Data
             new User
             {
                 Id = IdAdmin,
-                UserName = "Admin",
+                UserName = "admin@gmail.com",
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
-                user_DepartmentId = IdDepartment1
+                user_DepartmentId = IdDepartment1,
+                
                 //FirstName = "admin",
                 //LastName = "admin",
                 //DoB = new DateTime(2020, 01, 02)
@@ -81,11 +82,11 @@ namespace IdeaSystem.Data
             new User
             {
                 Id = IdStaff,
-                UserName = "Staff",
+                UserName = "staff@gmail.com",
                 NormalizedUserName = "STAFF@GMAIL.COM",
                 NormalizedEmail = "STAFF@GMAIL.COM",
                 Email = "staff@gmail.com",
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment2
