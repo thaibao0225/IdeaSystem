@@ -302,8 +302,6 @@ namespace IdeaSystem.Controllers
                 bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                
-
                 Comment commentCreate = new Comment();
                 commentCreate.cmt_Id = Guid.NewGuid().ToString();
                 commentCreate.cmt_Text = cmtText;
@@ -315,9 +313,7 @@ namespace IdeaSystem.Controllers
                 await context.CommentTable.AddAsync(commentCreate);
                 await context.SaveChangesAsync();
 
-
                 return RedirectToAction("Details", "Idea", new { id = cmtIdeaId.ToString() });
-                //return RedirectToAction(nameof(Index));
             }
             catch
             {
