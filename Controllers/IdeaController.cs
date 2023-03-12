@@ -176,7 +176,8 @@ namespace IdeaSystem.Controllers
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
                 idea_UserId = x.b.idea_UserId,
-                idea_CategoryName = x.c.category_Name
+                idea_CategoryName = x.c.category_Name,
+                idea_Name = x.b.idea_Name
             });
 
             IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
@@ -195,6 +196,7 @@ namespace IdeaSystem.Controllers
             {
                 string ideaId = collection["idea_Id"];
                 string ideaText = collection["idea_Text"];
+                string ideaName = collection["idea_Name"];
                 string categoryId = collection["idea_CategoryId"];
 
                 string ideaTopicId = collection["idea_TopicId"];
@@ -208,20 +210,14 @@ namespace IdeaSystem.Controllers
                 {
                     ideaQuery.idea_Text = ideaText;
                     ideaQuery.idea_CategoryId = categoryId;
+                    ideaQuery.idea_Name = ideaName;
                 }
 
-                // Topic
-                var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == ideaTopicId);
-                if (topicQuery != null)
-                {
-                    topicQuery.topic_ClosureDate = DateTime.Parse(ideaDeadline1);
-                    topicQuery.topic_FinalClosureDate = DateTime.Parse(ideaDeadline2);
-                }
 
                 await context.SaveChangesAsync();
 
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "topic", new { id = ideaTopicId.ToString() });
             }
             catch
             {
