@@ -49,7 +49,7 @@ namespace IdeaSystem.Controllers
             else
             {
                 View viewCreate = new View();
-                viewCreate.view_Id = "";
+                viewCreate.view_Id = Guid.NewGuid().ToString();
                 viewCreate.view_VisitTime = 1;
                 viewCreate.view_UserId = userId;
                 viewCreate.view_IdeadId = id;
@@ -264,6 +264,7 @@ namespace IdeaSystem.Controllers
             {
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
+                idea_Name = x.b.idea_Name,
                 //idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
                 idea_TopicId = x.a.topic_Id,
