@@ -17,7 +17,7 @@ namespace IdeaSystem.Models
         public DateTime idea_CreateOn { get; set; }
 
         [DisplayName("File")]
-        public string idea_FilePath { get; set; }
+        public IFormFile idea_FilePath { get; set; }
         public string idea_UserId { get; set; }
 
         [DisplayName("User Name")]

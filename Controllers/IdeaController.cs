@@ -98,7 +98,7 @@ namespace IdeaSystem.Controllers
                 string ideaName = collection["idea_Name"];
                 string ideaAgreeString = collection["idea_Agree"];
                 DateTime ideaCreateOn = DateTime.Now;
-                string ideaFilePath = collection["idea_FilePath"];
+                //string ideaFilePath = collection["idea_FilePath"];
                 string ideaUserId = userId; // 
                 string ideaTopicId = collection["idea_TopicId"]; //
                 string ideaCategoryId = collection["idea_CategoryId"];
@@ -115,7 +115,7 @@ namespace IdeaSystem.Controllers
                 ideaCreate.idea_Text = ideaText;
                 ideaCreate.idea_Agree = ideaAgree;
                 ideaCreate.idea_DateTime = ideaCreateOn;
-                ideaCreate.idea_FilePath = ideaFilePath;
+                //ideaCreate.idea_FilePath = ideaFilePath;
                 ideaCreate.idea_UserId = ideaUserId;
                 ideaCreate.idea_TopicId = ideaTopicId;
                 ideaCreate.idea_CategoryId = ideaCategoryId;
@@ -171,7 +171,7 @@ namespace IdeaSystem.Controllers
             {
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
-                idea_FilePath = x.b.idea_FilePath,
+                //idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
@@ -244,7 +244,7 @@ namespace IdeaSystem.Controllers
             {
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
-                idea_FilePath = x.b.idea_FilePath,
+                //idea_FilePath = x.b.idea_FilePath,
                 idea_CreateOn = x.b.idea_DateTime,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,

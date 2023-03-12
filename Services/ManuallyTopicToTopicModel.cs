@@ -38,8 +38,9 @@ namespace IdeaSystem.Services
                         var ideaDetailModel = new IdeaDetailModel();
                         ideaDetailModel.idea_Id = ideaItem.idea_Id;
                         ideaDetailModel.idea_Text = ideaItem.idea_Text;
+                        ideaDetailModel.idea_Name = ideaItem.idea_Name;
                         ideaDetailModel.idea_CreateOn = DateTime.Now; // 
-                        ideaDetailModel.idea_FilePath = ideaItem.idea_FilePath;
+                        //ideaDetailModel.idea_FilePath = ideaItem.idea_FilePath;
                         ideaDetailModel.idea_UserId = ideaItem.idea_UserId;
                         //ideaDetailModel.idea_UserName = "";
                         ideaDetailModel.idea_TopicId = ideaItem.idea_TopicId;
@@ -120,7 +121,7 @@ namespace IdeaSystem.Services
             {
                 ideaDetailModel.idea_Id = ideaItem.b.idea_Id;
                 ideaDetailModel.idea_Text = ideaItem.b.idea_Text;
-                ideaDetailModel.idea_FilePath = ideaItem.b.idea_FilePath;
+                //ideaDetailModel.idea_FilePath = ideaItem.b.idea_FilePath;
                 ideaDetailModel.idea_CreateOn = ideaItem.b.idea_DateTime;
                 ideaDetailModel.idea_CategoryId = ideaItem.b.idea_CategoryId;
                 ideaDetailModel.idea_UserId = ideaItem.b.idea_UserId;
