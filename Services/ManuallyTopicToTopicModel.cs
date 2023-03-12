@@ -112,16 +112,15 @@ namespace IdeaSystem.Services
             var ideaQuery = from a in _context.TopicTable
                             join b in _context.IdeaTable on a.topic_Id equals b.idea_TopicId
                             join c in _context.CategoryTable on b.idea_CategoryId equals c.category_Id
-                            join d in _context.CommentTable on b.idea_Id equals d.cmt_IdeaId
                             where (b.idea_Id == ideaId)
-                            select new { a, b, c, d};
+                            select new { a, b, c };
 
             IdeaDetailModel ideaDetailModel = new IdeaDetailModel();
             foreach (var ideaItem in ideaQuery)
             {
                 ideaDetailModel.idea_Id = ideaItem.b.idea_Id;
                 ideaDetailModel.idea_Text = ideaItem.b.idea_Text;
-                //ideaDetailModel.idea_FilePath = ideaItem.b.idea_FilePath;
+                ideaDetailModel.idea_FileName = ideaItem.b.idea_FileName;
                 ideaDetailModel.idea_CreateOn = ideaItem.b.idea_DateTime;
                 ideaDetailModel.idea_CategoryId = ideaItem.b.idea_CategoryId;
                 ideaDetailModel.idea_UserId = ideaItem.b.idea_UserId;
@@ -131,16 +130,20 @@ namespace IdeaSystem.Services
 
                 ideaDetailModel.commentList = new List<CommentModel>();
 
-                foreach (var commentItem in ideaItem.b.commentList)
+                var commnetQuery = _context.CommentTable.Where(x => x.cmt_IdeaId == ideaItem.b.idea_Id);
+                if (commnetQuery != null)
                 {
-                    CommentModel commentModel = new CommentModel();
-                    commentModel.cmt_Id = commentItem.cmt_Id;
-                    commentModel.cmt_Text = commentItem.cmt_Text;
-                    commentModel.cmt_Datetime = commentItem.cmt_Datetime;
-                    commentModel.cmt_IdeaId = commentItem.cmt_IdeaId;
-                    commentModel.cmt_IsDelete = commentItem.cmt_IsDelete;
+                    foreach (var commentItem in commnetQuery)
+                    {
+                        CommentModel commentModel = new CommentModel();
+                        commentModel.cmt_Id = commentItem.cmt_Id;
+                        commentModel.cmt_Text = commentItem.cmt_Text;
+                        commentModel.cmt_Datetime = commentItem.cmt_Datetime;
+                        commentModel.cmt_IdeaId = commentItem.cmt_IdeaId;
+                        commentModel.cmt_IsDelete = commentItem.cmt_IsDelete;
 
-                    ideaDetailModel.commentList.Add(commentModel);
+                        ideaDetailModel.commentList.Add(commentModel);
+                    }
                 }
             }
             return ideaDetailModel;

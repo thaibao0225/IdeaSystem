@@ -27,7 +27,7 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-
+builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadService>();
 builder.Services.AddScoped<IManuallyTopicToTopicModel, ManuallyTopicToTopicModel>();
 
 builder.Services.AddControllersWithViews();

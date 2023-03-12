@@ -14,6 +14,7 @@ namespace IdeaSystem.Entities
 
         [DisplayName("File Path")]
         public string idea_FilePath { get; set; }
+        public string idea_FileName { get; set; }
 
         [DisplayName("Create On")]
         public DateTime idea_DateTime { get; set; }

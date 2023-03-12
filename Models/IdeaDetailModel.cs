@@ -18,6 +18,7 @@ namespace IdeaSystem.Models
 
         [DisplayName("File")]
         public IFormFile idea_FilePath { get; set; }
+        public string idea_FileName { get; set; }
         public string idea_UserId { get; set; }
 
         [DisplayName("User Name")]
@@ -50,11 +51,15 @@ namespace IdeaSystem.Models
         {
             get {
                 int viewCount = 0;
-                foreach (var viewItem in viewList)
+                if (viewList != null)
                 {
-                    viewCount = viewItem.view_VisitTime + viewCount;
+                    foreach (var viewItem in viewList)
+                    {
+                        viewCount = viewItem.view_VisitTime + viewCount;
+                    }
+                    return viewCount;
                 }
-                return viewCount; 
+                return viewCount;
             }
             set { idea_ViewNumber = value; }
         }
@@ -63,12 +68,16 @@ namespace IdeaSystem.Models
             get
             {
                 int reactLikeCount = 0;
-                foreach (var reactItem in reactList)
+                if (reactList != null)
                 {
-                    if (reactItem.react_React == 1)
+                    foreach (var reactItem in reactList)
                     {
-                        reactLikeCount++;
+                        if (reactItem.react_React == 1)
+                        {
+                            reactLikeCount++;
+                        }
                     }
+                    return reactLikeCount;
                 }
                 return reactLikeCount;
             }
@@ -80,12 +89,16 @@ namespace IdeaSystem.Models
             get
             {
                 int reactDislikeCount = 0;
-                foreach (var reactItem in reactList)
+                if (reactList != null)
                 {
-                    if (reactItem.react_React == -1)
+                    foreach (var reactItem in reactList)
                     {
-                        reactDislikeCount++;
+                        if (reactItem.react_React == -1)
+                        {
+                            reactDislikeCount++;
+                        }
                     }
+                    return reactDislikeCount;
                 }
                 return reactDislikeCount;
             }

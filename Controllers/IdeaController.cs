@@ -15,10 +15,14 @@ namespace IdeaSystem.Controllers
     {
         private ApplicationDbContext context;
         private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
-        public IdeaController(ApplicationDbContext _context)
+        readonly IBufferedFileUploadService _bufferedFileUploadService;
+        private readonly IWebHostEnvironment environment;
+        public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment)
         {
             context = _context;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
+            _bufferedFileUploadService = bufferedFileUploadService;
+            environment = hostEnvironment;
         }
 
         // GET: IdeaController
@@ -86,10 +90,22 @@ namespace IdeaSystem.Controllers
         [HttpPost]
         [Route("/idea/create")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(IFormCollection collection)
+        public async Task<ActionResult> Create(IFormCollection collection, IdeaDetailModel ideaDetailModel, IFormFile idea_FilePath)
         {
             try
-            {
+            {   // Test file
+
+                if (await _bufferedFileUploadService.UploadFile(idea_FilePath))
+                {
+                    ViewBag.Message = "File Upload Successful";
+                }
+                else
+                {
+                    ViewBag.Message = "File Upload Failed";
+                }
+
+
+                //
                 bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -99,6 +115,7 @@ namespace IdeaSystem.Controllers
                 string ideaAgreeString = collection["idea_Agree"];
                 DateTime ideaCreateOn = DateTime.Now;
                 //string ideaFilePath = collection["idea_FilePath"];
+                string ideaFileName = idea_FilePath.FileName;
                 string ideaUserId = userId; // 
                 string ideaTopicId = collection["idea_TopicId"]; //
                 string ideaCategoryId = collection["idea_CategoryId"];
@@ -115,7 +132,8 @@ namespace IdeaSystem.Controllers
                 ideaCreate.idea_Text = ideaText;
                 ideaCreate.idea_Agree = ideaAgree;
                 ideaCreate.idea_DateTime = ideaCreateOn;
-                //ideaCreate.idea_FilePath = ideaFilePath;
+                ideaCreate.idea_FileName = ideaFileName;
+                ideaCreate.idea_FilePath = ideaUserId + ideaFileName;
                 ideaCreate.idea_UserId = ideaUserId;
                 ideaCreate.idea_TopicId = ideaTopicId;
                 ideaCreate.idea_CategoryId = ideaCategoryId;
@@ -139,7 +157,9 @@ namespace IdeaSystem.Controllers
                 reactCreate.react_UserId = ideaUserId;
                 reactCreate.react_IdeadId = ideaId;
                 await context.ReactTable.AddAsync(reactCreate);
+                
 
+               
 
                 await context.SaveChangesAsync();
 
