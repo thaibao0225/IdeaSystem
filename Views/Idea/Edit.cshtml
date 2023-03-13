@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        
+
 
 
                         <div class="form-group" hidden>
@@ -62,15 +62,16 @@
                             <input asp-for="idea_Text" class="form-control" />
                             <span asp-validation-for="idea_Text" class="text-danger"></span>
                         </div>
-                        @*                        <div class="form-group">
-                        <label asp-for="idea_FilePath"></label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                        </div>*@
+                        <div class="form-group">
+                            <label asp-for="idea_FileName"></label>
+                            <input asp-for="idea_FileName" class="form-control" readonly />
+                            <span asp-validation-for="idea_Text" class="text-danger"></span>
+                        </div>
 
 
                         <div class="form-group">
                             <label asp-for="idea_CategoryName" class="control-label"></label>
-                            <input asp-for="idea_CategoryName" class="form-control" readonly/>
+                            <input asp-for="idea_CategoryName" class="form-control" readonly />
                             <span asp-validation-for="idea_CategoryName" class="text-danger"></span>
                         </div>
 
@@ -107,5 +108,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

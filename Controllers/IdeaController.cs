@@ -191,7 +191,7 @@ namespace IdeaSystem.Controllers
             {
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
-                //idea_FilePath = x.b.idea_FilePath,
+                idea_FileName = x.b.idea_FileName,
                 idea_CreateOn = x.b.idea_DateTime,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
@@ -265,7 +265,7 @@ namespace IdeaSystem.Controllers
                 idea_Id = x.b.idea_Id,
                 idea_Text = x.b.idea_Text,
                 idea_Name = x.b.idea_Name,
-                //idea_FilePath = x.b.idea_FilePath,
+                idea_FileName = x.b.idea_FileName,
                 idea_CreateOn = x.b.idea_DateTime,
                 idea_TopicId = x.a.topic_Id,
                 idea_CategoryId = x.b.idea_CategoryId,
