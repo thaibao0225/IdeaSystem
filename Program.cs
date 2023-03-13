@@ -1,4 +1,5 @@
 using AutoMapper;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using IdeaSystem.Function;
@@ -29,6 +30,14 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadService>();
 builder.Services.AddScoped<IManuallyTopicToTopicModel, ManuallyTopicToTopicModel>();
+
+builder.Services.ConfigureApplicationCookie(options => {
+    // options.Cookie.HttpOnly = true;
+    // options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.LoginPath = $"/login/";
+    options.LogoutPath = $"/logout/";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 
 builder.Services.AddControllersWithViews();
 

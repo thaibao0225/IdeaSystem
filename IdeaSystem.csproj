@@ -4847,6 +4847,7 @@
     <Folder Include="Data\Enum\" />
     <Folder Include="Template\AdminLTE\.git\objects\info\" />
     <Folder Include="Template\AdminLTE\.git\refs\tags\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
 
   <ItemGroup>

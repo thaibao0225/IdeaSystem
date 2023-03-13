@@ -3,6 +3,7 @@ using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
 using IdeaSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IdeaSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Staff")]
     public class IdeaController : Controller
     {
         private ApplicationDbContext context;
@@ -93,16 +95,7 @@ namespace IdeaSystem.Controllers
         public async Task<ActionResult> Create(IFormCollection collection, IdeaDetailModel ideaDetailModel, IFormFile idea_FilePath)
         {
             try
-            {   // Test file
-
-                if (await _bufferedFileUploadService.UploadFile(idea_FilePath))
-                {
-                    ViewBag.Message = "File Upload Successful";
-                }
-                else
-                {
-                    ViewBag.Message = "File Upload Failed";
-                }
+            {   
 
 
                 //
@@ -114,11 +107,15 @@ namespace IdeaSystem.Controllers
                 string ideaName = collection["idea_Name"];
                 string ideaAgreeString = collection["idea_Agree"];
                 DateTime ideaCreateOn = DateTime.Now;
-                //string ideaFilePath = collection["idea_FilePath"];
                 string ideaFileName = idea_FilePath.FileName;
+                string ideaFilePath = userId + "-" + idea_FilePath.FileName;
                 string ideaUserId = userId; // 
                 string ideaTopicId = collection["idea_TopicId"]; //
                 string ideaCategoryId = collection["idea_CategoryId"];
+
+                // Test file
+
+                await _bufferedFileUploadService.UploadFile(idea_FilePath, userId, ideaFilePath);
 
                 bool ideaAgree = false;
                 if (ideaAgreeString == "true,false")

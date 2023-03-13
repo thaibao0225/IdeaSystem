@@ -4,6 +4,7 @@ using IdeaSystem.Entities;
 using IdeaSystem.Function;
 using IdeaSystem.Models;
 using IdeaSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Staff")]
     public class TopicController : Controller
     {
         private ApplicationDbContext context;

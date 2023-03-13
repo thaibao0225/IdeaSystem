@@ -1,6 +1,7 @@
 ﻿using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using System.Data;
 
 namespace IdeaSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private ApplicationDbContext context;

@@ -2,7 +2,7 @@
 {
     public class BufferedFileUploadService : IBufferedFileUploadService
     {
-        public async Task<bool> UploadFile(IFormFile file)
+        public async Task<bool> UploadFile(IFormFile file, string userId, string fileName)
         {
             string path = "";
             try
@@ -14,7 +14,8 @@
                     {
                         Directory.CreateDirectory(path);
                     }
-                    using (var fileStream = new FileStream(Path.Combine(path, file.FileName), FileMode.Create))
+                    
+                    using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
                     }

@@ -1,10 +1,12 @@
 ﻿using IdeaSystem.Data;
 using IdeaSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace IdeaSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Staff")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
