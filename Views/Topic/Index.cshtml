@@ -57,7 +57,7 @@
                                     <a asp-action="Delete" asp-route-id="@item.topic_Id">Delete</a>
                                 </td>
                                 <td>
-                                    <a asp-action="#" asp-route-id="@item.topic_Id">Excel</a>
+                                    <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id">Excel</a>
                                 </td>
                             </tr>
                         }

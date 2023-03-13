@@ -16,14 +16,16 @@ namespace IdeaSystem.Controllers
     public class TopicController : Controller
     {
         private ApplicationDbContext context;
+        private IExcel _excel;
         private readonly IMapper _mapper;
 
         private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
-        public TopicController(ApplicationDbContext _context, IMapper mapper)
+        public TopicController(ApplicationDbContext _context, IMapper mapper, IExcel excel)
         {
             context = _context;
             _mapper = mapper;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
+            _excel = excel;
         }
 
         // GET: TopicController
@@ -246,6 +248,38 @@ namespace IdeaSystem.Controllers
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Details", "topic", new { id = ideaQuery.idea_TopicId.ToString() });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: TopicController/Like/5
+        [Route("/topic/exportexcel")]
+        public async Task<ActionResult> ExportExcel(string topicId)
+        {
+            try
+            {
+                bool checkLogin = (User?.Identity.IsAuthenticated).GetValueOrDefault();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+                List<IdeaDetailModel> ideaDetailModelList =  _manuallyTopicToTopicModel.TransferToIdeaDetailModelList(topicId);
+
+                string excelName = topicId + "-Excel";
+                var dataExcel = _excel.ExportExcelForIdeaModel(ideaDetailModelList);
+                
+                _excel.ToExcelFile(dataExcel, excelName, "Idea");
+                
+
+
+                //Downfile ----------------------------------------
+                excelName = excelName + ".xlsx";
+                var filepath = Path.Combine(Environment.CurrentDirectory, "ExcelFile", excelName);
+
+                return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", System.IO.Path.GetFileName(filepath));
             }
             catch
             {

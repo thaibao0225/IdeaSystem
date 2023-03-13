@@ -27,9 +27,10 @@ var mapperConfig = new MapperConfiguration(mc =>
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
+builder.Services.AddTransient<IExcel, Excel>();
 builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadService>();
 builder.Services.AddScoped<IManuallyTopicToTopicModel, ManuallyTopicToTopicModel>();
+
 
 builder.Services.ConfigureApplicationCookie(options => {
     // options.Cookie.HttpOnly = true;
