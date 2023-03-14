@@ -1,5 +1,5 @@
 ﻿@using IdeaSystem.Data.Common;
-@model IEnumerable<IdeaSystem.Entities.Topic>
+@model IEnumerable<IdeaSystem.Models.TopicModel>
 @{
     ViewBag.Title = @CommonTable.topicTable;
     int i = 0;
@@ -46,7 +46,7 @@
                         @foreach (var item in Model)
                         {
                             i++;
-                            <tr>
+                            <tr class="@item.topic_ColorRow">
                                 <th scope="row">@i</th>
                                 <td>@item.topic_Name</td>
                                 <td>@item.topic_ClosureDate</td>

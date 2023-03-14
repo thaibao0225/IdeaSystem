@@ -34,8 +34,21 @@ namespace IdeaSystem.Controllers
         {
             var query = context.TopicTable.Where(x => x.topic_IsDelete == false).ToList();
 
+            List<TopicModel> topicListModel = new List<TopicModel>();
+            foreach (var itemTopic in query)
+            {
+                TopicModel topicModel = new TopicModel();
+                topicModel.topic_Id = "";
+                topicModel.topic_ClosureDate = itemTopic.topic_ClosureDate;
+                topicModel.topic_FinalClosureDate = itemTopic.topic_FinalClosureDate;
+                topicModel.topic_Name = itemTopic.topic_Name;
 
-            return View(query);
+                topicListModel.Add(topicModel);
+
+            }
+
+
+            return View(topicListModel);
         }
 
         // GET: TopicController/Details/5
