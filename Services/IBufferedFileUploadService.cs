@@ -2,6 +2,6 @@
 {
     public interface IBufferedFileUploadService
     {
-        Task<bool> UploadFile(IFormFile file, string userId, string fileName);
+        Task<bool> UploadFile(IFormFile file, string ideaId, string fileName, string topicId);
     }
 }

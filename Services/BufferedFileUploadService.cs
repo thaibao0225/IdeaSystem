@@ -2,14 +2,16 @@
 {
     public class BufferedFileUploadService : IBufferedFileUploadService
     {
-        public async Task<bool> UploadFile(IFormFile file, string userId, string fileName)
+        public async Task<bool> UploadFile(IFormFile file, string ideaId, string fileName, string topicId)
         {
             string path = "";
+            string topicIdPath = "topic-" + topicId;
+            string ideaIdPath = "idea-" + ideaId;
             try
             {
                 if (file != null)
                 {
-                    path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles"));
+                    path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles", topicIdPath, ideaIdPath));
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);

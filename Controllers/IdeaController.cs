@@ -119,7 +119,7 @@ namespace IdeaSystem.Controllers
 
                 // Test file
 
-                await _bufferedFileUploadService.UploadFile(idea_FilePath, userId, ideaFilePath);
+                await _bufferedFileUploadService.UploadFile(idea_FilePath, ideaId, ideaFilePath, ideaTopicId);
 
                 bool ideaAgree = false;
                 if (ideaAgreeString == "true,false")

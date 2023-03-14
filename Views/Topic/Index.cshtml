@@ -40,6 +40,7 @@
                             <th scope="col">Deadline 2 </th>
                             <th scope="col"></th>
                             <th scope="col">Export</th>
+                            <th scope="col">Zip</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,9 @@
                                 </td>
                                 <td>
                                     <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id">Excel</a>
+                                </td>
+                                <td>
+                                    <a asp-action="ExportZip" asp-route-topicId="@item.topic_Id">Zip</a>
                                 </td>
                             </tr>
                         }

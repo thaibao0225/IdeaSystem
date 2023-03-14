@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Data;
 using ClosedXML.Excel;
+using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
 
 namespace IdeaSystem.Controllers
 {
@@ -27,31 +29,15 @@ namespace IdeaSystem.Controllers
         [Route("/test")]
         public ActionResult Index()
         {
-            //Downfile ----------------------------------------
-            //var filepath = Path.Combine(Environment.CurrentDirectory, "UploadedFiles", "New Text Document.txt");
-            //return File(System.IO.File.ReadAllBytes(filepath), "text/plain", System.IO.Path.GetFileName(filepath));
+            var currentdatefolder = DateTime.Now.ToString("yyyyMMddHHmmss");
+            //var zippath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ZipsUpload", currentdatefolder);
+            var zippath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ZipsUpload", currentdatefolder);
+            var sourcezipPath = new PhysicalFileProvider(zippath).Root;
+            var zipname = $"File_{currentdatefolder}.zip";
+            var destinationPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "CreatedZip", zipname);
+            ZipFile.CreateFromDirectory(sourcezipPath, destinationPath);
 
-
-            //Create Excel file ----------------------------------------
-            //List<string> list = new List<string>();
-            //list.Add("1");
-            //list.Add("2");
-            //list.Add("3");
-            //list.Add("4");
-
-
-            
-
-
-            //Downfile ----------------------------------------
-            var filepath = Path.Combine(Environment.CurrentDirectory, "ExcelFile", "testExcel.xlsx");
-            return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", System.IO.Path.GetFileName(filepath));
-
-
-
-
-
-            //return View();
+            return Json(new { status = true, Message = "Files Uploaded Successfully!" });
         }
 
         

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
+using System.Linq;
 using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
@@ -38,7 +41,7 @@ namespace IdeaSystem.Controllers
             foreach (var itemTopic in query)
             {
                 TopicModel topicModel = new TopicModel();
-                topicModel.topic_Id = "";
+                topicModel.topic_Id = itemTopic.topic_Id;
                 topicModel.topic_ClosureDate = itemTopic.topic_ClosureDate;
                 topicModel.topic_FinalClosureDate = itemTopic.topic_FinalClosureDate;
                 topicModel.topic_Name = itemTopic.topic_Name;
@@ -63,13 +66,24 @@ namespace IdeaSystem.Controllers
                             join d in context.ReactTable on b.idea_Id equals d.react_IdeadId
                             where (a.topic_Id == id)
                             select new { a, b, c, d };
-
-
-            if (ideaQuery != null)
+            if (ideaQuery != null && ideaQuery.GetEnumerator().MoveNext())
             {
                 var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(id);
 
                 return View(topicModelQueryFirst);
+            }
+            else
+            {
+                var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == id);
+                if (topicQuery != null)
+                {
+                    TopicModel topicModel = new TopicModel();
+                    topicModel.topic_Id = topicQuery.topic_Id;
+                    topicModel.topic_Name = topicQuery.topic_Name;
+                    topicModel.topic_ClosureDate = topicQuery.topic_ClosureDate;
+                    topicModel.topic_FinalClosureDate = topicQuery.topic_FinalClosureDate;
+                    return View(topicModel);
+                }
             }
 
 
@@ -293,6 +307,36 @@ namespace IdeaSystem.Controllers
                 var filepath = Path.Combine(Environment.CurrentDirectory, "ExcelFile", excelName);
 
                 return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", System.IO.Path.GetFileName(filepath));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: TopicController/Like/5
+        [Route("/topic/exportzip")]
+        public ActionResult ExportZip(string topicId)
+        {
+            try
+            {
+                string topicIdPath = "topic-" + topicId;
+
+                //// Zip file
+                var currentdatefolder = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var zippath = Path.Combine(Environment.CurrentDirectory, "UploadedFiles", topicIdPath);
+                var sourcezipPath = new PhysicalFileProvider(zippath).Root;
+                var zipname = $"File_{currentdatefolder}.zip";
+                var destinationPath = Path.Combine(Directory.GetCurrentDirectory(), "Zip", zipname);
+
+                ZipFile.CreateFromDirectory(sourcezipPath, destinationPath);
+
+
+                //// Down zip file
+                ////Downfile ----------------------------------------
+
+
+                return File(System.IO.File.ReadAllBytes(destinationPath), "application/zip", System.IO.Path.GetFileName(destinationPath));
             }
             catch
             {
