@@ -5,6 +5,7 @@ using IdeaSystem.Models;
 using IdeaSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -12,19 +13,22 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IdeaSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Staff,Qa")]
     public class IdeaController : Controller
     {
         private ApplicationDbContext context;
         private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
         readonly IBufferedFileUploadService _bufferedFileUploadService;
         private readonly IWebHostEnvironment environment;
-        public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment)
+        private UserManager<User> _userManager;
+        public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment,
+            UserManager<User> userManager)
         {
             context = _context;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
             _bufferedFileUploadService = bufferedFileUploadService;
             environment = hostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: IdeaController

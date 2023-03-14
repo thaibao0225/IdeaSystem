@@ -1,4 +1,5 @@
-﻿using IdeaSystem.Entities;
+﻿using IdeaSystem.Data.Common;
+using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,22 +44,22 @@ namespace IdeaSystem.Data
                 new Role()
                 {
                     Id = IdRoleStaff,
-                    Name = "Staff",
-                    NormalizedName = "staff",
+                    Name = RoleName.staffRoleName,
+                    NormalizedName = RoleName.staffRoleName_lower,
                     role_IsDelete = false
                 },
                 new Role()
                 {
                     Id = IdRoleAdmin,
-                    Name = "Admin",
-                    NormalizedName = "admin",
+                    Name = RoleName.adminRoleName,
+                    NormalizedName = RoleName.adminRoleName_lower,
                     role_IsDelete = false
                 },
                 new Role()
                 {
                     Id = IdRoleQA,
-                    Name = "QA",
-                    NormalizedName = "QA",
+                    Name = RoleName.qaRoleName,
+                    NormalizedName = RoleName.qaRoleName_lower,
                     role_IsDelete = false
                 });
 
@@ -101,9 +102,9 @@ namespace IdeaSystem.Data
             {
                 Id = IdQa,
                 UserName = "qa@testgmail.com",
-                NormalizedUserName = "qa@TESTGMAIL.COM",
-                NormalizedEmail = "STAFF@TESTGMAIL.COM",
-                Email = "staff@testgmail.com",
+                NormalizedUserName = "QA@TESTGMAIL.COM",
+                NormalizedEmail = "QA@TESTGMAIL.COM",
+                Email = "qa@testgmail.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),

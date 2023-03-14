@@ -22,15 +22,30 @@
 
 
 
-        public static string userTable = "User Table";
-        public static string roleTable = "Role Table";
-        public static string ideaTable = "Idea Table";
-        public static string categoryTable = "Category Table";
-        public static string departmentTable = "Department Table";
-        public static string statisticTable = "Statistic Table";
-        public static string topicTable = "Topic Table";
 
+
+        public static string userTable = "User Table";
+        public static bool isUserShow = true;
+
+        public static string roleTable = "Role Table";
+        public static bool isRoleShow = true;
+
+        public static string ideaTable = "Idea Table";
+        public static bool isIdeaShow = true;
+
+        public static string categoryTable = "Category Table";
+        public static bool isCategoryShow = true;
+
+        public static string departmentTable = "Department Table";
+        public static bool isDepartmentShow = true;
+
+        public static string statisticTable = "Statistic Table";
+        public static bool isStatisticShow = true;
+
+        public static string topicTable = "Topic Table";
+        public static bool isTopicShow = true;
 
         public static string dasdboardPage = "Dasdboard Page";
+        public static bool isDasdboardShow = true;
     }
 }

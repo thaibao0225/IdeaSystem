@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Staff,Qa")]
     public class TopicController : Controller
     {
         private ApplicationDbContext context;

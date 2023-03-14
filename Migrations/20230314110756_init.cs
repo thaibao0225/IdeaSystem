@@ -334,8 +334,8 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "category_Id", "category_IsDelete", "category_Name" },
                 values: new object[,]
                 {
-                    { "bf209409-e9c7-4d61-ba61-730de1dd70bf", false, "Category1" },
-                    { "f0c1d980-ba0f-44a2-a3c2-e507454428c9", false, "Category2" }
+                    { "a4cb1c23-1380-4ca3-b573-258162cfd3b2", false, "Category1" },
+                    { "bc397ed8-b36a-4230-bd99-dc7790b2e60d", false, "Category2" }
                 });
 
             migrationBuilder.InsertData(
@@ -343,9 +343,9 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "department_Id", "department_IsDelete", "department_Name" },
                 values: new object[,]
                 {
-                    { "9d797bf6-7034-408d-9101-212f29c8554d", false, "NameDepartment3" },
-                    { "d1fb164d-b4d8-4eac-9360-96fe89e8a543", false, "NameDepartment2" },
-                    { "dfab6eed-c837-4012-bd80-f5bfee2840fa", false, "NameDepartment1" }
+                    { "590e133f-52bf-4f93-9646-23c45a119cef", false, "NameDepartment2" },
+                    { "9f18b5cb-2e33-47d3-aea3-26991e4f0d14", false, "NameDepartment3" },
+                    { "fea443ce-fe5f-4aa5-b2e4-007eadab28ac", false, "NameDepartment1" }
                 });
 
             migrationBuilder.InsertData(
@@ -353,9 +353,9 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName", "role_IsDelete" },
                 values: new object[,]
                 {
-                    { "23628387-4AD3-4A03-993B-1ECF0F030CB3", "a8a87fc4-4ac0-4af2-9f51-718f798ddaa0", "Role", "Admin", "admin", false },
-                    { "4bd099e1-8863-4b6d-9e14-167b2142cd34", "192f4236-d630-4ee9-b8c2-34acaa0d8e28", "Role", "QA", "QA", false },
-                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "56d27edb-9d76-4960-95a7-be2d2ffcd9b5", "Role", "Staff", "staff", false }
+                    { "23628387-4AD3-4A03-993B-1ECF0F030CB3", "2cadd06c-4443-4eca-8dcf-7679faf642a9", "Role", "Admin", "admin", false },
+                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "0de9d631-7c3d-4ad9-ba77-04543cc8c17d", "Role", "Staff", "staff", false },
+                    { "aa25bd75-d486-4868-b2c3-14d91caf6cad", "28c922c5-b450-4305-a3fa-bbff7114d3b6", "Role", "Qa", "qa", false }
                 });
 
             migrationBuilder.InsertData(
@@ -363,11 +363,11 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "topic_Id", "topic_ClosureDate", "topic_FinalClosureDate", "topic_IsDelete", "topic_Name" },
                 values: new object[,]
                 {
-                    { "5dbedbd0-3c8d-4ea9-bd08-b5d727dca7bf", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 3" },
-                    { "8fb26c36-18d9-4828-88d8-1d52b9af0d02", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 5" },
-                    { "cf20f4ab-6e67-4f22-a925-a9bcb707545a", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 2" },
-                    { "dfa98ba7-000d-4662-96ce-706f441560b7", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 1" },
-                    { "ff1b5cd5-02f4-4084-ba48-416a871c0a10", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 4" }
+                    { "120dfdb6-3d00-48bb-86ff-46706a1c453e", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 3" },
+                    { "23df84a6-0575-4bb7-aef4-4c46e19a1b0e", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 1" },
+                    { "463b097c-1681-4d56-ad0c-fa3badad88d2", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 2" },
+                    { "54b02101-4e99-47a0-a6ad-1d76bfccb7fa", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 5" },
+                    { "d4cae51f-009e-46d2-bc65-ba5e599a4d43", new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Topic 4" }
                 });
 
             migrationBuilder.InsertData(
@@ -375,10 +375,10 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "user_DepartmentId" },
                 values: new object[,]
                 {
-                    { "302833b1-bab1-48b3-8f31-9e754b5fd369", 0, "1350eccd-baec-4a30-8294-5b8d275cca30", "User", "staff@testgmail.com", true, false, null, "STAFF@TESTGMAIL.COM", "qa@TESTGMAIL.COM", "AQAAAAEAACcQAAAAENYza0eXJNhGC9NDUpgAMtVJtda7S8xPkdkEUxIiOuyZecJkyAN1LDImv5XQOMTxtQ==", null, false, "01a15ac1-a36b-44ea-80f5-e7fe843d3a75", false, "qa@testgmail.com", "d1fb164d-b4d8-4eac-9360-96fe89e8a543" },
-                    { "c63325a5-52b0-4624-a823-41e5c097cedd", 0, "63e909bb-8ada-4e12-999d-495e05d90a25", "User", "admin@testgmail.com", true, false, null, "ADMIN@TESTGMAIL.COM", "ADMIN@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEC5MP7WtPBTbUBpVXCSC8O+5H3F7fQJaOLokt0CMtpiKyWTFWHvt+alZqdwBBpcWTQ==", null, false, "f07574a7-b239-45c4-802e-abc477ff2268", false, "admin@testgmail.com", "dfab6eed-c837-4012-bd80-f5bfee2840fa" },
-                    { "d309760a-dc30-428d-a10c-be4e67e42d00", 0, "a3d38a34-29a5-49b7-b618-90dbd62eb7bf", "User", "staff@testgmail.com", true, false, null, "STAFF@TESTGMAIL.COM", "STAFF@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEI+57PnuLscYz9UqWKgmI8bVF4PmMoMHCbI7ZddOL0hJ7KKpV1rlj1g2xHGg+W9U+w==", null, false, "0d2347e4-370f-4fd4-bd0d-e93682c366e4", false, "staff@testgmail.com", "d1fb164d-b4d8-4eac-9360-96fe89e8a543" },
-                    { "f3f399e2-76eb-491b-b29e-b52bcd418610", 0, "1d17ff2c-abdc-4221-b30e-1e43c9dd2dca", "User", "staff2@gmail.com", true, false, null, "STAFF2@TESTGMAIL.COM", "STAFF2@TESTGMAIL.COM", "AQAAAAEAACcQAAAAECiYlovYKuYrR0IQHYNeJuWGKkl7fhbcVXkjU/xXUMb1PXYAAJpCWk3kM0JmLnEoSQ==", null, false, "6a58c2b0-9e3a-4505-b2e2-52f6a406f17d", false, "staff2@testgmail.com", "d1fb164d-b4d8-4eac-9360-96fe89e8a543" }
+                    { "668cbb00-b970-478a-835d-697a046c95cd", 0, "ccdfd84d-36af-4f7b-b3df-ba1ec25327a0", "User", "staff@testgmail.com", true, false, null, "STAFF@TESTGMAIL.COM", "STAFF@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEGgPpmffMCjbA7hVDJrxddePqWI/XtKooHe6ySlmxgz8T0AqSg5uQdczD9uvlbjWGA==", null, false, "768f7278-a851-4cd9-82a4-2128293025f9", false, "staff@testgmail.com", "590e133f-52bf-4f93-9646-23c45a119cef" },
+                    { "8587e1a0-3531-4072-a48d-a6467ceb9f46", 0, "31011b34-b3b3-444b-ab65-68f16dd74e8a", "User", "qa@testgmail.com", true, false, null, "QA@TESTGMAIL.COM", "QA@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEMakQtE6R8eK+o2IPUioso9VNILRAJzZM/GUbKf/HCpy+UEF8f39m4QfUrKMzZ2RDg==", null, false, "cf02f17d-fb22-435d-bae2-34fed006ee9b", false, "qa@testgmail.com", "590e133f-52bf-4f93-9646-23c45a119cef" },
+                    { "c260f583-20b6-42bc-bd85-c70c86c1ae35", 0, "b47c3bf7-8a41-43f1-9fdb-25a02bd75a3d", "User", "staff2@gmail.com", true, false, null, "STAFF2@TESTGMAIL.COM", "STAFF2@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEN3buXiinVZsyWXDTSm/BzKzmRQo37D1zajTcOEWpYltF4I+yeWpWZ2sHxmRa+XPlg==", null, false, "6848c635-890f-4321-8783-c60eb080ba9d", false, "staff2@testgmail.com", "590e133f-52bf-4f93-9646-23c45a119cef" },
+                    { "c63325a5-52b0-4624-a823-41e5c097cedd", 0, "ef78221c-b663-40ea-a22d-20c68254c7f1", "User", "admin@testgmail.com", true, false, null, "ADMIN@TESTGMAIL.COM", "ADMIN@TESTGMAIL.COM", "AQAAAAEAACcQAAAAEBtJze7Q5jgMmBCM1Xm36mZO4I4qsHB0g48cu2Acdf6zDi5BalKoqeNdC66SZi/Thw==", null, false, "7407d3bb-bf92-4005-b997-dc4aa9a1ae72", false, "admin@testgmail.com", "fea443ce-fe5f-4aa5-b2e4-007eadab28ac" }
                 });
 
             migrationBuilder.InsertData(
@@ -386,9 +386,9 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "idea_Id", "idea_Agree", "idea_CategoryId", "idea_DateTime", "idea_FileName", "idea_FilePath", "idea_IsDelete", "idea_Name", "idea_Text", "idea_TopicId", "idea_UserId" },
                 values: new object[,]
                 {
-                    { "2ffad209-cf5d-454f-8b00-393afb2fbc23", false, "f0c1d980-ba0f-44a2-a3c2-e507454428c9", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath2", "FilePath2", false, "Idea 2", "Idea 2", "cf20f4ab-6e67-4f22-a925-a9bcb707545a", "d309760a-dc30-428d-a10c-be4e67e42d00" },
-                    { "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", false, "bf209409-e9c7-4d61-ba61-730de1dd70bf", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath1", "FilePath1", false, "Idea 1", "Idea 1", "dfa98ba7-000d-4662-96ce-706f441560b7", "d309760a-dc30-428d-a10c-be4e67e42d00" },
-                    { "c31a1ddb-9dd1-4e8c-b87e-298cffd5a0c3", false, "f0c1d980-ba0f-44a2-a3c2-e507454428c9", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath3", "FilePath3", false, "Idea 3", "Idea 3", "dfa98ba7-000d-4662-96ce-706f441560b7", "c63325a5-52b0-4624-a823-41e5c097cedd" }
+                    { "7f3f5bfb-be23-4d05-97fd-1093012bd934", false, "bc397ed8-b36a-4230-bd99-dc7790b2e60d", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath2", "FilePath2", false, "Idea 2", "Idea 2", "463b097c-1681-4d56-ad0c-fa3badad88d2", "668cbb00-b970-478a-835d-697a046c95cd" },
+                    { "94086978-23c4-4c2b-9c9f-4d81b3a2bf42", false, "bc397ed8-b36a-4230-bd99-dc7790b2e60d", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath3", "FilePath3", false, "Idea 3", "Idea 3", "23df84a6-0575-4bb7-aef4-4c46e19a1b0e", "c63325a5-52b0-4624-a823-41e5c097cedd" },
+                    { "a6677c95-a3fc-46aa-956d-366045edca54", false, "a4cb1c23-1380-4ca3-b573-258162cfd3b2", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "FilePath1", "FilePath1", false, "Idea 1", "Idea 1", "23df84a6-0575-4bb7-aef4-4c46e19a1b0e", "668cbb00-b970-478a-835d-697a046c95cd" }
                 });
 
             migrationBuilder.InsertData(
@@ -396,10 +396,10 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "4bd099e1-8863-4b6d-9e14-167b2142cd34", "302833b1-bab1-48b3-8f31-9e754b5fd369" },
-                    { "23628387-4AD3-4A03-993B-1ECF0F030CB3", "c63325a5-52b0-4624-a823-41e5c097cedd" },
-                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "d309760a-dc30-428d-a10c-be4e67e42d00" },
-                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "f3f399e2-76eb-491b-b29e-b52bcd418610" }
+                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "668cbb00-b970-478a-835d-697a046c95cd" },
+                    { "aa25bd75-d486-4868-b2c3-14d91caf6cad", "8587e1a0-3531-4072-a48d-a6467ceb9f46" },
+                    { "8B6B7FA7-220D-427F-AF15-57DE6EF686C6", "c260f583-20b6-42bc-bd85-c70c86c1ae35" },
+                    { "23628387-4AD3-4A03-993B-1ECF0F030CB3", "c63325a5-52b0-4624-a823-41e5c097cedd" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,8 +407,8 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "cmt_Id", "cmt_Datetime", "cmt_IdeaId", "cmt_IsDelete", "cmt_Text", "cmt_UserId" },
                 values: new object[,]
                 {
-                    { "119b7b3d-928e-4906-9e16-b5c5dba206f2", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "c31a1ddb-9dd1-4e8c-b87e-298cffd5a0c3", false, "Commnet 2", "d309760a-dc30-428d-a10c-be4e67e42d00" },
-                    { "defb91bb-bc88-487a-99c8-a134121d12be", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", false, "Commnet 1", "d309760a-dc30-428d-a10c-be4e67e42d00" }
+                    { "2e36b83c-bbcd-4fed-bc55-7b735306fde7", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "94086978-23c4-4c2b-9c9f-4d81b3a2bf42", false, "Commnet 2", "668cbb00-b970-478a-835d-697a046c95cd" },
+                    { "4ee8fcf2-a555-4115-a18c-ed8def491420", new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "a6677c95-a3fc-46aa-956d-366045edca54", false, "Commnet 1", "668cbb00-b970-478a-835d-697a046c95cd" }
                 });
 
             migrationBuilder.InsertData(
@@ -416,9 +416,9 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "react_Id", "react_IdeadId", "react_React", "react_UserId" },
                 values: new object[,]
                 {
-                    { "5eb7f2ba-6c78-471f-9412-193abfdb865d", "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", 1, "c63325a5-52b0-4624-a823-41e5c097cedd" },
-                    { "6148210a-c590-40bf-a075-a8681aa948a1", "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", -1, "d309760a-dc30-428d-a10c-be4e67e42d00" },
-                    { "89a0ed29-747a-4397-84d2-2f77d267a625", "c31a1ddb-9dd1-4e8c-b87e-298cffd5a0c3", -1, "c63325a5-52b0-4624-a823-41e5c097cedd" }
+                    { "0387f3d5-7ef3-4039-82cd-18c2ca81e003", "a6677c95-a3fc-46aa-956d-366045edca54", 1, "c63325a5-52b0-4624-a823-41e5c097cedd" },
+                    { "1bf13497-65e6-4e62-a8e3-925a22fb7f13", "94086978-23c4-4c2b-9c9f-4d81b3a2bf42", -1, "c63325a5-52b0-4624-a823-41e5c097cedd" },
+                    { "43da03e4-345c-4611-9097-4a23680b3940", "a6677c95-a3fc-46aa-956d-366045edca54", -1, "668cbb00-b970-478a-835d-697a046c95cd" }
                 });
 
             migrationBuilder.InsertData(
@@ -426,9 +426,9 @@ namespace IdeaSystem.Migrations
                 columns: new[] { "view_Id", "view_IdeadId", "view_UserId", "view_VisitTime" },
                 values: new object[,]
                 {
-                    { "479c4c05-43e5-45d5-9874-e85ca65953b9", "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", "d309760a-dc30-428d-a10c-be4e67e42d00", 1 },
-                    { "5b81939f-45c7-4f8b-ad9a-af93fa75b4e1", "4c9763fd-566a-40e1-b0ca-45ca71c26ca3", "c63325a5-52b0-4624-a823-41e5c097cedd", 1 },
-                    { "eea7be65-2cfa-4ca3-bef9-84cf73a871b9", "c31a1ddb-9dd1-4e8c-b87e-298cffd5a0c3", "c63325a5-52b0-4624-a823-41e5c097cedd", 1 }
+                    { "7abc8c34-e8c8-46eb-a397-bfe60d5302bf", "a6677c95-a3fc-46aa-956d-366045edca54", "668cbb00-b970-478a-835d-697a046c95cd", 1 },
+                    { "c4a21117-5498-43f9-ae5b-47ff272d90f4", "94086978-23c4-4c2b-9c9f-4d81b3a2bf42", "c63325a5-52b0-4624-a823-41e5c097cedd", 1 },
+                    { "fee65d6a-a711-44b1-85b2-218d7861a7da", "a6677c95-a3fc-46aa-956d-366045edca54", "c63325a5-52b0-4624-a823-41e5c097cedd", 1 }
                 });
 
             migrationBuilder.CreateIndex(
