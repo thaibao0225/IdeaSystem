@@ -36,6 +36,7 @@ namespace IdeaSystem.Data
             //Table AppRole
             string IdRoleStaff = "8B6B7FA7-220D-427F-AF15-57DE6EF686C6";
             var IdRoleAdmin = "23628387-4AD3-4A03-993B-1ECF0F030CB3";
+            var IdRoleQA = Guid.NewGuid().ToString();
 
 
             builder.Entity<Role>().HasData(
@@ -52,6 +53,13 @@ namespace IdeaSystem.Data
                     Name = "Admin",
                     NormalizedName = "admin",
                     role_IsDelete = false
+                },
+                new Role()
+                {
+                    Id = IdRoleQA,
+                    Name = "QA",
+                    NormalizedName = "QA",
+                    role_IsDelete = false
                 });
 
 
@@ -60,39 +68,58 @@ namespace IdeaSystem.Data
             //Table AppUser 
             var IdStaff = Guid.NewGuid().ToString();
             var IdAdmin = "c63325a5-52b0-4624-a823-41e5c097cedd";
+            var IdQa = Guid.NewGuid().ToString();
+            var IdStaff2 = Guid.NewGuid().ToString();
 
             var hasher = new PasswordHasher<User>();
             builder.Entity<User>().HasData(
             new User
             {
                 Id = IdAdmin,
-                UserName = "admin@gmail.com",
-                NormalizedUserName = "ADMIN@GMAIL.COM",
-                NormalizedEmail = "ADMIN@GMAIL.COM",
-                Email = "admin@gmail.com",
+                UserName = "admin@testgmail.com",
+                NormalizedUserName = "ADMIN@TESTGMAIL.COM",
+                NormalizedEmail = "ADMIN@TESTGMAIL.COM",
+                Email = "admin@testgmail.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment1,
-                
-                //FirstName = "admin",
-                //LastName = "admin",
-                //DoB = new DateTime(2020, 01, 02)
             },
             new User
             {
                 Id = IdStaff,
-                UserName = "staff@gmail.com",
-                NormalizedUserName = "STAFF@GMAIL.COM",
-                NormalizedEmail = "STAFF@GMAIL.COM",
-                Email = "staff@gmail.com",
+                UserName = "staff@testgmail.com",
+                NormalizedUserName = "STAFF@TESTGMAIL.COM",
+                NormalizedEmail = "STAFF@TESTGMAIL.COM",
+                Email = "staff@testgmail.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment2
-                //FirstName = "staff",
-                //LastName = "staff",
-                //DoB = new DateTime(2020, 03, 02)
+            },
+            new User
+            {
+                Id = IdQa,
+                UserName = "qa@testgmail.com",
+                NormalizedUserName = "qa@TESTGMAIL.COM",
+                NormalizedEmail = "STAFF@TESTGMAIL.COM",
+                Email = "staff@testgmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456Aa@"),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                user_DepartmentId = IdDepartment2
+            },
+            new User
+            {
+                Id = IdStaff2,
+                UserName = "staff2@testgmail.com",
+                NormalizedUserName = "STAFF2@TESTGMAIL.COM",
+                NormalizedEmail = "STAFF2@TESTGMAIL.COM",
+                Email = "staff2@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456Aa@"),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                user_DepartmentId = IdDepartment2
             });
 
 
@@ -107,6 +134,16 @@ namespace IdeaSystem.Data
             {
                 RoleId = IdRoleAdmin,
                 UserId = IdAdmin
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = IdRoleQA,
+                UserId = IdQa
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = IdRoleStaff,
+                UserId = IdStaff2
             });
 
             // Topic Table
