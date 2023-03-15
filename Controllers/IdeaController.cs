@@ -92,11 +92,22 @@ namespace IdeaSystem.Controllers
             var commentQuery = context.CommentTable.Where(x => x.cmt_IdeaId == id);
 
 
+            ViewBag.BlockComment = false;
             // Idea Query
             var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
             if (ideaModel != null)
             {
                 //IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+                // Topic Query 
+                var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == ideaModel.idea_TopicId);
+                if (topicQuery != null)
+                {
+                    if (topicQuery.topic_FinalClosureDate < DateTime.Now)
+                    {
+                        ViewBag.BlockComment = true;
+                    }
+                    
+                }
                 await context.SaveChangesAsync();
                 return View(ideaModel);
             }
