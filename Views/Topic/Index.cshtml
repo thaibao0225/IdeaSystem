@@ -57,9 +57,19 @@
                                     <a asp-action="Edit" asp-route-id="@item.topic_Id">Edit</a>|
                                     <a asp-action="Delete" asp-route-id="@item.topic_Id">Delete</a>
                                 </td>
-                                <td>
-                                    <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id">Excel</a>
-                                </td>
+
+                                @if (@item.topic_ColorRow == Attributes.DangerNameColor)
+                                {
+                                    <td>
+                                        <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id">Excel</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id" style="pointer-events: none; color:gray">Excel</a>
+                                    </td>
+                                }
                                 <td>
                                     <a asp-action="ExportZip" asp-route-topicId="@item.topic_Id">Zip</a>
                                 </td>
