@@ -33,6 +33,12 @@
         public static string ideaTable = "Idea Table";
         public static bool isIdeaShow = true;
 
+        public static string mostPopularIdeasTable = "Most Popular Ideas Table";
+        public static bool isMostPopularIdeasTableShow = true;
+
+        public static string mostViewedIdeasTable = "Most Viewed Ideas Table";
+        public static bool ismostViewedIdeasTableShow = true;
+
         public static string categoryTable = "Category Table";
         public static bool isCategoryShow = true;
 

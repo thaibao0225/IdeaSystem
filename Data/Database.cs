@@ -288,6 +288,7 @@ namespace IdeaSystem.Data
             var IdReact1 = Guid.NewGuid().ToString();
             var IdReact2 = Guid.NewGuid().ToString();
             var IdReact3 = Guid.NewGuid().ToString();
+            var IdReact4 = Guid.NewGuid().ToString();
 
 
             builder.Entity<React>().HasData(
@@ -311,12 +312,20 @@ namespace IdeaSystem.Data
                     react_React = 1,
                     react_UserId = IdAdmin,
                     react_IdeadId = IdIdea1
+                },
+                new React()
+                {
+                    react_Id = IdReact4,
+                    react_React = 1,
+                    react_UserId = IdAdmin,
+                    react_IdeadId = IdIdea2
                 });
 
             //Table React
             var IdView1 = Guid.NewGuid().ToString();
             var IdView2 = Guid.NewGuid().ToString();
             var IdView3 = Guid.NewGuid().ToString();
+            var IdView4 = Guid.NewGuid().ToString();
 
 
             builder.Entity<View>().HasData(
@@ -339,6 +348,13 @@ namespace IdeaSystem.Data
                     view_Id = IdView3,
                     view_VisitTime = 1,
                     view_IdeadId = IdIdea1,
+                    view_UserId = IdAdmin
+                },
+                new View()
+                {
+                    view_Id = IdView4,
+                    view_VisitTime = 1,
+                    view_IdeadId = IdIdea2,
                     view_UserId = IdAdmin
                 });
         }

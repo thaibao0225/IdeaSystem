@@ -45,8 +45,9 @@ namespace IdeaSystem.Controllers
         {
 
             var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+            var topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ReactLikeNumber);
 
-            return View(topicModelQueryFirst);
+            return View(topicModelQueryFirstSort);
 
 
 
@@ -56,7 +57,10 @@ namespace IdeaSystem.Controllers
         [Route("/mostviewedideas")]
         public ActionResult MostViewedIdeas()
         {
-            return View();
+            var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+            var topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ViewNumber);
+
+            return View(topicModelQueryFirstSort);
         }
 
         // GET: IdeaController/Details/5

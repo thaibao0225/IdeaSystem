@@ -224,7 +224,7 @@ namespace IdeaSystem.Services
                             join b in _context.IdeaTable on a.topic_Id equals b.idea_TopicId
                             join d in _context.ViewTable on b.idea_Id equals d.view_IdeadId
                             join e in _context.ReactTable on b.idea_Id equals e.react_IdeadId
-                            select new { a, b, d , e };
+                            select new { a, b, d, e };
 
             List<IdeaDetailModel> ideaDetailModelList = new List<IdeaDetailModel>();
             foreach (var ideaItem in ideaQuery)
@@ -275,6 +275,14 @@ namespace IdeaSystem.Services
                     }
                 }
 
+
+                bool alreadyExists = ideaDetailModelList.Any(x => x.idea_Id == ideaDetailModel.idea_Id && x.idea_Name == ideaDetailModel.idea_Name);
+                if (alreadyExists)
+                {
+                    int index = ideaDetailModelList.FindIndex(x => x.idea_Id == ideaDetailModel.idea_Id && x.idea_Name == ideaDetailModel.idea_Name);
+                    ideaDetailModelList.RemoveAt(index);
+                }
+                
                 ideaDetailModelList.Add(ideaDetailModel);
             }
             return ideaDetailModelList;
