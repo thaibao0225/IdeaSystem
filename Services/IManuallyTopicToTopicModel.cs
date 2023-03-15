@@ -8,5 +8,6 @@ namespace IdeaSystem.Services
         public TopicModel TransferToTopicModel(string topicId);
         public IdeaDetailModel TransferToIdeaDetailModel(string ideaId);
         public List<IdeaDetailModel> TransferToIdeaDetailModelList(string topicId);
+        public List<IdeaDetailModel> TransferToIdeaDetailModelList();
     }
 }

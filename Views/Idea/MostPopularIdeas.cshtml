@@ -1,0 +1,85 @@
+﻿@using IdeaSystem.Data.Common;
+@model IEnumerable<IdeaSystem.Models.IdeaDetailModel>;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    int i = 0;
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@CommonTable.categoryTable</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">@CommonTable.home</a></li>
+                        <li class="breadcrumb-item active">@CommonTable.categoryTable</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <a asp-action="Create">Create</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Text</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">CreateOn</th>
+                            <th scope="col">Views</th>
+                            <th scope="col">Like</th>
+                            <th scope="col">Dislike</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                
+                                i++;
+                                <tr>
+                                    <th scope="row">
+                                        @i
+                                    </th>
+                                    <td>@item.idea_Text</td>
+                                    <td>@item.idea_Name</td>
+                                    <td>@item.idea_CreateOn</td>
+                                    <td>@item.idea_ViewNumber</td>
+                                    <td>@item.idea_ReactLikeNumber</td>
+                                    <td>@item.idea_ReactDislikeNumber</td>
+                                    <td>
+                                        <a asp-controller="Idea" asp-action="Details" asp-route-id="@item.idea_Id">Details</a>|
+                                        <a asp-action="Like" asp-route-ideaId="@item.idea_Id">Like</a>|
+                                        <a asp-action="Dislike" asp-route-ideaId="@item.idea_Id">Dislike</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->
+</div>

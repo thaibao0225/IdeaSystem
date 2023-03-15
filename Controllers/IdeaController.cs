@@ -1,4 +1,5 @@
-﻿using IdeaSystem.Data;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using IdeaSystem.Data;
 using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
@@ -38,6 +39,26 @@ namespace IdeaSystem.Controllers
             return View();
         }
 
+        // GET: IdeaController
+        [Route("/mostpopularideas")]
+        public ActionResult MostPopularIdeas()
+        {
+
+            var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+
+            return View(topicModelQueryFirst);
+
+
+
+        }
+
+        // GET: IdeaController
+        [Route("/mostviewedideas")]
+        public ActionResult MostViewedIdeas()
+        {
+            return View();
+        }
+
         // GET: IdeaController/Details/5
         [Route("/idea/details")]
         public async Task<ActionResult> Details(string id)
@@ -69,7 +90,7 @@ namespace IdeaSystem.Controllers
 
             // Idea Query
             var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
-            if (ideaModel != null )
+            if (ideaModel != null)
             {
                 //IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
                 await context.SaveChangesAsync();
@@ -79,7 +100,7 @@ namespace IdeaSystem.Controllers
             await context.SaveChangesAsync();
             return NoContent();
 
-            
+
         }
 
         // GET: IdeaController/Create
@@ -99,7 +120,7 @@ namespace IdeaSystem.Controllers
         public async Task<ActionResult> Create(IFormCollection collection, IdeaDetailModel ideaDetailModel, IFormFile idea_FilePath)
         {
             try
-            {   
+            {
 
 
                 //
@@ -158,9 +179,9 @@ namespace IdeaSystem.Controllers
                 reactCreate.react_UserId = ideaUserId;
                 reactCreate.react_IdeadId = ideaId;
                 await context.ReactTable.AddAsync(reactCreate);
-                
 
-               
+
+
 
                 await context.SaveChangesAsync();
 
@@ -323,7 +344,7 @@ namespace IdeaSystem.Controllers
                 Comment commentCreate = new Comment();
                 commentCreate.cmt_Id = Guid.NewGuid().ToString();
                 commentCreate.cmt_Text = cmtText;
-                commentCreate.cmt_Datetime =DateTime.Now;
+                commentCreate.cmt_Datetime = DateTime.Now;
                 commentCreate.cmt_IsDelete = false;
                 commentCreate.cmt_IdeaId = cmtIdeaId;
                 commentCreate.cmt_UserId = userId;
