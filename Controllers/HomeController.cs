@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Numerics;
 using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
@@ -36,7 +37,37 @@ namespace IdeaSystem.Controllers
             ViewBag.IdeaNumberQuery = ideaNumberQuery;
             ViewBag.CommentNumberQuery = commentNumberQuery;
 
-            return View();
+
+            var stasticDepartment = from a in context.DepartmentTable
+                                    join b in context.UserTable on a.department_Id equals b.user_DepartmentId
+                                    join c in context.IdeaTable on b.Id equals c.idea_UserId
+                                    group a by a.department_Name into aDepartment
+                                    select new
+                                    {
+                                        DepartmentName = aDepartment.Key,
+                                        Count = aDepartment.Count(),
+                                    };
+            List<DepartmentModel> departmentList = new List<DepartmentModel>();
+
+            foreach (var item in stasticDepartment)
+            {
+                DepartmentModel departmentModel = new DepartmentModel();
+                departmentModel.department_Name = item.DepartmentName;
+                departmentModel.department_NumberOfIdea = item.Count;
+
+                departmentList.Add(departmentModel);
+            }
+            
+            //var playersPerTeam =
+            //from player in players
+            //group player by player.Team into playerGroup
+            //select new
+            //{
+            //    Team = playerGroup.Key,
+            //    Count = playerGroup.Count(),
+            //};
+
+            return View(departmentList);
         }
         public void PageloadRoleName()
         {
@@ -92,7 +123,7 @@ namespace IdeaSystem.Controllers
                         break;
                 }
             }
-            
+
         }
 
         public IActionResult Privacy()
