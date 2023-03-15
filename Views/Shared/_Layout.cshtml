@@ -170,7 +170,7 @@
                         @if (CommonTable.isTopicShow)
                         {
                             <li class="nav-item">
-                                <a href="/mostpopularideas" class="nav-link">
+                                <a asp-controller="Idea" asp-action="MostPopularIdeas" class="nav-link" asp-route-typeList="MostPopularIdeas">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Most Popular Ideas
@@ -183,7 +183,7 @@
                         @if (CommonTable.isTopicShow)
                         {
                             <li class="nav-item">
-                                <a href="/mostviewedideas" class="nav-link">
+                                <a asp-controller="Idea" asp-action="MostPopularIdeas" class="nav-link" asp-route-typeList="MostViewedIdeas">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Most Viewed Ideas

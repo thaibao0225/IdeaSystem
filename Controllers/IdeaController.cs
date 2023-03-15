@@ -1,7 +1,7 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using IdeaSystem.Data;
+﻿using IdeaSystem.Data;
 using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
+using IdeaSystem.Function;
 using IdeaSystem.Models;
 using IdeaSystem.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -41,15 +42,40 @@ namespace IdeaSystem.Controllers
 
         // GET: IdeaController
         [Route("/mostpopularideas")]
-        public ActionResult MostPopularIdeas()
+        public async Task<ActionResult> MostPopularIdeas(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber,
+            string typeList)
         {
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["typeList"] = typeList;
+
 
             var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+
             var topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ReactLikeNumber);
+            if (typeList == "MostViewedIdeas")
+            {
+                topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ViewNumber);
+            }
+            
+            
 
-            return View(topicModelQueryFirstSort);
+            IQueryable<IdeaDetailModel> topicModelQueryFirstSortTest = topicModelQueryFirstSort.AsQueryable();
+            //return View(topicModelQueryFirstSort);
 
-
+            int pageSize = 5;
+            return View(PaginatedList<IdeaDetailModel>.CreateAsync(topicModelQueryFirstSortTest.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }
 
@@ -105,7 +131,7 @@ namespace IdeaSystem.Controllers
                     {
                         ViewBag.BlockComment = true;
                     }
-                    
+
                 }
                 await context.SaveChangesAsync();
                 return View(ideaModel);
