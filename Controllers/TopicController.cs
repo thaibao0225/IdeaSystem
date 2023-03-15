@@ -67,10 +67,12 @@ namespace IdeaSystem.Controllers
                             join d in context.ReactTable on b.idea_Id equals d.react_IdeadId
                             where (a.topic_Id == id)
                             select new { a, b, c, d };
+            ViewBag.IsBlockAddIdea = false;
+
             if (ideaQuery != null && ideaQuery.GetEnumerator().MoveNext())
             {
                 var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(id);
-
+                ViewBag.IsBlockAddIdea = IsBlockAddIdea(topicModelQueryFirst.topic_ClosureDate);
                 return View(topicModelQueryFirst);
             }
             else
@@ -83,12 +85,23 @@ namespace IdeaSystem.Controllers
                     topicModel.topic_Name = topicQuery.topic_Name;
                     topicModel.topic_ClosureDate = topicQuery.topic_ClosureDate;
                     topicModel.topic_FinalClosureDate = topicQuery.topic_FinalClosureDate;
+
+                    ViewBag.IsBlockAddIdea = IsBlockAddIdea(topicModel.topic_ClosureDate);
                     return View(topicModel);
                 }
             }
 
 
             return NotFound();
+        }
+        
+        public bool IsBlockAddIdea(DateTime closureDate)
+        {
+            if (closureDate < DateTime.Now)
+            {
+                return true;
+            }
+            return false;
         }
 
         // GET: TopicController/Create

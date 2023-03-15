@@ -97,7 +97,6 @@ namespace IdeaSystem.Controllers
             var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
             if (ideaModel != null)
             {
-                //IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
                 // Topic Query 
                 var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == ideaModel.idea_TopicId);
                 if (topicQuery != null)
