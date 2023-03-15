@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using IdeaSystem.Function;
@@ -293,13 +294,29 @@ namespace IdeaSystem.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
-                List<IdeaDetailModel> ideaDetailModelList =  _manuallyTopicToTopicModel.TransferToIdeaDetailModelList(topicId);
+                //List<IdeaDetailModel> ideaDetailModelList =  _manuallyTopicToTopicModel.TransferToIdeaDetailModelList(topicId);
+
+
+                //var ideaDetailModelListT = ideaDetailModelList.Distinct();
+
+
+                var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(topicId);
+                List<IdeaDetailModel> ideaDetailModelList = new List<IdeaDetailModel>();
+
+                if (topicModelQueryFirst.ideaList != null)
+                {
+                    foreach (var item in topicModelQueryFirst.ideaList)
+                    {
+                        ideaDetailModelList.Add(item);
+                    }
+                }
+
 
                 string excelName = topicId + "-Excel";
                 var dataExcel = _excel.ExportExcelForIdeaModel(ideaDetailModelList);
-                
+
                 _excel.ToExcelFile(dataExcel, excelName, "Idea");
-                
+
 
 
                 //Downfile ----------------------------------------

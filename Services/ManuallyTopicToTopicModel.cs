@@ -40,7 +40,7 @@ namespace IdeaSystem.Services
                         ideaDetailModel.idea_Text = ideaItem.idea_Text;
                         ideaDetailModel.idea_Name = ideaItem.idea_Name;
                         ideaDetailModel.idea_CreateOn = DateTime.Now; // 
-                        //ideaDetailModel.idea_FilePath = ideaItem.idea_FilePath;
+                        ideaDetailModel.idea_FileName = ideaItem.idea_FileName;
                         ideaDetailModel.idea_UserId = ideaItem.idea_UserId;
                         //ideaDetailModel.idea_UserName = "";
                         ideaDetailModel.idea_TopicId = ideaItem.idea_TopicId;
