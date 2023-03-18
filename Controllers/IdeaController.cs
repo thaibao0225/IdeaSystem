@@ -1,30 +1,36 @@
 ﻿using IdeaSystem.Data;
 using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
+using IdeaSystem.Function;
 using IdeaSystem.Models;
 using IdeaSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IdeaSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Staff,Qa")]
     public class IdeaController : Controller
     {
         private ApplicationDbContext context;
         private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
         readonly IBufferedFileUploadService _bufferedFileUploadService;
         private readonly IWebHostEnvironment environment;
-        public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment)
+        private UserManager<User> _userManager;
+        public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment,
+            UserManager<User> userManager)
         {
             context = _context;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
             _bufferedFileUploadService = bufferedFileUploadService;
             environment = hostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: IdeaController
@@ -32,6 +38,55 @@ namespace IdeaSystem.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        // GET: IdeaController
+        [Route("/mostpopularideas")]
+        public async Task<ActionResult> MostPopularIdeas(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber,
+            string typeList)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["typeList"] = typeList;
+
+
+            var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+
+            var topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ReactLikeNumber);
+            if (typeList == "MostViewedIdeas")
+            {
+                topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ViewNumber);
+            }
+            
+            
+
+            IQueryable<IdeaDetailModel> topicModelQueryFirstSortTest = topicModelQueryFirstSort.AsQueryable();
+            //return View(topicModelQueryFirstSort);
+
+            int pageSize = 5;
+            return View(PaginatedList<IdeaDetailModel>.CreateAsync(topicModelQueryFirstSortTest.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+        }
+
+        // GET: IdeaController
+        [Route("/mostviewedideas")]
+        public ActionResult MostViewedIdeas()
+        {
+            var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToIdeaDetailModelList();
+            var topicModelQueryFirstSort = topicModelQueryFirst.OrderByDescending(x => x.idea_ViewNumber);
+
+            return View(topicModelQueryFirstSort);
         }
 
         // GET: IdeaController/Details/5
@@ -63,11 +118,21 @@ namespace IdeaSystem.Controllers
             var commentQuery = context.CommentTable.Where(x => x.cmt_IdeaId == id);
 
 
+            ViewBag.BlockComment = false;
             // Idea Query
             var ideaModel = _manuallyTopicToTopicModel.TransferToIdeaDetailModel(id);
-            if (ideaModel != null )
+            if (ideaModel != null)
             {
-                //IdeaDetailModel ideaFirst = ideaModel.First(x => x.idea_Id == id);
+                // Topic Query 
+                var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == ideaModel.idea_TopicId);
+                if (topicQuery != null)
+                {
+                    if (topicQuery.topic_FinalClosureDate < DateTime.Now)
+                    {
+                        ViewBag.BlockComment = true;
+                    }
+
+                }
                 await context.SaveChangesAsync();
                 return View(ideaModel);
             }
@@ -75,7 +140,7 @@ namespace IdeaSystem.Controllers
             await context.SaveChangesAsync();
             return NoContent();
 
-            
+
         }
 
         // GET: IdeaController/Create
@@ -95,7 +160,7 @@ namespace IdeaSystem.Controllers
         public async Task<ActionResult> Create(IFormCollection collection, IdeaDetailModel ideaDetailModel, IFormFile idea_FilePath)
         {
             try
-            {   
+            {
 
 
                 //
@@ -115,7 +180,7 @@ namespace IdeaSystem.Controllers
 
                 // Test file
 
-                await _bufferedFileUploadService.UploadFile(idea_FilePath, userId, ideaFilePath);
+                await _bufferedFileUploadService.UploadFile(idea_FilePath, ideaId, ideaFilePath, ideaTopicId);
 
                 bool ideaAgree = false;
                 if (ideaAgreeString == "true,false")
@@ -154,9 +219,9 @@ namespace IdeaSystem.Controllers
                 reactCreate.react_UserId = ideaUserId;
                 reactCreate.react_IdeadId = ideaId;
                 await context.ReactTable.AddAsync(reactCreate);
-                
 
-               
+
+
 
                 await context.SaveChangesAsync();
 
@@ -319,7 +384,7 @@ namespace IdeaSystem.Controllers
                 Comment commentCreate = new Comment();
                 commentCreate.cmt_Id = Guid.NewGuid().ToString();
                 commentCreate.cmt_Text = cmtText;
-                commentCreate.cmt_Datetime =DateTime.Now;
+                commentCreate.cmt_Datetime = DateTime.Now;
                 commentCreate.cmt_IsDelete = false;
                 commentCreate.cmt_IdeaId = cmtIdeaId;
                 commentCreate.cmt_UserId = userId;

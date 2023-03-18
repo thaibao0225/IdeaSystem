@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using IdeaSystem.Function;
@@ -8,11 +9,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
+using System.Linq;
 using System.Security.Claims;
 
 namespace IdeaSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Staff,Qa")]
     public class TopicController : Controller
     {
         private ApplicationDbContext context;
@@ -34,8 +38,21 @@ namespace IdeaSystem.Controllers
         {
             var query = context.TopicTable.Where(x => x.topic_IsDelete == false).ToList();
 
+            List<TopicModel> topicListModel = new List<TopicModel>();
+            foreach (var itemTopic in query)
+            {
+                TopicModel topicModel = new TopicModel();
+                topicModel.topic_Id = itemTopic.topic_Id;
+                topicModel.topic_ClosureDate = itemTopic.topic_ClosureDate;
+                topicModel.topic_FinalClosureDate = itemTopic.topic_FinalClosureDate;
+                topicModel.topic_Name = itemTopic.topic_Name;
 
-            return View(query);
+                topicListModel.Add(topicModel);
+
+            }
+
+
+            return View(topicListModel);
         }
 
         // GET: TopicController/Details/5
@@ -50,17 +67,41 @@ namespace IdeaSystem.Controllers
                             join d in context.ReactTable on b.idea_Id equals d.react_IdeadId
                             where (a.topic_Id == id)
                             select new { a, b, c, d };
+            ViewBag.IsBlockAddIdea = false;
 
-
-            if (ideaQuery != null)
+            if (ideaQuery != null && ideaQuery.GetEnumerator().MoveNext())
             {
                 var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(id);
-
+                ViewBag.IsBlockAddIdea = IsBlockAddIdea(topicModelQueryFirst.topic_ClosureDate);
                 return View(topicModelQueryFirst);
+            }
+            else
+            {
+                var topicQuery = context.TopicTable.FirstOrDefault(x => x.topic_Id == id);
+                if (topicQuery != null)
+                {
+                    TopicModel topicModel = new TopicModel();
+                    topicModel.topic_Id = topicQuery.topic_Id;
+                    topicModel.topic_Name = topicQuery.topic_Name;
+                    topicModel.topic_ClosureDate = topicQuery.topic_ClosureDate;
+                    topicModel.topic_FinalClosureDate = topicQuery.topic_FinalClosureDate;
+
+                    ViewBag.IsBlockAddIdea = IsBlockAddIdea(topicModel.topic_ClosureDate);
+                    return View(topicModel);
+                }
             }
 
 
             return NotFound();
+        }
+        
+        public bool IsBlockAddIdea(DateTime closureDate)
+        {
+            if (closureDate < DateTime.Now)
+            {
+                return true;
+            }
+            return false;
         }
 
         // GET: TopicController/Create
@@ -266,13 +307,29 @@ namespace IdeaSystem.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
-                List<IdeaDetailModel> ideaDetailModelList =  _manuallyTopicToTopicModel.TransferToIdeaDetailModelList(topicId);
+                //List<IdeaDetailModel> ideaDetailModelList =  _manuallyTopicToTopicModel.TransferToIdeaDetailModelList(topicId);
+
+
+                //var ideaDetailModelListT = ideaDetailModelList.Distinct();
+
+
+                var topicModelQueryFirst = _manuallyTopicToTopicModel.TransferToTopicModel(topicId);
+                List<IdeaDetailModel> ideaDetailModelList = new List<IdeaDetailModel>();
+
+                if (topicModelQueryFirst.ideaList != null)
+                {
+                    foreach (var item in topicModelQueryFirst.ideaList)
+                    {
+                        ideaDetailModelList.Add(item);
+                    }
+                }
+
 
                 string excelName = topicId + "-Excel";
                 var dataExcel = _excel.ExportExcelForIdeaModel(ideaDetailModelList);
-                
+
                 _excel.ToExcelFile(dataExcel, excelName, "Idea");
-                
+
 
 
                 //Downfile ----------------------------------------
@@ -280,6 +337,36 @@ namespace IdeaSystem.Controllers
                 var filepath = Path.Combine(Environment.CurrentDirectory, "ExcelFile", excelName);
 
                 return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", System.IO.Path.GetFileName(filepath));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: TopicController/Like/5
+        [Route("/topic/exportzip")]
+        public ActionResult ExportZip(string topicId)
+        {
+            try
+            {
+                string topicIdPath = "topic-" + topicId;
+
+                //// Zip file
+                var currentdatefolder = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var zippath = Path.Combine(Environment.CurrentDirectory, "UploadedFiles", topicIdPath);
+                var sourcezipPath = new PhysicalFileProvider(zippath).Root;
+                var zipname = $"File_{currentdatefolder}.zip";
+                var destinationPath = Path.Combine(Directory.GetCurrentDirectory(), "Zip", zipname);
+
+                ZipFile.CreateFromDirectory(sourcezipPath, destinationPath);
+
+
+                //// Down zip file
+                ////Downfile ----------------------------------------
+
+
+                return File(System.IO.File.ReadAllBytes(destinationPath), "application/zip", System.IO.Path.GetFileName(destinationPath));
             }
             catch
             {

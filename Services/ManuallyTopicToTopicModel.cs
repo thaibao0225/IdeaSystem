@@ -1,5 +1,6 @@
 ﻿using IdeaSystem.Data;
 using IdeaSystem.Models;
+using System.Collections.Generic;
 
 namespace IdeaSystem.Services
 {
@@ -40,7 +41,7 @@ namespace IdeaSystem.Services
                         ideaDetailModel.idea_Text = ideaItem.idea_Text;
                         ideaDetailModel.idea_Name = ideaItem.idea_Name;
                         ideaDetailModel.idea_CreateOn = DateTime.Now; // 
-                        //ideaDetailModel.idea_FilePath = ideaItem.idea_FilePath;
+                        ideaDetailModel.idea_FileName = ideaItem.idea_FileName;
                         ideaDetailModel.idea_UserId = ideaItem.idea_UserId;
                         //ideaDetailModel.idea_UserName = "";
                         ideaDetailModel.idea_TopicId = ideaItem.idea_TopicId;
@@ -212,6 +213,77 @@ namespace IdeaSystem.Services
                 //}
 
                 ideaDetailModelList.Add(ideaDetailModel);   
+            }
+            return ideaDetailModelList;
+        }
+
+        public List<IdeaDetailModel> TransferToIdeaDetailModelList()
+        {
+            // Idea Query
+            var ideaQuery = from a in _context.TopicTable
+                            join b in _context.IdeaTable on a.topic_Id equals b.idea_TopicId
+                            join d in _context.ViewTable on b.idea_Id equals d.view_IdeadId
+                            join e in _context.ReactTable on b.idea_Id equals e.react_IdeadId
+                            select new { a, b, d, e };
+
+            List<IdeaDetailModel> ideaDetailModelList = new List<IdeaDetailModel>();
+            foreach (var ideaItem in ideaQuery)
+            {
+                IdeaDetailModel ideaDetailModel = new IdeaDetailModel();
+                ideaDetailModel.idea_Id = ideaItem.b.idea_Id;
+                ideaDetailModel.idea_Text = ideaItem.b.idea_Text;
+                ideaDetailModel.idea_FileName = ideaItem.b.idea_FileName;
+                ideaDetailModel.idea_CreateOn = ideaItem.b.idea_DateTime;
+                ideaDetailModel.idea_CategoryId = ideaItem.b.idea_CategoryId;
+                ideaDetailModel.idea_UserId = ideaItem.b.idea_UserId;
+                ideaDetailModel.idea_TopicId = ideaItem.a.topic_Id;
+                ideaDetailModel.idea_Name = ideaItem.b.idea_Name;
+
+                ideaDetailModel.commentList = new List<CommentModel>();
+
+                ideaDetailModel.viewList = new List<ViewModel>();
+                ideaDetailModel.reactList = new List<ReactModel>();
+                ideaDetailModel.commentList = new List<CommentModel>();
+
+                if (ideaItem.b.viewList != null)
+                {
+                    // foreach for View
+                    foreach (var viewItem in ideaItem.b.viewList)
+                    {
+                        var viewModel = new ViewModel();
+                        viewModel.view_Id = viewItem.view_Id;
+                        viewModel.view_VisitTime = viewItem.view_VisitTime;
+                        viewModel.view_UserId = viewItem.view_UserId;
+                        viewModel.view_IdeadId = viewItem.view_IdeadId;
+
+                        ideaDetailModel.viewList.Add(viewModel);
+                    }
+                }
+
+                if (ideaItem.b.reactList != null)
+                {
+                    // foreach for React
+                    foreach (var reactItem in ideaItem.b.reactList)
+                    {
+                        var reactModel = new ReactModel();
+                        reactModel.react_Id = reactItem.react_IdeadId;
+                        reactModel.react_React = reactItem.react_React;
+                        reactModel.react_UserId = reactItem.react_UserId;
+                        reactModel.react_IdeadId = reactItem.react_IdeadId;
+
+                        ideaDetailModel.reactList.Add(reactModel);
+                    }
+                }
+
+
+                bool alreadyExists = ideaDetailModelList.Any(x => x.idea_Id == ideaDetailModel.idea_Id && x.idea_Name == ideaDetailModel.idea_Name);
+                if (alreadyExists)
+                {
+                    int index = ideaDetailModelList.FindIndex(x => x.idea_Id == ideaDetailModel.idea_Id && x.idea_Name == ideaDetailModel.idea_Name);
+                    ideaDetailModelList.RemoveAt(index);
+                }
+                
+                ideaDetailModelList.Add(ideaDetailModel);
             }
             return ideaDetailModelList;
         }

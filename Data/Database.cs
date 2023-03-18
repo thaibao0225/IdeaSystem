@@ -1,4 +1,5 @@
-﻿using IdeaSystem.Entities;
+﻿using IdeaSystem.Data.Common;
+using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,21 +37,29 @@ namespace IdeaSystem.Data
             //Table AppRole
             string IdRoleStaff = "8B6B7FA7-220D-427F-AF15-57DE6EF686C6";
             var IdRoleAdmin = "23628387-4AD3-4A03-993B-1ECF0F030CB3";
+            var IdRoleQA = Guid.NewGuid().ToString();
 
 
             builder.Entity<Role>().HasData(
                 new Role()
                 {
                     Id = IdRoleStaff,
-                    Name = "Staff",
-                    NormalizedName = "staff",
+                    Name = RoleName.staffRoleName,
+                    NormalizedName = RoleName.staffRoleName_lower,
                     role_IsDelete = false
                 },
                 new Role()
                 {
                     Id = IdRoleAdmin,
-                    Name = "Admin",
-                    NormalizedName = "admin",
+                    Name = RoleName.adminRoleName,
+                    NormalizedName = RoleName.adminRoleName_lower,
+                    role_IsDelete = false
+                },
+                new Role()
+                {
+                    Id = IdRoleQA,
+                    Name = RoleName.qaRoleName,
+                    NormalizedName = RoleName.qaRoleName_lower,
                     role_IsDelete = false
                 });
 
@@ -60,39 +69,58 @@ namespace IdeaSystem.Data
             //Table AppUser 
             var IdStaff = Guid.NewGuid().ToString();
             var IdAdmin = "c63325a5-52b0-4624-a823-41e5c097cedd";
+            var IdQa = Guid.NewGuid().ToString();
+            var IdStaff2 = Guid.NewGuid().ToString();
 
             var hasher = new PasswordHasher<User>();
             builder.Entity<User>().HasData(
             new User
             {
                 Id = IdAdmin,
-                UserName = "admin@gmail.com",
-                NormalizedUserName = "ADMIN@GMAIL.COM",
-                NormalizedEmail = "ADMIN@GMAIL.COM",
-                Email = "admin@gmail.com",
+                UserName = "admin@testgmail.com",
+                NormalizedUserName = "ADMIN@TESTGMAIL.COM",
+                NormalizedEmail = "ADMIN@TESTGMAIL.COM",
+                Email = "admin@testgmail.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment1,
-                
-                //FirstName = "admin",
-                //LastName = "admin",
-                //DoB = new DateTime(2020, 01, 02)
             },
             new User
             {
                 Id = IdStaff,
-                UserName = "staff@gmail.com",
-                NormalizedUserName = "STAFF@GMAIL.COM",
-                NormalizedEmail = "STAFF@GMAIL.COM",
-                Email = "staff@gmail.com",
+                UserName = "staff@testgmail.com",
+                NormalizedUserName = "STAFF@TESTGMAIL.COM",
+                NormalizedEmail = "STAFF@TESTGMAIL.COM",
+                Email = "staff@testgmail.com",
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123456Aa@"),
                 SecurityStamp = Guid.NewGuid().ToString(),
                 user_DepartmentId = IdDepartment2
-                //FirstName = "staff",
-                //LastName = "staff",
-                //DoB = new DateTime(2020, 03, 02)
+            },
+            new User
+            {
+                Id = IdQa,
+                UserName = "qa@testgmail.com",
+                NormalizedUserName = "QA@TESTGMAIL.COM",
+                NormalizedEmail = "QA@TESTGMAIL.COM",
+                Email = "qa@testgmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456Aa@"),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                user_DepartmentId = IdDepartment2
+            },
+            new User
+            {
+                Id = IdStaff2,
+                UserName = "staff2@testgmail.com",
+                NormalizedUserName = "STAFF2@TESTGMAIL.COM",
+                NormalizedEmail = "STAFF2@TESTGMAIL.COM",
+                Email = "staff2@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456Aa@"),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                user_DepartmentId = IdDepartment2
             });
 
 
@@ -107,6 +135,16 @@ namespace IdeaSystem.Data
             {
                 RoleId = IdRoleAdmin,
                 UserId = IdAdmin
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = IdRoleQA,
+                UserId = IdQa
+            },
+            new IdentityUserRole<string>
+            {
+                RoleId = IdRoleStaff,
+                UserId = IdStaff2
             });
 
             // Topic Table
@@ -250,6 +288,7 @@ namespace IdeaSystem.Data
             var IdReact1 = Guid.NewGuid().ToString();
             var IdReact2 = Guid.NewGuid().ToString();
             var IdReact3 = Guid.NewGuid().ToString();
+            var IdReact4 = Guid.NewGuid().ToString();
 
 
             builder.Entity<React>().HasData(
@@ -273,12 +312,20 @@ namespace IdeaSystem.Data
                     react_React = 1,
                     react_UserId = IdAdmin,
                     react_IdeadId = IdIdea1
+                },
+                new React()
+                {
+                    react_Id = IdReact4,
+                    react_React = 1,
+                    react_UserId = IdAdmin,
+                    react_IdeadId = IdIdea2
                 });
 
             //Table React
             var IdView1 = Guid.NewGuid().ToString();
             var IdView2 = Guid.NewGuid().ToString();
             var IdView3 = Guid.NewGuid().ToString();
+            var IdView4 = Guid.NewGuid().ToString();
 
 
             builder.Entity<View>().HasData(
@@ -301,6 +348,13 @@ namespace IdeaSystem.Data
                     view_Id = IdView3,
                     view_VisitTime = 1,
                     view_IdeadId = IdIdea1,
+                    view_UserId = IdAdmin
+                },
+                new View()
+                {
+                    view_Id = IdView4,
+                    view_VisitTime = 1,
+                    view_IdeadId = IdIdea2,
                     view_UserId = IdAdmin
                 });
         }

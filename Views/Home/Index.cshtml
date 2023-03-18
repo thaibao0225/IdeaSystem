@@ -1,6 +1,8 @@
 ﻿@using IdeaSystem.Data.Common;
+@model IEnumerable<IdeaSystem.Models.DepartmentModel>
 @{
     ViewBag.Title = @CommonTable.dasdboardPage;
+    int iDepartment = 0;
 }
 
 <div class="content-wrapper">
@@ -90,7 +92,26 @@
             <!-- /.row -->
             <!-- Main row -->
             <div class="row">
-                <h3>Contents</h3>
+                <h3>Statistic</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Number of</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>@item.department_Name</td>
+                                <td>@item.department_NumberOfIdea</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->

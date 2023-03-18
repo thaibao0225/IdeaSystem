@@ -54,9 +54,19 @@
                     </dd>
                 </dl>
             </div>
-            <div>
-                <a asp-controller="Idea" asp-action="Create" asp-route-topicId="@Model.topic_Id" type="button" class="btn btn-primary">Add Idea</a>
-            </div>
+            @if (ViewBag.IsBlockAddIdea)
+            {
+                <div>
+                    <a asp-controller="Idea" asp-action="Create" asp-route-topicId="@Model.topic_Id" type="button" class="btn btn-primary" style="pointer-events: none; color:gray">Add Idea</a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a asp-controller="Idea" asp-action="Create" asp-route-topicId="@Model.topic_Id" type="button" class="btn btn-primary" >Add Idea</a>
+                </div>
+            }
+            
 
             <div>
                 <a asp-action="Edit" asp-route-id="@Model.topic_Id">Edit</a> |

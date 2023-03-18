@@ -3,10 +3,11 @@ using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IdeaSystem.Data.Common;
 
 namespace IdeaSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Staff")]
+    [Authorize(Roles = "Admin,Qa")]
     public class CategoryController : Controller
     {
         private ApplicationDbContext context;

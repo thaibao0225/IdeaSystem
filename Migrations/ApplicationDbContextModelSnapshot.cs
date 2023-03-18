@@ -41,13 +41,13 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            category_Id = "852147e9-3b7f-4fa1-a94b-79999ca80d71",
+                            category_Id = "9508e71d-669d-455b-ad36-f2a83e424039",
                             category_IsDelete = false,
                             category_Name = "Category1"
                         },
                         new
                         {
-                            category_Id = "a87a9011-608f-4ec1-8a8a-c2c93cec9c6d",
+                            category_Id = "cff5e2e0-a4c9-4c67-ba40-4da1c2dd7cf1",
                             category_IsDelete = false,
                             category_Name = "Category2"
                         });
@@ -87,21 +87,21 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            cmt_Id = "c34e202f-ea8d-4ba8-9f4c-031760943293",
+                            cmt_Id = "f925b22b-0513-4a81-ac91-7c80fdcd22f0",
                             cmt_Datetime = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            cmt_IdeaId = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
+                            cmt_IdeaId = "486a781b-066c-4e0a-b9c1-e31f7888391e",
                             cmt_IsDelete = false,
                             cmt_Text = "Commnet 1",
-                            cmt_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05"
+                            cmt_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8"
                         },
                         new
                         {
-                            cmt_Id = "2bfe8cff-10bb-4c00-8874-274a08b7d5a8",
+                            cmt_Id = "40987a54-2bb6-4c53-8d0e-7c73907c5760",
                             cmt_Datetime = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            cmt_IdeaId = "33d29999-4d4d-4fd2-88cb-ff816e3fdcb4",
+                            cmt_IdeaId = "e4512814-41a7-4724-ba67-877c4f1a137e",
                             cmt_IsDelete = false,
                             cmt_Text = "Commnet 2",
-                            cmt_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05"
+                            cmt_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8"
                         });
                 });
 
@@ -124,19 +124,19 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            department_Id = "108e620b-41bf-4249-b826-ed259bde08c0",
+                            department_Id = "10366241-bd1e-45e0-a34b-45ef9cb0cee2",
                             department_IsDelete = false,
                             department_Name = "NameDepartment1"
                         },
                         new
                         {
-                            department_Id = "44717fc9-e783-4e25-999f-97c7343cc973",
+                            department_Id = "b021b595-1842-490d-93b9-2b4773ce2eab",
                             department_IsDelete = false,
                             department_Name = "NameDepartment2"
                         },
                         new
                         {
-                            department_Id = "1f8f2f5c-e02e-4b29-ac17-bc3d5b765a7e",
+                            department_Id = "e79b30ca-143b-424d-b896-69328baa46db",
                             department_IsDelete = false,
                             department_Name = "NameDepartment3"
                         });
@@ -197,44 +197,44 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            idea_Id = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
+                            idea_Id = "486a781b-066c-4e0a-b9c1-e31f7888391e",
                             idea_Agree = false,
-                            idea_CategoryId = "852147e9-3b7f-4fa1-a94b-79999ca80d71",
+                            idea_CategoryId = "9508e71d-669d-455b-ad36-f2a83e424039",
                             idea_DateTime = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             idea_FileName = "FilePath1",
                             idea_FilePath = "FilePath1",
                             idea_IsDelete = false,
                             idea_Name = "Idea 1",
                             idea_Text = "Idea 1",
-                            idea_TopicId = "7e7fba70-afe8-4e49-9b46-ff928ee8312a",
-                            idea_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05"
+                            idea_TopicId = "f84c8b6e-6692-4f95-a547-ddb98b17bd6d",
+                            idea_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8"
                         },
                         new
                         {
-                            idea_Id = "c84d8fba-07f1-4343-9a0d-e7309ae33382",
+                            idea_Id = "fa695188-522a-4aed-a82b-f348673913a9",
                             idea_Agree = false,
-                            idea_CategoryId = "a87a9011-608f-4ec1-8a8a-c2c93cec9c6d",
+                            idea_CategoryId = "cff5e2e0-a4c9-4c67-ba40-4da1c2dd7cf1",
                             idea_DateTime = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             idea_FileName = "FilePath2",
                             idea_FilePath = "FilePath2",
                             idea_IsDelete = false,
                             idea_Name = "Idea 2",
                             idea_Text = "Idea 2",
-                            idea_TopicId = "392314ca-eab1-43be-b000-bd1d0570ca54",
-                            idea_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05"
+                            idea_TopicId = "d8f144f1-709a-4e38-a4ce-12b84be56445",
+                            idea_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8"
                         },
                         new
                         {
-                            idea_Id = "33d29999-4d4d-4fd2-88cb-ff816e3fdcb4",
+                            idea_Id = "e4512814-41a7-4724-ba67-877c4f1a137e",
                             idea_Agree = false,
-                            idea_CategoryId = "a87a9011-608f-4ec1-8a8a-c2c93cec9c6d",
+                            idea_CategoryId = "cff5e2e0-a4c9-4c67-ba40-4da1c2dd7cf1",
                             idea_DateTime = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             idea_FileName = "FilePath3",
                             idea_FilePath = "FilePath3",
                             idea_IsDelete = false,
                             idea_Name = "Idea 3",
                             idea_Text = "Idea 3",
-                            idea_TopicId = "7e7fba70-afe8-4e49-9b46-ff928ee8312a",
+                            idea_TopicId = "f84c8b6e-6692-4f95-a547-ddb98b17bd6d",
                             idea_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd"
                         });
                 });
@@ -266,22 +266,29 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            react_Id = "dabef127-3b4d-4e9d-8c8c-8d170618bbf9",
-                            react_IdeadId = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
+                            react_Id = "a500ed55-14fc-4fba-a7fa-55cf1675376d",
+                            react_IdeadId = "486a781b-066c-4e0a-b9c1-e31f7888391e",
                             react_React = -1,
-                            react_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05"
+                            react_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8"
                         },
                         new
                         {
-                            react_Id = "8bc58fe5-64a7-442b-b4e4-141a489e08bf",
-                            react_IdeadId = "33d29999-4d4d-4fd2-88cb-ff816e3fdcb4",
+                            react_Id = "5d5e6537-91a8-43ae-8063-1b22b886e11c",
+                            react_IdeadId = "e4512814-41a7-4724-ba67-877c4f1a137e",
                             react_React = -1,
                             react_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd"
                         },
                         new
                         {
-                            react_Id = "c4363c44-c923-40a3-8b9b-772c7b4784f1",
-                            react_IdeadId = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
+                            react_Id = "6005a9ca-d652-4813-8ef2-1fa0d0d2de44",
+                            react_IdeadId = "486a781b-066c-4e0a-b9c1-e31f7888391e",
+                            react_React = 1,
+                            react_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd"
+                        },
+                        new
+                        {
+                            react_Id = "24ade95e-3783-4730-915d-af18157ad585",
+                            react_IdeadId = "fa695188-522a-4aed-a82b-f348673913a9",
                             react_React = 1,
                             react_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd"
                         });
@@ -312,7 +319,7 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            topic_Id = "7e7fba70-afe8-4e49-9b46-ff928ee8312a",
+                            topic_Id = "f84c8b6e-6692-4f95-a547-ddb98b17bd6d",
                             topic_ClosureDate = new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_FinalClosureDate = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_IsDelete = false,
@@ -320,7 +327,7 @@ namespace IdeaSystem.Migrations
                         },
                         new
                         {
-                            topic_Id = "392314ca-eab1-43be-b000-bd1d0570ca54",
+                            topic_Id = "d8f144f1-709a-4e38-a4ce-12b84be56445",
                             topic_ClosureDate = new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_FinalClosureDate = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_IsDelete = false,
@@ -328,7 +335,7 @@ namespace IdeaSystem.Migrations
                         },
                         new
                         {
-                            topic_Id = "cfdf978a-e8c4-45ca-8aee-5152c60df03e",
+                            topic_Id = "c283b083-0a18-4467-abb9-3ea0b4d64cf7",
                             topic_ClosureDate = new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_FinalClosureDate = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_IsDelete = false,
@@ -336,7 +343,7 @@ namespace IdeaSystem.Migrations
                         },
                         new
                         {
-                            topic_Id = "d0d01170-013b-46ed-a40c-01b9b6cc2341",
+                            topic_Id = "b0f1679b-8604-48e8-ba49-31d27d6a4f66",
                             topic_ClosureDate = new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_FinalClosureDate = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_IsDelete = false,
@@ -344,7 +351,7 @@ namespace IdeaSystem.Migrations
                         },
                         new
                         {
-                            topic_Id = "e89c9e55-dc48-4d88-af35-f3194abb633d",
+                            topic_Id = "2649749b-a968-4f8d-9f0f-6a0afd785455",
                             topic_ClosureDate = new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_FinalClosureDate = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             topic_IsDelete = false,
@@ -379,22 +386,29 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            view_Id = "b6661e64-0796-49e8-a8f7-01250fdd4421",
-                            view_IdeadId = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
-                            view_UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05",
+                            view_Id = "2fc9b539-afb7-44aa-acd4-588ac8cabccc",
+                            view_IdeadId = "486a781b-066c-4e0a-b9c1-e31f7888391e",
+                            view_UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8",
                             view_VisitTime = 1
                         },
                         new
                         {
-                            view_Id = "b1e35cc2-9bfe-4dac-b134-8c342bb524d0",
-                            view_IdeadId = "33d29999-4d4d-4fd2-88cb-ff816e3fdcb4",
+                            view_Id = "abb04dac-2710-451d-80bc-bb64ddeab556",
+                            view_IdeadId = "e4512814-41a7-4724-ba67-877c4f1a137e",
                             view_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd",
                             view_VisitTime = 1
                         },
                         new
                         {
-                            view_Id = "fea725d5-7a10-4e0a-95b3-ecd71f1ed658",
-                            view_IdeadId = "7c8605e8-fbd6-4e75-b31e-132f7927c35a",
+                            view_Id = "90541aa0-d004-448a-94c6-f7d5e6c97824",
+                            view_IdeadId = "486a781b-066c-4e0a-b9c1-e31f7888391e",
+                            view_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd",
+                            view_VisitTime = 1
+                        },
+                        new
+                        {
+                            view_Id = "67be34c7-cb54-4d6c-b71b-4aa27627a17b",
+                            view_IdeadId = "fa695188-522a-4aed-a82b-f348673913a9",
                             view_UserId = "c63325a5-52b0-4624-a823-41e5c097cedd",
                             view_VisitTime = 1
                         });
@@ -620,13 +634,23 @@ namespace IdeaSystem.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05",
+                            UserId = "faaf8942-df50-4b17-b3f8-939c7e03ffe8",
                             RoleId = "8B6B7FA7-220D-427F-AF15-57DE6EF686C6"
                         },
                         new
                         {
                             UserId = "c63325a5-52b0-4624-a823-41e5c097cedd",
                             RoleId = "23628387-4AD3-4A03-993B-1ECF0F030CB3"
+                        },
+                        new
+                        {
+                            UserId = "d76e1c03-fead-4df4-966c-4b3b62b27a57",
+                            RoleId = "06c62f70-7860-493d-8c74-648a5360883e"
+                        },
+                        new
+                        {
+                            UserId = "dd28b735-4f61-46bf-be98-02c02ee27cee",
+                            RoleId = "8B6B7FA7-220D-427F-AF15-57DE6EF686C6"
                         });
                 });
 
@@ -666,7 +690,7 @@ namespace IdeaSystem.Migrations
                         new
                         {
                             Id = "8B6B7FA7-220D-427F-AF15-57DE6EF686C6",
-                            ConcurrencyStamp = "23e398be-a254-4ea5-9f02-55690d42974f",
+                            ConcurrencyStamp = "8d5e3fa0-9abc-4d25-9284-ba2495290d5d",
                             Name = "Staff",
                             NormalizedName = "staff",
                             role_IsDelete = false
@@ -674,9 +698,17 @@ namespace IdeaSystem.Migrations
                         new
                         {
                             Id = "23628387-4AD3-4A03-993B-1ECF0F030CB3",
-                            ConcurrencyStamp = "e9699573-a0ac-4977-a211-c824f4b427b5",
+                            ConcurrencyStamp = "a0d75844-ad22-42d8-bc16-ec505532e25e",
                             Name = "Admin",
                             NormalizedName = "admin",
+                            role_IsDelete = false
+                        },
+                        new
+                        {
+                            Id = "06c62f70-7860-493d-8c74-648a5360883e",
+                            ConcurrencyStamp = "aee65bcc-747b-4857-a147-03eab1e5dc14",
+                            Name = "Qa",
+                            NormalizedName = "qa",
                             role_IsDelete = false
                         });
                 });
@@ -700,35 +732,69 @@ namespace IdeaSystem.Migrations
                         {
                             Id = "c63325a5-52b0-4624-a823-41e5c097cedd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa9c748b-0b32-48cd-9ae7-36fb7b59d85c",
-                            Email = "admin@gmail.com",
+                            ConcurrencyStamp = "4a6d0f69-5f91-40e3-8c15-f70c051532fc",
+                            Email = "admin@testgmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGe01GDXyjkprcM8ClOCFZzMM2/fAAQDBlf80zp+M3jNRzBqPRVFEpacsiirMFjhow==",
+                            NormalizedEmail = "ADMIN@TESTGMAIL.COM",
+                            NormalizedUserName = "ADMIN@TESTGMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAif7ToLlHTnCzISoBSSo++i+BOEA8HMZNxnAh8NiD6xX933Ml4OEc7lgGvRPKy3Ug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6673ebad-a97d-4c27-a929-81adf5b26d42",
+                            SecurityStamp = "c7603986-a817-4277-a9e5-f41eca2290bc",
                             TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com",
-                            user_DepartmentId = "108e620b-41bf-4249-b826-ed259bde08c0"
+                            UserName = "admin@testgmail.com",
+                            user_DepartmentId = "10366241-bd1e-45e0-a34b-45ef9cb0cee2"
                         },
                         new
                         {
-                            Id = "3576b1ce-d4a0-4ef1-99bb-79c3fce8ef05",
+                            Id = "faaf8942-df50-4b17-b3f8-939c7e03ffe8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f19eb94c-9855-4e8f-836c-e54c68086627",
-                            Email = "staff@gmail.com",
+                            ConcurrencyStamp = "dfe228e8-0f1c-4604-b113-6ed04bdbc2e8",
+                            Email = "staff@testgmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "STAFF@GMAIL.COM",
-                            NormalizedUserName = "STAFF@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJTBZboSKI1s1cwF8Xb7ELIu3tf8/iRBdK2nAVKqeTfZb4/e/Vt1Xb0vr7ZMgs2ThQ==",
+                            NormalizedEmail = "STAFF@TESTGMAIL.COM",
+                            NormalizedUserName = "STAFF@TESTGMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJwqfE92lJsjx0ZplIpPvTrBLHlxjTYwnBESOZKNCI/9rr751QLHCczTFCZzmU2Tog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "775be26b-7448-4344-8522-0f6ac81aebcb",
+                            SecurityStamp = "81a11dc9-f428-4b51-b1ba-147422ec418f",
                             TwoFactorEnabled = false,
-                            UserName = "staff@gmail.com",
-                            user_DepartmentId = "44717fc9-e783-4e25-999f-97c7343cc973"
+                            UserName = "staff@testgmail.com",
+                            user_DepartmentId = "b021b595-1842-490d-93b9-2b4773ce2eab"
+                        },
+                        new
+                        {
+                            Id = "d76e1c03-fead-4df4-966c-4b3b62b27a57",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9f8f86ae-6258-41cf-a8dc-82f61c27dcde",
+                            Email = "qa@testgmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "QA@TESTGMAIL.COM",
+                            NormalizedUserName = "QA@TESTGMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAENGnu8AMNMtS9A7dWr+JEdAuGtDOu9xPSXfOKWOmUwfiHDH+6L4XVVj1jWAa1/PpEw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b16a0458-0e0b-4f49-901f-f93e462248fe",
+                            TwoFactorEnabled = false,
+                            UserName = "qa@testgmail.com",
+                            user_DepartmentId = "b021b595-1842-490d-93b9-2b4773ce2eab"
+                        },
+                        new
+                        {
+                            Id = "dd28b735-4f61-46bf-be98-02c02ee27cee",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e43e17d0-5989-4f75-94fa-01abf84a225a",
+                            Email = "staff2@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "STAFF2@TESTGMAIL.COM",
+                            NormalizedUserName = "STAFF2@TESTGMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPdiyYB+12Xws+kE31LUaXW16Ax3fa0ZVLVoc5fxisRPX76MPXd1XkVxNTN1lK4aHw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6324a4dd-63c0-4255-a47d-179d067d39da",
+                            TwoFactorEnabled = false,
+                            UserName = "staff2@testgmail.com",
+                            user_DepartmentId = "b021b595-1842-490d-93b9-2b4773ce2eab"
                         });
                 });
 

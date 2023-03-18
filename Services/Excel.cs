@@ -16,11 +16,10 @@ namespace IdeaSystem.Services
             dt.Columns.Add("Id");
             dt.Columns.Add("Name");
             dt.Columns.Add("Text");
-            dt.Columns.Add("CategoryName");
             dt.Columns.Add("FileName");
-            //dt.Columns.Add("View");
-            //dt.Columns.Add("Like");
-            //dt.Columns.Add("Dislike");
+            dt.Columns.Add("View");
+            dt.Columns.Add("Like");
+            dt.Columns.Add("Dislike");
 
 
             foreach (var s in ideaList)
@@ -29,11 +28,10 @@ namespace IdeaSystem.Services
                 dr[0] = s.idea_Id;
                 dr[1] = s.idea_Name;
                 dr[2] = s.idea_Text;
-                dr[3] = s.idea_CategoryName;
-                dr[4] = s.idea_FileName;
-                //dr[5] = s.idea_ViewNumber;
-                //dr[6] = s.idea_ReactLikeNumber;
-                //dr[7] = s.idea_ReactDislikeNumber;
+                dr[3] = s.idea_FileName;
+                dr[4] = s.idea_ViewNumber;
+                dr[5] = s.idea_ReactLikeNumber;
+                dr[6] = s.idea_ReactDislikeNumber;
                 dt.Rows.Add(dr);
 
             }
