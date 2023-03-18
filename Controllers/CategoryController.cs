@@ -122,7 +122,7 @@ namespace IdeaSystem.Controllers
 
                 if (query != null)
                 {
-                    query.category_IsDelete = false;
+                    query.category_IsDelete = true;
                     await context.SaveChangesAsync();
                 }
 
