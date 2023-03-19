@@ -70,9 +70,20 @@
                                         <a asp-action="ExportExcel" asp-route-topicId="@item.topic_Id" style="pointer-events: none; color:gray">Excel</a>
                                     </td>
                                 }
-                                <td>
-                                    <a asp-action="ExportZip" asp-route-topicId="@item.topic_Id">Zip</a>
-                                </td>
+
+                                @if (item.topic_IsDisableZip)
+                                {
+                                    <td>
+                                        <a asp-action="ExportZip" asp-route-topicId="@item.topic_Id" style="pointer-events: none; color:gray">Zip</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a asp-action="ExportZip" asp-route-topicId="@item.topic_Id">Zip</a>
+                                    </td>
+                                }
+                                
                             </tr>
                         }
                     </tbody>

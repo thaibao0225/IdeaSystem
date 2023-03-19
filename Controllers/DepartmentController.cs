@@ -136,7 +136,7 @@ namespace IdeaSystem.Controllers
 
                 if (query != null)
                 {
-                    query.department_IsDelete = false;
+                    query.department_IsDelete = true;
                     await context.SaveChangesAsync();
                 }
 

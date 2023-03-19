@@ -19,6 +19,7 @@ namespace IdeaSystem.Models
         [DisplayName("Topic FinalClosureDate")]
         public DateTime topic_FinalClosureDate { get; set; }
         public bool topic_IsDelete { get; set; }
+        public bool topic_IsDisableZip { get; set; } = false;
         public string topic_ColorRow
         {
             get

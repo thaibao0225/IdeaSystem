@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
 using IdeaSystem.Function;
@@ -41,15 +40,28 @@ namespace IdeaSystem.Controllers
             List<TopicModel> topicListModel = new List<TopicModel>();
             foreach (var itemTopic in query)
             {
+                string topicIdPath = "topic-" + itemTopic.topic_Id;
+
+                //// Zip file
+                var currentdatefolder = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var zippath = Path.Combine(Environment.CurrentDirectory, "UploadedFiles", topicIdPath);
+
                 TopicModel topicModel = new TopicModel();
                 topicModel.topic_Id = itemTopic.topic_Id;
                 topicModel.topic_ClosureDate = itemTopic.topic_ClosureDate;
                 topicModel.topic_FinalClosureDate = itemTopic.topic_FinalClosureDate;
                 topicModel.topic_Name = itemTopic.topic_Name;
+                topicModel.topic_IsDisableZip = true;
+                if (Directory.Exists(zippath))
+                {
+                    topicModel.topic_IsDisableZip = false;
+                }
 
                 topicListModel.Add(topicModel);
-
             }
+
+
+
 
 
             return View(topicListModel);
@@ -94,7 +106,7 @@ namespace IdeaSystem.Controllers
 
             return NotFound();
         }
-        
+
         public bool IsBlockAddIdea(DateTime closureDate)
         {
             if (closureDate < DateTime.Now)
@@ -106,8 +118,9 @@ namespace IdeaSystem.Controllers
 
         // GET: TopicController/Create
         [Route("/topic/create")]
-        public ActionResult Create()
+        public ActionResult Create(string message = "")
         {
+            ViewBag.Message = message; 
             return View();
         }
 
@@ -124,12 +137,21 @@ namespace IdeaSystem.Controllers
                 string topicClosureDate = collection["topic_ClosureDate"];
                 string topicFinalClosureDate = collection["topic_FinalClosureDate"];
 
+
+                DateTime deadline1 = DateTime.Parse(topicClosureDate);
+                DateTime deadline2 = DateTime.Parse(topicFinalClosureDate);
+                if (deadline1 >= deadline2)
+                {
+                    string message = "Please input FinalClosureDate bigger than ClosureDate! ";
+                    return RedirectToAction("Create", "topic", new { message = message });
+                }
+
                 Topic topicCreate = new Topic()
                 {
                     topic_Id = Guid.NewGuid().ToString(),
                     topic_Name = topicName,
-                    topic_ClosureDate = DateTime.Parse(topicClosureDate),
-                    topic_FinalClosureDate = DateTime.Parse(topicFinalClosureDate)
+                    topic_ClosureDate = deadline1,
+                    topic_FinalClosureDate = deadline2
                 };
 
                 await context.TopicTable.AddAsync(topicCreate);
