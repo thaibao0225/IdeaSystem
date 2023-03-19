@@ -154,7 +154,7 @@
                             </li>
                         }
                         
-                        @if (CommonTable.isTopicShow)
+                        @if (CommonTable.isDepartmentShow)
                         {
                             <li class="nav-item">
                                 <a href="/topic" class="nav-link">
@@ -167,7 +167,7 @@
                             </li>
                         }
 
-                        @if (CommonTable.isTopicShow)
+                        @if (CommonTable.isDepartmentShow)
                         {
                             <li class="nav-item">
                                 <a asp-controller="Idea" asp-action="MostPopularIdeas" class="nav-link" asp-route-typeList="MostPopularIdeas">
@@ -180,13 +180,26 @@
                             </li>
                         }
 
-                        @if (CommonTable.isTopicShow)
+                        @if (CommonTable.isDepartmentShow)
                         {
                             <li class="nav-item">
                                 <a asp-controller="Idea" asp-action="MostPopularIdeas" class="nav-link" asp-route-typeList="MostViewedIdeas">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Most Viewed Ideas
+                                        <i class="right fas "></i>
+                                    </p>
+                                </a>
+                            </li>
+                        }
+
+                        @if (CommonTable.isTopicShow)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Topic" asp-action="SubmissionIdea" class="nav-link" >
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Submission Idea
                                         <i class="right fas "></i>
                                     </p>
                                 </a>

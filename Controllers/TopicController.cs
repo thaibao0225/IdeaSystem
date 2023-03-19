@@ -107,6 +107,42 @@ namespace IdeaSystem.Controllers
             return NotFound();
         }
 
+        // GET: TopicController/Details/5
+        [Route("/topic/submissionidea")]
+        public ActionResult SubmissionIdea(string id)
+        {
+            var query = context.TopicTable.Where(x => x.topic_IsDelete == false).ToList();
+
+            List<TopicModel> topicListModel = new List<TopicModel>();
+            foreach (var itemTopic in query)
+            {
+                string topicIdPath = "topic-" + itemTopic.topic_Id;
+
+                //// Zip file
+                var currentdatefolder = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var zippath = Path.Combine(Environment.CurrentDirectory, "UploadedFiles", topicIdPath);
+
+                TopicModel topicModel = new TopicModel();
+                topicModel.topic_Id = itemTopic.topic_Id;
+                topicModel.topic_ClosureDate = itemTopic.topic_ClosureDate;
+                topicModel.topic_FinalClosureDate = itemTopic.topic_FinalClosureDate;
+                topicModel.topic_Name = itemTopic.topic_Name;
+                topicModel.topic_IsDisableZip = true;
+                if (Directory.Exists(zippath))
+                {
+                    topicModel.topic_IsDisableZip = false;
+                }
+
+                topicListModel.Add(topicModel);
+            }
+
+
+
+
+
+            return View(topicListModel);
+        }
+
         public bool IsBlockAddIdea(DateTime closureDate)
         {
             if (closureDate < DateTime.Now)

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IdeaSystem.Data.Common;
+using System.Transactions;
 
 namespace IdeaSystem.Controllers
 {
@@ -104,9 +105,11 @@ namespace IdeaSystem.Controllers
 
         // GET: CategoryController/Delete/5
         [Route("/category/delete")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, string message = "")
         {
             var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == id);
+
+            ViewBag.Message = message;
             return View(query);
         }
 
@@ -119,12 +122,28 @@ namespace IdeaSystem.Controllers
             try
             {
                 string categoryId = collection["category_Id"];
-                var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == categoryId);
+                //var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == categoryId);
+                var queryWithIdea = (from a in context.CategoryTable
+                            join b in context.IdeaTable on a.category_Id equals b.idea_CategoryId
+                            where a.category_Id == categoryId
+                            select new { a }).ToList();
 
-                if (query != null)
+                if (queryWithIdea != null && queryWithIdea.GetEnumerator().MoveNext())
                 {
-                    query.category_IsDelete = true;
-                    await context.SaveChangesAsync();
+
+                    string message = "You can't delete it, because it's using";
+
+                    return RedirectToAction("Delete", "category", new { message = message , id = categoryId });
+                }
+                else
+                {
+                    var query = context.CategoryTable.FirstOrDefault(x => x.category_Id == categoryId);
+
+                    if (query != null)
+                    {
+                        query.category_IsDelete = true;
+                        await context.SaveChangesAsync();
+                    }
                 }
 
                 return RedirectToAction(nameof(Index));
