@@ -1,4 +1,6 @@
-﻿using IdeaSystem.Data;
+﻿using DocumentFormat.OpenXml.Vml.Office;
+using DocumentFormat.OpenXml.Vml;
+using IdeaSystem.Data;
 using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
@@ -41,6 +43,7 @@ namespace IdeaSystem.Controllers
             var stasticDepartment = from a in context.DepartmentTable
                                     join b in context.UserTable on a.department_Id equals b.user_DepartmentId
                                     join c in context.IdeaTable on b.Id equals c.idea_UserId
+                                    where a.department_IsDelete == false
                                     group a by a.department_Name into aDepartment
                                     select new
                                     {
@@ -48,16 +51,50 @@ namespace IdeaSystem.Controllers
                                         Count = aDepartment.Count(),
                                     };
             List<DepartmentModel> departmentList = new List<DepartmentModel>();
-
+            int sumDepartment = 0;
             foreach (var item in stasticDepartment)
             {
                 DepartmentModel departmentModel = new DepartmentModel();
                 departmentModel.department_Name = item.DepartmentName;
                 departmentModel.department_NumberOfIdea = item.Count;
+                departmentModel.department_PercenOfIdea = 0;
+                sumDepartment = sumDepartment + departmentModel.department_NumberOfIdea;
 
                 departmentList.Add(departmentModel);
             }
-            
+            List<DepartmentModel> departmentPercenList = new List<DepartmentModel>();
+            foreach (var item in departmentList)
+            {
+                DepartmentModel departmentModel = new DepartmentModel();
+                departmentModel.department_Name = item.department_Name;
+                departmentModel.department_NumberOfIdea = item.department_NumberOfIdea;
+                departmentModel.department_PercenOfIdea = (int)(0.5f + ((100f * departmentModel.department_NumberOfIdea) / sumDepartment)); 
+
+
+                departmentPercenList.Add(departmentModel);
+            }
+
+            var stasticDepartmentContributor = from a in context.DepartmentTable
+                                    join b in context.UserTable on a.department_Id equals b.user_DepartmentId
+                                    where a.department_IsDelete == false
+                                    group a by a.department_Name into aDepartment
+                                    select new
+                                    {
+                                        DepartmentName = aDepartment.Key,
+                                        Count = aDepartment.Count(),
+                                    };
+
+            List<DepartmentModel> departmentContributorList = new List<DepartmentModel>();
+            foreach (var item in stasticDepartment)
+            {
+                DepartmentModel departmentModel = new DepartmentModel();
+                departmentModel.department_Name = item.DepartmentName;
+                departmentModel.department_NumberOfContributorWithinDepartment = item.Count;
+
+                departmentContributorList.Add(departmentModel);
+            }
+            ViewBag.departmentContributorList = departmentContributorList;
+
             //var playersPerTeam =
             //from player in players
             //group player by player.Team into playerGroup
@@ -67,7 +104,7 @@ namespace IdeaSystem.Controllers
             //    Count = playerGroup.Count(),
             //};
 
-            return View(departmentList);
+            return View(departmentPercenList);
         }
         public void PageloadRoleName()
         {

@@ -93,82 +93,82 @@
             </div>
             <!-- /.row -->
             <!-- Main row -->
-            
-                <div class="row">
-                    <h3>Number of ideas made by each Department</h3>
-                    <table class="table">
-                        <thead> 
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Department Name</th>
-                                <th scope="col">Number of</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                iIdeaDepartment++;
-                                <tr>
-                                    <th scope="row">@iIdeaDepartment</th>
-                                    <td>@item.department_Name</td>
-                                    <td>@item.department_NumberOfIdea</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
 
             <div class="row">
-                    <h3>Percentage of ideas by each Department</h3>
-                    <table class="table">
-                        <thead>
+                <h3>Number of ideas made by each Department</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Number of</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            iIdeaDepartment++;
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Department Name</th>
-                                <th scope="col">Number of</th>
+                                <th scope="row">@iIdeaDepartment</th>
+                                <td>@item.department_Name</td>
+                                <td>@item.department_NumberOfIdea</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                iIdeaPercenDepartment++;
-                                <tr>
-                                    <th scope="row">@iIdeaPercenDepartment</th>
-                                    <td>@item.department_Name</td>
-                                    <td>@item.department_NumberOfIdea</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-            <div class="row">
-                    <h3>Number of contributors within each Department.</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Department Name</th>
-                                <th scope="col">Number of</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                iIdeaWithoutDepartment++;
-                                <tr>
-                                    <th scope="row">@iIdeaWithoutDepartment</th>
-                                    <td>@item.department_Name</td>
-                                    <td>@item.department_NumberOfIdea</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
+                        }
+                    </tbody>
+                </table>
             </div>
-            <!-- /.row (main row) -->
-        
+
+            <div class="row">
+                <h3>Percentage of ideas by each Department</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Percen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            iIdeaPercenDepartment++;
+                            <tr>
+                                <th scope="row">@iIdeaPercenDepartment</th>
+                                <td>@item.department_Name</td>
+                                <td>@item.department_PercenOfIdea%</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <h3>Number of contributors within each Department.</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Number of</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.departmentContributorList)
+                        {
+                            iIdeaWithoutDepartment++;
+                            <tr>
+                                <th scope="row">@iIdeaWithoutDepartment</th>
+                                <td>@item.department_Name</td>
+                                <td>@item.department_NumberOfContributorWithinDepartment</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- /.row (main row) -->
+
     </section>
     <!-- /.content -->
 </div>

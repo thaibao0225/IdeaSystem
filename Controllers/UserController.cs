@@ -5,6 +5,7 @@ using IdeaSystem.Entities;
 using IdeaSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -25,16 +26,17 @@ namespace IdeaSystem.Controllers
         public ActionResult Index()
         {
             var query = from a in context.UserTable
-                        join b in context.UserRoles on a.Id equals b.UserId
-                        join c in context.Roles on b.RoleId equals c.Id
+                            //join b in context.UserRoles on a.Id equals b.UserId
+                            //join c in context.Roles on b.RoleId equals c.Id
                         where (a.EmailConfirmed == true)
-                        select new { a, c };
+                        select new { a };
 
             var usersQuery = query.Select(x => new UserModel()
             {
                 user_Id = x.a.Id,
                 user_Name = x.a.UserName,
-                user_RoleName = x.c.Name,
+                //user_RoleName = x.c.Name,
+                user_RoleName = "",
                 user_IsDelete = x.a.EmailConfirmed
             });
 
@@ -218,20 +220,44 @@ namespace IdeaSystem.Controllers
                         join c in context.Roles on b.RoleId equals c.Id
                         where (a.Id == id)
                         select new { a, b, c };
-            var usersQuery = query.Select(x => new UserModel()
+            if (query != null && query.GetEnumerator().MoveNext())
             {
-                user_Id = x.a.Id,
-                user_Name = x.a.UserName,
-                user_RoleName = x.c.Name,
-                user_IsDelete = x.a.EmailConfirmed
-            });
+                var usersQuery = query.Select(x => new UserModel()
+                {
+                    user_Id = x.a.Id,
+                    user_Name = x.a.UserName,
+                    user_RoleName = x.c.Name,
+                    user_IsDelete = x.a.EmailConfirmed
+                });
 
-            if (usersQuery != null)
-            {
-                UserModel queryTest = usersQuery.First(x => x.user_Id == id);
+                if (usersQuery != null)
+                {
+                    UserModel queryTest = usersQuery.First(x => x.user_Id == id);
 
-                return View(queryTest);
+                    return View(queryTest);
+                }
             }
+            else
+            {
+                var queryUser = from a in context.UserTable
+                                where (a.Id == id)
+                                select new { a };
+                var usersQuery = queryUser.Select(x => new UserModel()
+                {
+                    user_Id = x.a.Id,
+                    user_Name = x.a.UserName,
+                    user_RoleName = "",
+                    user_IsDelete = x.a.EmailConfirmed
+                });
+
+                if (usersQuery != null)
+                {
+                    UserModel queryTest = usersQuery.First(x => x.user_Id == id);
+
+                    return View(queryTest);
+                }
+            }
+
             return NotFound();
         }
 
@@ -259,6 +285,19 @@ namespace IdeaSystem.Controllers
 
                     context.UserRoles.Add(userRoleQuery);
                     await context.SaveChangesAsync();
+
+                }
+                else
+                {
+                    var identityUserRole = new IdentityUserRole<string>
+                    {
+                        RoleId = userRoleIdNew,
+                        UserId = userId
+                    };
+
+                    context.UserRoles.Add(identityUserRole);
+                    await context.SaveChangesAsync();
+
 
                 }
                 return RedirectToAction(nameof(Index));
