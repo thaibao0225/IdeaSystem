@@ -58,7 +58,15 @@
                             <span asp-validation-for="ConcurrencyStamp" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-primary" />
+                            @if (ViewBag.IsDisable)
+                            {
+                                <input type="submit" value="Save" class="btn btn-primary" disabled />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            }
+                            
                         </div>
                     </form>
                 </div>

@@ -1,8 +1,10 @@
 ﻿using IdeaSystem.Data;
+using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace IdeaSystem.Controllers
 {
@@ -73,6 +75,14 @@ namespace IdeaSystem.Controllers
         public ActionResult Edit(string id)
         {
             var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+
+            ViewBag.IsDisable = false;
+
+            if (query != null)
+            {
+                ViewBag.IsDisable = IsCheckInternalRole(query.Name);
+            }
+
             return View(query);
         }
 
@@ -110,6 +120,14 @@ namespace IdeaSystem.Controllers
         public ActionResult Delete(string id)
         {
             var query = context.RoleTable.FirstOrDefault(x => x.Id == id);
+            ViewBag.IsDisable = false;
+
+            if(query != null)
+            {
+                ViewBag.IsDisable = IsCheckInternalRole(query.Name);
+            }
+            
+
             return View(query);
         }
 
@@ -136,6 +154,22 @@ namespace IdeaSystem.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public bool IsCheckInternalRole(string roleName)
+        {
+
+            switch (roleName)
+            {
+                case "Admin":
+                    return true;
+                case "Qa":
+                    return true;
+                case "Staff":
+                    return true;
+                default:
+                    return false;
             }
         }
     }

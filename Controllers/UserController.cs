@@ -1,4 +1,6 @@
-﻿using IdeaSystem.Data;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using IdeaSystem.Data;
+using IdeaSystem.Data.Common;
 using IdeaSystem.Entities;
 using IdeaSystem.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -104,10 +106,11 @@ namespace IdeaSystem.Controllers
                 user_RoleName = x.c.Name,
                 user_IsDelete = x.a.EmailConfirmed
             });
-
+            ViewBag.IsDisable = false;
             if (usersQuery != null)
             {
                 UserModel queryTest = usersQuery.First(x => x.user_Id == id);
+                ViewBag.IsDisable = IsCheckInternalUser(queryTest.user_Name);
 
                 return View(queryTest);
             }
@@ -159,9 +162,12 @@ namespace IdeaSystem.Controllers
                 user_IsDelete = x.a.EmailConfirmed
             });
 
+            ViewBag.IsDisable = false;
+
             if (usersQuery != null)
             {
                 UserModel queryTest = usersQuery.First(x => x.user_Id == id);
+                ViewBag.IsDisable = IsCheckInternalUser(queryTest.user_Name);
 
                 return View(queryTest);
             }
@@ -260,6 +266,22 @@ namespace IdeaSystem.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public bool IsCheckInternalUser(string userName)
+        {
+
+            switch (userName)
+            {
+                case "admin@testgmail.com":
+                    return true;
+                case "qa@testgmail.com":
+                    return true;
+                case "staff@testgmail.com":
+                    return true;
+                default:
+                    return false;
             }
         }
     }

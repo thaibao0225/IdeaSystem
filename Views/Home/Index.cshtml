@@ -2,7 +2,9 @@
 @model IEnumerable<IdeaSystem.Models.DepartmentModel>
 @{
     ViewBag.Title = @CommonTable.dasdboardPage;
-    int iDepartment = 0;
+    int iIdeaDepartment = 0;
+    int iIdeaPercenDepartment = 0;
+    int iIdeaWithoutDepartment = 0;
 }
 
 <div class="content-wrapper">
@@ -91,30 +93,82 @@
             </div>
             <!-- /.row -->
             <!-- Main row -->
-            <div class="row">
-                <h3>Statistic</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Department Name</th>
-                            <th scope="col">Number of</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+            
+                <div class="row">
+                    <h3>Number of ideas made by each Department</h3>
+                    <table class="table">
+                        <thead> 
                             <tr>
-                                <th scope="row">1</th>
-                                <td>@item.department_Name</td>
-                                <td>@item.department_NumberOfIdea</td>
+                                <th scope="col">#</th>
+                                <th scope="col">Department Name</th>
+                                <th scope="col">Number of</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                iIdeaDepartment++;
+                                <tr>
+                                    <th scope="row">@iIdeaDepartment</th>
+                                    <td>@item.department_Name</td>
+                                    <td>@item.department_NumberOfIdea</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            <div class="row">
+                    <h3>Percentage of ideas by each Department</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Department Name</th>
+                                <th scope="col">Number of</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                iIdeaPercenDepartment++;
+                                <tr>
+                                    <th scope="row">@iIdeaPercenDepartment</th>
+                                    <td>@item.department_Name</td>
+                                    <td>@item.department_NumberOfIdea</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            <div class="row">
+                    <h3>Number of contributors within each Department.</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Department Name</th>
+                                <th scope="col">Number of</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                iIdeaWithoutDepartment++;
+                                <tr>
+                                    <th scope="row">@iIdeaWithoutDepartment</th>
+                                    <td>@item.department_Name</td>
+                                    <td>@item.department_NumberOfIdea</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
             <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+        
     </section>
     <!-- /.content -->
 </div>

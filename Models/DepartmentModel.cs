@@ -9,5 +9,7 @@ namespace IdeaSystem.Models
         public string department_Name { set; get; }
 
         public int department_NumberOfIdea { set; get;}
+        public int department_NumberOfContributorWithinDepartment { set; get;}
+        public double department_PercenOfIdea { set; get;}
     }
 }

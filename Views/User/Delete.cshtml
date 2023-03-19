@@ -58,7 +58,21 @@
 
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="user_Id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    @if (ViewBag.IsDisable)
+                    {
+                        <input type="submit" value="Delete" class="btn btn-danger" disabled />
+
+                    }
+                    else
+                    {
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+
+                    }
+
+
+
+
+
                     <a asp-action="Index">Back to List</a>
                 </form>
             </div>
