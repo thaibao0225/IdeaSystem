@@ -23,12 +23,14 @@ namespace IdeaSystem.Controllers
         private readonly IMapper _mapper;
 
         private IManuallyTopicToTopicModel _manuallyTopicToTopicModel;
-        public TopicController(ApplicationDbContext _context, IMapper mapper, IExcel excel)
+        private ISendMailService _sendMailService;
+        public TopicController(ApplicationDbContext _context, IMapper mapper, IExcel excel, ISendMailService sendMailService)
         {
             context = _context;
             _mapper = mapper;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
             _excel = excel;
+            _sendMailService = sendMailService;
         }
 
         // GET: TopicController
@@ -109,7 +111,7 @@ namespace IdeaSystem.Controllers
 
         // GET: TopicController/Details/5
         [Route("/topic/submissionidea")]
-        public ActionResult SubmissionIdea(string id)
+        public async Task<ActionResult> SubmissionIdea(string id)
         {
             var query = context.TopicTable.Where(x => x.topic_IsDelete == false).ToList();
 
@@ -136,7 +138,9 @@ namespace IdeaSystem.Controllers
                 topicListModel.Add(topicModel);
             }
 
+          
 
+            
 
 
 

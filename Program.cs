@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using IdeaSystem.Data;
 using IdeaSystem.Entities;
@@ -30,7 +30,11 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddTransient<IExcel, Excel>();
 builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadService>();
 builder.Services.AddScoped<IManuallyTopicToTopicModel, ManuallyTopicToTopicModel>();
+builder.Services.AddTransient<ISendMailService, SendMailService>();
 
+builder.Services.AddOptions();                                         
+var mailsettings = builder.Configuration.GetSection("MailSettings");  
+builder.Services.Configure<MailSettings>(mailsettings);
 
 builder.Services.ConfigureApplicationCookie(options => {
     // options.Cookie.HttpOnly = true;

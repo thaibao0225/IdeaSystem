@@ -23,14 +23,17 @@ namespace IdeaSystem.Controllers
         readonly IBufferedFileUploadService _bufferedFileUploadService;
         private readonly IWebHostEnvironment environment;
         private UserManager<User> _userManager;
+        private ISendMailService _sendMailService;
+
         public IdeaController(ApplicationDbContext _context, IBufferedFileUploadService bufferedFileUploadService, IWebHostEnvironment hostEnvironment,
-            UserManager<User> userManager)
+            UserManager<User> userManager, ISendMailService sendMailService)
         {
             context = _context;
             _manuallyTopicToTopicModel = new ManuallyTopicToTopicModel(_context);
             _bufferedFileUploadService = bufferedFileUploadService;
             environment = hostEnvironment;
             _userManager = userManager;
+            _sendMailService = sendMailService;
         }
 
         // GET: IdeaController
@@ -225,6 +228,15 @@ namespace IdeaSystem.Controllers
 
                 await context.SaveChangesAsync();
 
+                MailContent content = new MailContent
+                {
+                    To = "vietdqgcs18619@fpt.edu.vn",
+                    Subject = "The new idea was created",
+                    Body = "<p><strong>The new idea was created</strong></p>"
+                };
+
+                await _sendMailService.SendMail(content);
+
 
                 return RedirectToAction("Details", "topic", new { id = ideaTopicId.ToString() });
             }
@@ -391,6 +403,18 @@ namespace IdeaSystem.Controllers
 
                 await context.CommentTable.AddAsync(commentCreate);
                 await context.SaveChangesAsync();
+
+                var queryUser = context.Users.FirstOrDefault(x => x.Id == userId);
+
+
+                MailContent content = new MailContent
+                {
+                    To = queryUser.Email,
+                    Subject = "The new idea was created",
+                    Body = "<p><strong>The new comment was created</strong></p>"
+                };
+
+                await _sendMailService.SendMail(content);
 
                 return RedirectToAction("Details", "Idea", new { id = cmtIdeaId.ToString() });
             }
